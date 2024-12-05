@@ -9,5 +9,10 @@ namespace SleepGo.Infrastructure.Repositories
         {
 
         }
+
+        public Task<ICollection<Review>> GetAllAsync(Guid hotelId)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
