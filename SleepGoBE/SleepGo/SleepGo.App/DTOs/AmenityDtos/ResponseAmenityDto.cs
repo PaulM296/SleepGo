@@ -1,6 +1,6 @@
 ﻿namespace SleepGo.App.DTOs.AmenityDtos
 {
-    public class AmenityResponseDto
+    public class ResponseAmenityDto
     {
         public Guid Id { get; set; }
         public Guid HotelId { get; set; }

@@ -1,6 +1,6 @@
 ﻿namespace SleepGo.App.DTOs.ReservationDtos
 {
-    public class ReservationReponseDto
+    public class ResponseReservationDto
     {
         public Guid Id { get; set; }
         public Guid UserId { get; set; }

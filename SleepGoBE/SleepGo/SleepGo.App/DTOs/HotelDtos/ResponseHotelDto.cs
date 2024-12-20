@@ -1,8 +1,11 @@
-﻿using SleepGo.Domain.Entities;
+﻿using SleepGo.App.DTOs.AmenityDtos;
+using SleepGo.App.DTOs.ReviewDtos;
+using SleepGo.App.DTOs.RoomDtos;
+using SleepGo.Domain.Entities;
 
 namespace SleepGo.App.DTOs.HotelDtos
 {
-    public class HotelResponseDto
+    public class ResponseHotelDto
     {
         public Guid Id { get; set; }
         public string HotelName { get; set; }
@@ -15,8 +18,8 @@ namespace SleepGo.App.DTOs.HotelDtos
         public string HotelDescription { get; set; }
         public double Latitude { get; set; }
         public double Longitude { get; set; }
-        public ICollection<Room> Rooms { get; set; }
-        public ICollection<Amenity> Amenities { get; set; }
-        public ICollection<Review> Reviews { get; set; }
+        public ICollection<ResponseRoomDto> Rooms { get; set; }
+        public ICollection<ResponseAmenityDto> Amenities { get; set; }
+        public ICollection<ResponseReviewDto> Reviews { get; set; }
     }
 }

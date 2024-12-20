@@ -1,9 +1,10 @@
-﻿using SleepGo.Domain.Entities;
+﻿using SleepGo.App.DTOs.ReservationDtos;
+using SleepGo.Domain.Entities;
 using SleepGo.Domain.Enums;
 
 namespace SleepGo.App.DTOs.RoomDtos
 {
-    public class RoomResponseDto
+    public class ResponseRoomDto
     {
         public Guid Id { get; set; }
         public Guid HotelId { get; set; }
@@ -16,6 +17,6 @@ namespace SleepGo.App.DTOs.RoomDtos
         public bool Hairdryer { get; set; }
         public bool TV { get; set; }
         public bool IsReserved { get; set; } = false;
-        public ICollection<Reservation> Reservations { get; set; }
+        public ICollection<ResponseReservationDto> Reservations { get; set; }
     }
 }
