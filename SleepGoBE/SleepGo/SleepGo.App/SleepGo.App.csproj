@@ -18,8 +18,4 @@
     <ProjectReference Include="..\SleepGo.Domain\SleepGo.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="MappingProfiles\" />
-  </ItemGroup>
-
 </Project>

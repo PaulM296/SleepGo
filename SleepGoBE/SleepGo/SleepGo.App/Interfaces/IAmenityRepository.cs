@@ -5,6 +5,6 @@ namespace SleepGo.App.Interfaces
 {
     public interface IAmenityRepository : IBaseRepository<Amenity>
     {
-        
+        Task<ICollection<Amenity>> GetHotelAmenitiesByHotelIdAsync(Guid hotelId);
     }
 }

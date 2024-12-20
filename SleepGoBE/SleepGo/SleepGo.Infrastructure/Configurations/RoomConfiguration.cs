@@ -23,6 +23,10 @@ namespace SleepGo.Infrastructure.Configurations
                 .WithOne(res => res.Room)
                 .HasForeignKey(res => res.RoomId)
                 .OnDelete(DeleteBehavior.NoAction);
+
+            builder
+                .Property(r => r.IsReserved)
+                .HasDefaultValue(false);
         }
     }
 }
