@@ -14,14 +14,7 @@ namespace SleepGo.Infrastructure.Repositories
 
         public async Task<UserProfile> GetUserProfileByUserId(Guid userId)
         {
-            var user = await _context.UserProfiles.FirstOrDefaultAsync(up => up.UserId == userId);
-
-            if (user == null)
-            {
-                throw new EntityNotFoundException($"User with ID {userId} not found.");
-            }
-
-            return user;
+            return await _context.UserProfiles.FirstOrDefaultAsync(up => up.UserId == userId);
         }
     }
 }

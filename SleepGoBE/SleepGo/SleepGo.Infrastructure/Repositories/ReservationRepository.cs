@@ -29,5 +29,14 @@ namespace SleepGo.Infrastructure.Repositories
 
             return new PaginationResponseDto<Reservation>(userReservations, pageIndex, totalPages);
         }
+
+        public async Task<ICollection<Reservation>> GetAllReservationsByUserIdAsync(Guid userId)
+        {
+            return await _context.Reservations
+                .Include(r => r.Room)
+                    .ThenInclude(room => room.Hotel)
+                .Where(r => r.UserId == userId)
+                .ToListAsync();
+        }
     }
 }

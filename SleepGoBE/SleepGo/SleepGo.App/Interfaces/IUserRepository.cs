@@ -1,4 +1,5 @@
-﻿using SleepGo.Domain.Entities;
+﻿using SleepGo.App.DTOs.PaginationDtos;
+using SleepGo.Domain.Entities;
 using System.Linq.Expressions;
 
 namespace SleepGo.App.Interfaces
@@ -10,5 +11,6 @@ namespace SleepGo.App.Interfaces
         Task<AppUser> GetByIdAsync(Guid id);
         Task<AppUser> RemoveUserAsync(AppUser user);
         Task<AppUser> UpdateUserAsync(AppUser updatedUser);
+        Task<PaginationResponseDto<AppUser>> GetPaginatedUsersByIdAsync(int pageIndex, int pageSize);
     }
 }

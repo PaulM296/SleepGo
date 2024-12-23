@@ -41,5 +41,12 @@ namespace SleepGo.Infrastructure.Repositories
 
             return new PaginationResponseDto<Hotel>(hotelsByName, pageIndex, pageSize);
         }
+
+        public async Task<Hotel> GetAllHotelReviewsByHotelId(Guid hotelId)
+        {
+            return await _context.Hotels
+                .Include(h => h.Reviews)
+                .FirstOrDefaultAsync(h => h.Id == hotelId);
+        }
     }
 }

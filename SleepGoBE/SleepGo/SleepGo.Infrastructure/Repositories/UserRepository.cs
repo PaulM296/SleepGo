@@ -1,6 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using SleepGo.App.DTOs.PaginationDtos;
 using SleepGo.App.Interfaces;
 using SleepGo.Domain.Entities;
+using SleepGo.Domain.Enums;
 using SleepGo.Infrastructure.Exceptions;
 
 namespace SleepGo.Infrastructure.Repositories
@@ -63,6 +65,23 @@ namespace SleepGo.Infrastructure.Repositories
             await _context.SaveChangesAsync();
 
             return user;
+        }
+
+        public async Task<PaginationResponseDto<AppUser>> GetPaginatedUsersByIdAsync(int pageIndex, int pageSize)
+        {
+            var user = await _context.Users
+                .Include(u => u.UserProfile)
+                    .ThenInclude(i => i.Image)
+                .Where(u => u.Role == Role.User)
+                .OrderBy(u => u.UserName)
+                .Skip((pageIndex - 1) * pageSize)
+                .Take(pageSize)
+                .ToListAsync();
+
+            var count = await _context.Users.CountAsync();
+            var totalPages = (int)Math.Ceiling(count / (double)pageSize);
+
+            return new PaginationResponseDto<AppUser>(user, pageIndex, totalPages);
         }
     }
 }

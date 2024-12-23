@@ -7,5 +7,6 @@ namespace SleepGo.App.Interfaces
     {
         Task<PaginationResponseDto<Hotel>> GetAllPagedHotelsByCountryAsync(string country, int pageIndex, int pageSize);
         Task<PaginationResponseDto<Hotel>> GetAllPagedHotelsByNameAsync(string name, int pageIndex, int pageSize);
+        Task<Hotel> GetAllHotelReviewsByHotelId(Guid hotelId);
     }
 }
