@@ -7,7 +7,7 @@ using System.Runtime.CompilerServices;
 
 namespace SleepGo.Api.Extensions
 {
-    public class ServiceConfigurator
+    public static class ServiceConfigurator
     {
         public static void AddRepositories(this IServiceCollection services)
         {
@@ -24,7 +24,7 @@ namespace SleepGo.Api.Extensions
             services.AddScoped<IUnitOfWork, UnitOfWork>();
         }
 
-        public static void AddMediatr(this IServiceCollection services)
+        public static void AddMediatR(this IServiceCollection services)
         {
             services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(IUserRepository).Assembly));
         }

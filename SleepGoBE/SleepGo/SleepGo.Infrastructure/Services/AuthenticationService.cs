@@ -10,11 +10,11 @@ namespace SleepGo.Infrastructure.Services
     {
         private readonly SignInManager<AppUser> _signInManager;
         private readonly UserManager<AppUser> _userManager;
-        private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly RoleManager<IdentityRole<Guid>> _roleManager;
         private readonly SleepGoDbContext _context;
 
         public AuthenticationService(SignInManager<AppUser> signInManager, UserManager<AppUser> userManager,
-            RoleManager<IdentityRole> roleManager, SleepGoDbContext context)
+            RoleManager<IdentityRole<Guid>> roleManager, SleepGoDbContext context)
         {
             _signInManager = signInManager;
             _userManager = userManager;
@@ -64,7 +64,7 @@ namespace SleepGo.Infrastructure.Services
             var foundRole = await _roleManager.FindByNameAsync(newUser.Role.ToString());
             if (foundRole == null)
             {
-                var newRole = new IdentityRole(newUser.Role.ToString());
+                var newRole = new IdentityRole<Guid> { Name = newUser.Role.ToString() };
                 var roleResult = await _roleManager.CreateAsync(newRole);
                 if (!roleResult.Succeeded)
                 {

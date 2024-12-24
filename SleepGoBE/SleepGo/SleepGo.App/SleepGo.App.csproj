@@ -18,4 +18,17 @@
     <ProjectReference Include="..\SleepGo.Domain\SleepGo.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Features\Amenities\Commands\" />
+    <Folder Include="Features\Amenities\Queries\" />
+    <Folder Include="Features\Hotels\Commands\" />
+    <Folder Include="Features\Hotels\Queries\" />
+    <Folder Include="Features\Reservations\Commands\" />
+    <Folder Include="Features\Reservations\Queries\" />
+    <Folder Include="Features\Reviews\Commands\" />
+    <Folder Include="Features\Reviews\Queries\" />
+    <Folder Include="Features\Rooms\Commands\" />
+    <Folder Include="Features\Rooms\Queries\" />
+  </ItemGroup>
+
 </Project>
