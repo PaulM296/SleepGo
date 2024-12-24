@@ -19,8 +19,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Features\Amenities\Commands\" />
-    <Folder Include="Features\Amenities\Queries\" />
     <Folder Include="Features\Hotels\Commands\" />
     <Folder Include="Features\Hotels\Queries\" />
     <Folder Include="Features\Reservations\Commands\" />

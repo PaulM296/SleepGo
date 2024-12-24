@@ -4,8 +4,8 @@ namespace SleepGo.Domain.Entities
 {
     public class Image : BaseEntity
     {
-        public required string Name { get; set; }
-        public required string Type { get; set; }
-        public required byte[] Data { get; set; }
+        public string Name { get; set; }
+        public string Type { get; set; }
+        public byte[] Data { get; set; }
     }
 }

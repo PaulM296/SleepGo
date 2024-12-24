@@ -6,10 +6,10 @@ namespace SleepGo.Domain.Entities
     public class Room : BaseEntity
     {
         public Guid HotelId { get; set; }
-        public required Hotel Hotel { get; set; }
-        public required RoomType RoomType { get; set; }
-        public required decimal Price { get; set; }
-        public required int RoomNumber { get; set; }
+        public Hotel Hotel { get; set; }
+        public RoomType RoomType { get; set; }
+        public decimal Price { get; set; }
+        public int RoomNumber { get; set; }
         public bool Balcony { get; set; }
         public bool AirConditioning { get; set; }
         public bool Kitchenette { get; set; }

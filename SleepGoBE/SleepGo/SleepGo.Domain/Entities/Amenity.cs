@@ -4,8 +4,8 @@ namespace SleepGo.Domain.Entities
 {
     public class Amenity : BaseEntity
     {
-        public required Guid HotelId { get; set; }
-        public required Hotel Hotel { get; set; }
+        public Guid HotelId { get; set; }
+        public Hotel Hotel { get; set; }
         public bool? Pool {  get; set; }
         public bool? Restaurant { get; set; }
         public bool? Fitness { get; set; }
