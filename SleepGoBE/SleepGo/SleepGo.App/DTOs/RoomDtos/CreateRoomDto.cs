@@ -11,9 +11,9 @@ namespace SleepGo.App.DTOs.RoomDtos
         [EnumDataType(typeof(RoomType), ErrorMessage = "Invalid room type.")]
         public RoomType RoomType { get; set; }
         [Required]
-        public decimal Price { get; set; }
+        public int RoomNumber { get; set; }
         [Required]
-        public int Quantity { get; set; }
+        public decimal Price { get; set; }
         [Required]
         public bool Balcony { get; set; }
         [Required]
@@ -24,5 +24,7 @@ namespace SleepGo.App.DTOs.RoomDtos
         public bool Hairdryer { get; set; }
         [Required]
         public bool TV {  get; set; }
+        [Required]
+        public bool IsReserved { get; set; } = false;
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using SleepGo.Domain.Enums;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace SleepGo.App.DTOs.ReservationDtos
@@ -7,6 +8,8 @@ namespace SleepGo.App.DTOs.ReservationDtos
     {
         [Required]
         public Guid HotelId { get; set; }
+        [Required]
+        public RoomType RoomType { get; set; }
         [Required]
         public DateTime CheckIn { get; set; }
         [Required]

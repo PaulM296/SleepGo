@@ -30,6 +30,24 @@ namespace SleepGo.Infrastructure.Repositories
             return new PaginationResponseDto<Reservation>(userReservations, pageIndex, totalPages);
         }
 
+        public async Task<PaginationResponseDto<Reservation>> GetAllPagedReservationsByHotelIdAsync(Guid hotelId, int pageIndex, int pageSize)
+        {
+            var hotelReservations = await _context.Reservations
+                .Include(r => r.Room)
+                    .ThenInclude(room => room.Hotel)
+                .Include(au => au.AppUser)
+                .Where(r => r.Room.HotelId == hotelId)
+                .OrderByDescending(r => r.CheckIn)
+                .Skip((pageIndex - 1) * pageSize)
+                .Take(pageSize)
+                .ToListAsync();
+
+            var count = await _context.Reservations.Where(r => r.Room.HotelId == hotelId).CountAsync();
+            var totalPages = (int)Math.Ceiling((count / (double)pageSize));
+
+            return new PaginationResponseDto<Reservation>(hotelReservations, pageIndex, totalPages);
+        }
+
         public async Task<ICollection<Reservation>> GetAllReservationsByUserIdAsync(Guid userId)
         {
             return await _context.Reservations

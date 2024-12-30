@@ -10,9 +10,9 @@ namespace SleepGo.App.Features.Hotels.Commands
     public class RemoveHotelCommandHandler : IRequestHandler<RemoveHotelCommand, Unit>
     {
         private readonly IUnitOfWork _unitOfWork;
-        private readonly ILogger _logger;
+        private readonly ILogger<RemoveHotelCommandHandler> _logger;
 
-        public RemoveHotelCommandHandler(IUnitOfWork unitOfWork, ILogger logger)
+        public RemoveHotelCommandHandler(IUnitOfWork unitOfWork, ILogger<RemoveHotelCommandHandler> logger)
         {
             _unitOfWork = unitOfWork;
             _logger = logger;

@@ -22,6 +22,6 @@ namespace SleepGo.App.DTOs.RoomDtos
         [Required]
         public bool TV { get; set; }
         [Required]
-        public bool IsReserved { get; set; } = false;
+        public bool IsReserved { get; set; }
     }
 }

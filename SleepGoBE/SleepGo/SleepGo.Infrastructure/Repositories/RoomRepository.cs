@@ -13,20 +13,43 @@ namespace SleepGo.Infrastructure.Repositories
 
         }
 
-        public async Task<PaginationResponseDto<Room>> GetAllPagedRoomsByRoomTypeAsync(RoomType roomType, int pageIndex, int pageSize)
+        public async Task<PaginationResponseDto<Room>> GetAllPagedRoomsFromHotelByRoomTypeAsync(Guid hotelId, RoomType roomType, int pageIndex, int pageSize)
         {
             var roomsByRoomType = await _context.Rooms
                 .Include(h => h.Hotel)
-                .Where(r => r.RoomType == roomType)
+                .Where(r => r.HotelId == hotelId && r.RoomType == roomType)
                 .OrderByDescending(r => r.Price)
                 .Skip((pageIndex - 1) * pageSize)
                 .Take(pageSize)
                 .ToListAsync();
 
-            var count = await _context.Rooms.Where(r => r.RoomType == roomType).CountAsync();
+            var count = await _context.Rooms.Where(r => r.HotelId == hotelId && r.RoomType == roomType).CountAsync();
             var totalPages = (int)Math.Ceiling(count / (double)pageSize);
 
             return new PaginationResponseDto<Room>(roomsByRoomType, pageIndex, totalPages);
+        }
+
+        public async Task<PaginationResponseDto<Room>> GetAllPagedAvailableRoomsFromHotelByRoomTypeAsync(Guid hotelId, RoomType roomType, int pageIndex, int pageSize)
+        {
+            var availableRooms = await _context.Rooms
+                .Include(h => h.Hotel)
+                .Where(r => r.HotelId == hotelId && r.RoomType == roomType && !r.IsReserved)
+                .OrderByDescending(r => r.Price)
+                .Skip((pageIndex - 1) * pageSize)
+                .Take(pageSize)
+                .ToListAsync();
+
+            var count = await _context.Rooms.Where(r => r.HotelId == hotelId && r.RoomType == roomType && !r.IsReserved).CountAsync();
+            var totalPages = (int)Math.Ceiling(count / (double)pageSize);
+
+            return new PaginationResponseDto<Room>(availableRooms, pageIndex, totalPages);
+        }
+
+        public async Task<Room?> GetAvailableRoomsFromHotelByRoomTypeAsync(Guid hotelId, RoomType roomType)
+        {
+            return await _context.Rooms
+                .Where(r => r.HotelId == hotelId && r.RoomType == roomType && !r.IsReserved)
+                .FirstOrDefaultAsync();
         }
     }
 }
