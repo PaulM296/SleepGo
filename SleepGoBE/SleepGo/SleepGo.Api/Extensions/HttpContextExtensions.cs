@@ -4,7 +4,7 @@ namespace SleepGo.Api.Extensions
 {
     public static class HttpContextExtensions
     {
-        public static string GetUserIdClaimValue(this HttpContext context)
+        public static Guid GetUserIdClaimValue(this HttpContext context)
         {
             var claimsIdentity = context.User.Identity as ClaimsIdentity;
             var userIdClaim = claimsIdentity?.FindFirst("userId")?.Value;
@@ -14,7 +14,12 @@ namespace SleepGo.Api.Extensions
                 throw new InvalidOperationException("User ID claim not found.");
             }
 
-            return userIdClaim;
+            if(!Guid.TryParse(userIdClaim, out var userId))
+            {
+                throw new InvalidOperationException("Invalid user ID claim format.");
+            }
+
+            return userId;
         }
     }
 }

@@ -82,7 +82,7 @@ namespace SleepGo.Infrastructure.Services
             {
                 FirstName = newUserProfile.FirstName,
                 LastName = newUserProfile.LastName,
-                UserId = newUserProfile.UserId,
+                UserId = identityUser.Id,
                 ProfilePicture = newUserProfile.ProfilePicture,
                 DateOfBirth = newUserProfile.DateOfBirth,
                 ImageId = newUserProfile.ImageId
