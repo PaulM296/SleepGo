@@ -4,6 +4,7 @@ using SleepGo.App.DTOs.UserDtos;
 using SleepGo.App.Exceptions;
 using SleepGo.App.Interfaces;
 using SleepGo.Domain.Entities;
+using SleepGo.Domain.Enums;
 
 namespace SleepGo.App.Features.Users.Commands
 {
@@ -35,19 +36,17 @@ namespace SleepGo.App.Features.Users.Commands
             };
 
             Image image = null;
-            
-            if(request.registerUser.ProfilePicture != null)
+
+            if (request.registerUser.ProfilePicture != null)
             {
-                //Validate image format
                 var allowedFormats = new[] { ".png", ".jpg", ".jpeg" };
                 var fileExtenstion = Path.GetExtension(request.registerUser.ProfilePicture.FileName).ToLower();
 
-                if(!allowedFormats.Contains(fileExtenstion))
+                if (!allowedFormats.Contains(fileExtenstion))
                 {
                     throw new InvalidImageFormatException("Invalid image format. Only .png, .jpg, and .jpeg are allowed.");
                 }
 
-                //Convert image to binary format
                 byte[] imageData;
                 using (var memoryStream = new MemoryStream())
                 {
@@ -66,15 +65,38 @@ namespace SleepGo.App.Features.Users.Commands
                 await _unitOfWork.SaveAsync();
             }
 
-            var newUserProfile = new UserProfile
+            object profileData;
+            if (request.registerUser.Role == Role.Hotel)
             {
-                FirstName = request.registerUser.FirstName,
-                LastName = request.registerUser.LastName,
-                DateOfBirth = request.registerUser.DateOfBirth,
-                ImageId = image?.Id ?? Guid.Empty
-            };
+                var newHotel = new Hotel
+                {
+                    HotelName = request.registerUser.HotelName,
+                    Address = request.registerUser.Address,
+                    City = request.registerUser.City,
+                    Country = request.registerUser.Country,
+                    ZipCode = request.registerUser.ZipCode,
+                    Latitude = request.registerUser.Latitude ?? throw new ArgumentException("Latitude cannot be null"),
+                    Longitude = request.registerUser.Longitude ?? throw new ArgumentException("Longitude cannot be null"),
+                    ImageId = image?.Id,
+                    HotelDescription = request.registerUser.HotelDescription
+                };
 
-            var createdUser = await _authenticationService.Register(newUser, newUserProfile, request.registerUser.Password);
+                profileData = newHotel;
+            }
+            else
+            {
+                var newUserProfile = new UserProfile
+                {
+                    FirstName = request.registerUser.FirstName,
+                    LastName = request.registerUser.LastName,
+                    DateOfBirth = request.registerUser.DateOfBirth.Value,
+                    ImageId = image?.Id
+                };
+
+                profileData = newUserProfile;
+            }
+
+            var createdUser = await _authenticationService.Register(newUser, profileData, request.registerUser.Password);
             await _unitOfWork.SaveAsync();
 
             _logger.LogInformation("New user successfully added!");

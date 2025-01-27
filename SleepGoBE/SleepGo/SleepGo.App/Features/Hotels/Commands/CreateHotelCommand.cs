@@ -27,8 +27,6 @@ namespace SleepGo.App.Features.Hotels.Commands
             var hotel = new Hotel()
             {
                 HotelName = request.createHotelDto.HotelName,
-                PhoneNumber = request.createHotelDto.PhoneNumber,
-                Email = request.createHotelDto.Email,
                 Address = request.createHotelDto.Address,
                 City = request.createHotelDto.City,
                 Country = request.createHotelDto.Country,

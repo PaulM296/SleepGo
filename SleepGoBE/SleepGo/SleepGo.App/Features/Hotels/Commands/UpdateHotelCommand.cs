@@ -33,8 +33,8 @@ namespace SleepGo.App.Features.Hotels.Commands
 
             getHotel.HotelName = request.updateHotelDto.HotelName;
             getHotel.HotelDescription = request.updateHotelDto.HotelDescription;
-            getHotel.Email = request.updateHotelDto.Email;
-            getHotel.PhoneNumber = request.updateHotelDto.PhoneNumber;
+            getHotel.AppUser.Email = request.updateHotelDto.Email;
+            getHotel.AppUser.PhoneNumber = request.updateHotelDto.PhoneNumber;
 
             var updatedHotel = await _unitOfWork.HotelRepository.UpdateAsync(getHotel);
             await _unitOfWork.SaveAsync();

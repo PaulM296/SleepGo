@@ -18,7 +18,7 @@ namespace SleepGo.Infrastructure.Configurations
                 .HasOne(up => up.AppUser)
                 .WithOne(u => u.UserProfile)
                 .HasForeignKey<UserProfile>(up => up.UserId)
-                .OnDelete(DeleteBehavior.NoAction);
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

@@ -7,6 +7,7 @@ using SleepGo.App.DTOs.PaginationDtos;
 using SleepGo.App.DTOs.UserDtos;
 using SleepGo.App.Features.Users.Commands;
 using SleepGo.App.Features.Users.Queries;
+using SleepGo.Domain.Enums;
 
 namespace SleepGo.Api.Controllers
 {
@@ -23,15 +24,42 @@ namespace SleepGo.Api.Controllers
             _logger = logger;
         }
 
-        [HttpPost("register")]
-        public async Task<IActionResult> RegisteredUser([FromForm] RegisterUserDto registerUserDto)
-        {
-            var response = await _mediator.Send(new RegisterUserCommand(registerUserDto));
+        //[HttpPost("register")]
+        //public async Task<IActionResult> RegisteredUser([FromForm] RegisterUserDto registerUserDto)
+        //{
+        //    var response = await _mediator.Send(new RegisterUserCommand(registerUserDto));
 
+        //    var authenticationResult = new AuthenticationResult(response);
+
+        //    return Ok(authenticationResult);
+        //}
+
+        [HttpPost("register")]
+        public async Task<IActionResult> RegisterUser([FromForm] RegisterUserDto registerUserDto)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            if (registerUserDto.Role == Role.Hotel)
+            {
+                if (string.IsNullOrEmpty(registerUserDto.HotelName) ||
+                    string.IsNullOrEmpty(registerUserDto.Address) ||
+                    string.IsNullOrEmpty(registerUserDto.City) ||
+                    string.IsNullOrEmpty(registerUserDto.Country) ||
+                    string.IsNullOrEmpty(registerUserDto.ZipCode))
+                {
+                    return BadRequest("All hotel-related fields must be provided for a hotel user.");
+                }
+            }
+
+            var response = await _mediator.Send(new RegisterUserCommand(registerUserDto));
             var authenticationResult = new AuthenticationResult(response);
 
             return Ok(authenticationResult);
         }
+
 
         [HttpPost("login")]
         public async Task<IActionResult> LoginUser(LoginDto loginDto)

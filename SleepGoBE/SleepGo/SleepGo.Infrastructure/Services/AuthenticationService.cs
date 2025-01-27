@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 using SleepGo.App.Interfaces;
 using SleepGo.Domain.Entities;
+using SleepGo.Domain.Enums;
 using SleepGo.Infrastructure.Exceptions;
 
 namespace SleepGo.Infrastructure.Services
@@ -40,7 +42,7 @@ namespace SleepGo.Infrastructure.Services
             return user;
         }
 
-        public async Task<AppUser> Register(AppUser newUser, UserProfile newUserProfile, string password)
+        public async Task<AppUser> Register(AppUser newUser, object profileData,  string password)
         {
             var existingUser = await _userManager.FindByEmailAsync(newUser.Email);
             if (existingUser != null)
@@ -78,24 +80,39 @@ namespace SleepGo.Infrastructure.Services
                 throw new Exception("Adding user to role failed: " + string.Join(", ", addToRoleResult.Errors.Select(e => e.Description)));
             }
 
-            var userProfile = new UserProfile
+            if(newUser.Role == Role.User || newUser.Role == Role.Admin)
             {
-                FirstName = newUserProfile.FirstName,
-                LastName = newUserProfile.LastName,
-                UserId = identityUser.Id,
-                ProfilePicture = newUserProfile.ProfilePicture,
-                DateOfBirth = newUserProfile.DateOfBirth,
-                ImageId = newUserProfile.ImageId
-            };
+                var userProfile = (UserProfile)profileData;
+                userProfile.UserId = identityUser.Id;
 
-            try
-            {
-                _context.UserProfiles.Add(userProfile);
-                await _context.SaveChangesAsync();
+                try
+                {
+                    _context.UserProfiles.Add(userProfile);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateException ex)
+                {
+                    throw new Exception("An error occurred while saving the user profile: " + ex.InnerException?.Message);
+                }
             }
-            catch (DbUpdateException ex) 
+            else if( newUser.Role == Role.Hotel)
             {
-                throw new Exception("An error occurred while saving the user profile: " + ex.InnerException?.Message);
+                var hotel = (Hotel)profileData;
+                hotel.UserId = identityUser.Id;
+
+                try
+                {
+                    _context.Hotels.Add(hotel);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateException ex)
+                {
+                    throw new Exception("An error occurred while saving the hotel profile: " + ex.InnerException?.Message);
+                }
+            } 
+            else
+            {
+                throw new Exception("Invalid role provided for user.");
             }
 
             return identityUser;
