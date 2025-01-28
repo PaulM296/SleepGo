@@ -61,5 +61,10 @@ namespace SleepGo.Infrastructure.Repositories
                 .Include(h => h.Reviews)
                 .FirstOrDefaultAsync(h => h.Id == hotelId);
         }
+
+        public async Task<Hotel> GetHotelProfileByUserId(Guid userId)
+        {
+            return await _context.Hotels.FirstOrDefaultAsync(h => h.UserId == userId);
+        }
     }
 }

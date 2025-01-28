@@ -20,6 +20,10 @@ namespace SleepGo.App.DTOs.UserDtos
         public string Password { get; set; }
 
         [Required]
+        [Phone(ErrorMessage = "Invalid phone number format.")]
+        public string PhoneNumber { get; set; }
+
+        [Required]
         [Range(0, 2)]
         public Role Role { get; set; }
 

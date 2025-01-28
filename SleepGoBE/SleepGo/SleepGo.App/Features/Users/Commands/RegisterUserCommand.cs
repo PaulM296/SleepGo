@@ -32,7 +32,8 @@ namespace SleepGo.App.Features.Users.Commands
             {
                 UserName = request.registerUser.UserName,
                 Email = request.registerUser.Email,
-                Role = request.registerUser.Role
+                Role = request.registerUser.Role,
+                PhoneNumber = request.registerUser.PhoneNumber
             };
 
             Image image = null;

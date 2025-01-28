@@ -9,13 +9,13 @@ namespace SleepGo.App.Features.Rooms.Commands
 {
     public record UpdateRoomCommand(Guid roomId, UpdateRoomDto updateRoomDto) : IRequest<ResponseRoomDto>;
 
-    public class UpdateRommCommandHandler : IRequestHandler<UpdateRoomCommand, ResponseRoomDto>
+    public class UpdateRoomCommandHandler : IRequestHandler<UpdateRoomCommand, ResponseRoomDto>
     {
         private readonly IUnitOfWork _unitOfWork;
-        private readonly ILogger<UpdateRommCommandHandler> _logger;
+        private readonly ILogger<UpdateRoomCommandHandler> _logger;
         private readonly IMapper _mapper;
 
-        public UpdateRommCommandHandler(IUnitOfWork unitOfWork, ILogger<UpdateRommCommandHandler> logger, IMapper mapper)
+        public UpdateRoomCommandHandler(IUnitOfWork unitOfWork, ILogger<UpdateRoomCommandHandler> logger, IMapper mapper)
         {
             _unitOfWork = unitOfWork;
             _logger = logger;

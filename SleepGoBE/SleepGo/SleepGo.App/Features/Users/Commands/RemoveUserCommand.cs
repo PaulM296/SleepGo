@@ -27,9 +27,6 @@ namespace SleepGo.App.Features.Users.Commands
                 throw new UserNotFoundException($"The user with ID {request.userId} doesn't exist and it could not be removed!");
             }
 
-            var userProfile = await _unitOfWork.UserProfileRepository.GetUserProfileByUserId(userToRemove.Id);
-            await _unitOfWork.UserProfileRepository.RemoveAsync(userProfile);
-
             var reviews = await _unitOfWork.ReviewRepository.GetAllReviewsByUserIdAsync(userToRemove.Id);
             if(reviews != null)
             {
