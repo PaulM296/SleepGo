@@ -9,7 +9,7 @@ namespace SleepGo.App.DTOs.ReviewDtos
         [Required]
         [StringLength(1500, ErrorMessage = "The review must have 1500 characters or fewer!")]
         public string ReviewText { get; set; }
-        [Range(1, 5)]
+        [Range(1, 10)]
         public int? Rating { get; set; }
     }
 }

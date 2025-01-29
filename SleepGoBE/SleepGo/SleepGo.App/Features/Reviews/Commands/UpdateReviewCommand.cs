@@ -28,13 +28,35 @@ namespace SleepGo.App.Features.Reviews.Commands
 
             if(getReview == null)
             {
-                throw new ReviewNotFoundException($"The rview with ID {request.reviewId} doesn't exist and it could not be updated!");
+                throw new ReviewNotFoundException($"The review with ID {request.reviewId} doesn't exist and it could not be updated!");
             }
 
+            //getReview.ReviewText = request.updateReviewDto.ReviewText;
+            //getReview.Rating = request.updateReviewDto.Rating ?? getReview.Rating;
+
+            //var updatedReview = await _unitOfWork.ReviewRepository.UpdateAsync(getReview);
+            //await _unitOfWork.SaveAsync();
+
+            //await _unitOfWork.HotelRepository.UpdateHotelRatingAsync(updatedReview.HotelId);
+
+            // Update fields only if they are provided
             getReview.ReviewText = request.updateReviewDto.ReviewText;
+            bool ratingUpdated = false;
+
+            if (request.updateReviewDto.Rating.HasValue)
+            {
+                getReview.Rating = request.updateReviewDto.Rating.Value;
+                ratingUpdated = true;
+            }
 
             var updatedReview = await _unitOfWork.ReviewRepository.UpdateAsync(getReview);
             await _unitOfWork.SaveAsync();
+
+            // Only update hotel rating if the rating actually changed
+            if (ratingUpdated)
+            {
+                await _unitOfWork.HotelRepository.UpdateHotelRatingAsync(updatedReview.HotelId);
+            }
 
             _logger.LogInformation("Review successfully updated!");
 

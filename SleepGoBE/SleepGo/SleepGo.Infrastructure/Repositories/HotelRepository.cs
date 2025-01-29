@@ -66,5 +66,21 @@ namespace SleepGo.Infrastructure.Repositories
         {
             return await _context.Hotels.FirstOrDefaultAsync(h => h.UserId == userId);
         }
+
+        public async Task UpdateHotelRatingAsync(Guid hotelId)
+        {
+            var hotel = await _context.Hotels
+                .Include(h => h.Reviews)
+                .FirstOrDefaultAsync();
+
+            if (hotel == null) return;
+
+            hotel.Rating = hotel.Reviews.Any() 
+                ? hotel.Reviews.Average(r => r.Rating.GetValueOrDefault()) 
+                : 0;
+
+            _context.Hotels.Update(hotel);
+            await _context.SaveChangesAsync();
+        }
     }
 }

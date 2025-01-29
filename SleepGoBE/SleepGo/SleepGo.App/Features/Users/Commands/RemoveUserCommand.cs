@@ -62,7 +62,6 @@ namespace SleepGo.App.Features.Users.Commands
             
             if(userToRemove.Role == Role.Hotel)
             {
-                //var hotelToRemove = await _unitOfWork.HotelRepository.GetByIdAsync(userToRemove.Id);
                 var hotelToRemove = await _unitOfWork.HotelRepository.GetHotelProfileByUserId(userToRemove.Id);
 
                 if (hotelToRemove != null) 

@@ -18,6 +18,7 @@ namespace SleepGo.App.DTOs.HotelDtos
         public string HotelDescription { get; set; }
         public double Latitude { get; set; }
         public double Longitude { get; set; }
+        public double Rating { get; set; }
         public ICollection<ResponseRoomDto> Rooms { get; set; }
         public ICollection<ResponseAmenityDto> Amenities { get; set; }
         public ICollection<ResponseReviewDto> Reviews { get; set; }

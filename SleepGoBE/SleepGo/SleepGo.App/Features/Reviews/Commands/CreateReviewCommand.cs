@@ -28,11 +28,14 @@ namespace SleepGo.App.Features.Reviews.Commands
                 UserId = request.userId,
                 HotelId = request.createReviewDto.HotelId,
                 ReviewText = request.createReviewDto.ReviewText,
-                CreatedAt = DateTime.UtcNow
+                CreatedAt = DateTime.UtcNow,
+                Rating = request.createReviewDto.Rating ?? 0
             };
 
             var createdReview = await _unitOfWork.ReviewRepository.AddAsync(review);
             await _unitOfWork.SaveAsync();
+
+            await _unitOfWork.HotelRepository.UpdateHotelRatingAsync(request.createReviewDto.HotelId);
 
             _logger.LogInformation("Review added successfully!");
 

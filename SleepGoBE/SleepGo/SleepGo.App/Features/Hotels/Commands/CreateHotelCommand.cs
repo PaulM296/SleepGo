@@ -34,7 +34,7 @@ namespace SleepGo.App.Features.Hotels.Commands
                 HotelDescription = request.createHotelDto.HotelDescription,
                 Latitude = request.createHotelDto.Latitude,
                 Longitude = request.createHotelDto.Longitude,
-                Rating = request.createHotelDto.Rating,
+                Rating = 0,
             };
 
             var createdHotel = await _unitOfWork.HotelRepository.AddAsync(hotel);

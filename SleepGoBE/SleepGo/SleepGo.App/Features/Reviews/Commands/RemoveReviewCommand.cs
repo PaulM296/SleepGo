@@ -30,6 +30,8 @@ namespace SleepGo.App.Features.Reviews.Commands
             await _unitOfWork.ReviewRepository.RemoveAsync(reviewToRemove);
             await _unitOfWork.SaveAsync();
 
+            await _unitOfWork.HotelRepository.UpdateHotelRatingAsync(reviewToRemove.HotelId);
+
             _logger.LogInformation("Review removed successfully!");
 
             return Unit.Value;
