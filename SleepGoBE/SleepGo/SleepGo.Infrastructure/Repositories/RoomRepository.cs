@@ -51,5 +51,12 @@ namespace SleepGo.Infrastructure.Repositories
                 .Where(r => r.HotelId == hotelId && r.RoomType == roomType && !r.IsReserved)
                 .FirstOrDefaultAsync();
         }
+
+        public async Task<ICollection<Room>> GetRoomsByHotelIdAsync(Guid hotelId)
+        {
+            return await _context.Rooms
+                .Where(r => r.HotelId == hotelId)
+                .ToListAsync();
+        }
     }
 }

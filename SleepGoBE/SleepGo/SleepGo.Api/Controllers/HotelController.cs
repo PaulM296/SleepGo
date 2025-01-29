@@ -49,13 +49,5 @@ namespace SleepGo.Api.Controllers
 
             return Ok(hotelProfile);
         }
-
-        [HttpGet]
-        public async Task<IActionResult> GetAllHotels([FromQuery] PaginationRequestDto paginationRequestDto)
-        {
-            var hotels = await _mediator.Send(new GetAllHotelsQuery(paginationRequestDto));
-
-            return Ok(hotels);
-        }
     }
 }

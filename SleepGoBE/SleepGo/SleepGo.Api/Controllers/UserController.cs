@@ -5,6 +5,7 @@ using SleepGo.Api.Extensions;
 using SleepGo.Api.Models;
 using SleepGo.App.DTOs.PaginationDtos;
 using SleepGo.App.DTOs.UserDtos;
+using SleepGo.App.Features.Hotels.Queries;
 using SleepGo.App.Features.Users.Commands;
 using SleepGo.App.Features.Users.Queries;
 using SleepGo.Domain.Enums;
@@ -23,16 +24,6 @@ namespace SleepGo.Api.Controllers
             _mediator = mediator;
             _logger = logger;
         }
-
-        //[HttpPost("register")]
-        //public async Task<IActionResult> RegisteredUser([FromForm] RegisterUserDto registerUserDto)
-        //{
-        //    var response = await _mediator.Send(new RegisterUserCommand(registerUserDto));
-
-        //    var authenticationResult = new AuthenticationResult(response);
-
-        //    return Ok(authenticationResult);
-        //}
 
         [HttpPost("register")]
         public async Task<IActionResult> RegisterUser([FromForm] RegisterUserDto registerUserDto)
@@ -131,12 +122,21 @@ namespace SleepGo.Api.Controllers
             return Ok(users);
         }
 
-        [HttpGet("adminPage")]
+        [HttpGet("adminPage/users")]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetPaginatedUsers([FromQuery] PaginationRequestDto paginationRequest)
         {
             var response = await _mediator.Send(new GetPaginatedUsersByIdQuery(paginationRequest));
             return Ok(response);
+        }
+
+        [HttpGet("adminPage/hotels")]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> GetAllHotels([FromQuery] PaginationRequestDto paginationRequestDto)
+        {
+            var hotels = await _mediator.Send(new GetAllHotelsQuery(paginationRequestDto));
+
+            return Ok(hotels);
         }
     }
 }
