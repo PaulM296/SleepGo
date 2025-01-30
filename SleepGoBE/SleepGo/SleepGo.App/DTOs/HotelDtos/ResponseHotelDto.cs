@@ -22,5 +22,6 @@ namespace SleepGo.App.DTOs.HotelDtos
         public ICollection<ResponseRoomDto> Rooms { get; set; }
         public ICollection<ResponseAmenityDto> Amenities { get; set; }
         public ICollection<ResponseReviewDto> Reviews { get; set; }
+        public Guid? ImageId { get; set; }
     }
 }

@@ -8,6 +8,6 @@
         public string LastName { get; set; }
         public string? ProfilePicture { get; set; }
         public DateTime DateOfBirth { get; set; }
-        public Guid ImageId { get; set; }
+        public Guid? ImageId { get; set; }
     }
 }
