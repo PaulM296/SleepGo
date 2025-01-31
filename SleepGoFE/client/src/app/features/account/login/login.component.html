@@ -1,0 +1,45 @@
+<div class="login-page">
+    <div class="branding">
+        <h1 class="brand-title">Sleep&Go</h1>
+        <p class="brand-tagline">Your gateway to the best stays</p>
+    </div>
+
+    <div class="login-container">
+        <mat-card>
+            <h2>Login</h2>
+            <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+                <mat-form-field appearance="outline" class="full-width">
+                    <mat-label>Email</mat-label>
+                    <mat-icon matPrefix>mail</mat-icon>
+                    <input matInput type="email" formControlName="email" required autocomplete="email" />
+                    <mat-error *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched">
+                        Please enter a valid email!
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="full-width">
+                    <mat-label>Password</mat-label>
+                    <mat-icon matPrefix>lock</mat-icon>
+                    <input matInput [type]="showPassword ? 'text' : 'password'" formControlName="password" required autocomplete="current-password" />
+                    <button mat-icon-button matSuffix (click)="togglePasswordVisibility()" type="button">
+                        <mat-icon>{{ showPassword ? 'visibility' : 'visibility_off' }}</mat-icon>
+                    </button>
+                    <mat-error *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
+                        Password is required!
+                    </mat-error>
+                </mat-form-field>
+
+                <button mat-raised-button color="primary" type="submit" [disabled]="loginForm.invalid" class="login-button">
+                    Login
+                </button>
+
+                <p class="register-link">
+                    Don't have an account? 
+                    <a (click)="goToRegister()">Create an account</a>
+                </p>
+
+                <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+            </form>
+        </mat-card>
+    </div>
+</div>
