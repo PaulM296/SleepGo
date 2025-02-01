@@ -3,6 +3,8 @@ import { environment } from '../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { AuthResponse } from '../../shared/models/authResponse';
+import { UserRegistrationModel } from '../../shared/models/userRegistrationMode';
+import { HotelRegistrationModel } from '../../shared/models/hotelRegistrationModel';
 
 @Injectable({
   providedIn: 'root'
@@ -15,4 +17,43 @@ export class UserService {
     return this.http.post<AuthResponse>(`${ this.apiUrl }/login`, { email, password });
   }
 
+  register(user: UserRegistrationModel | HotelRegistrationModel): Observable<AuthResponse> {
+    const formData = new FormData();
+
+    formData.append('userName', user.userName);
+    formData.append('email', user.email);
+    formData.append('password', user.password);
+    formData.append('phoneNumber', user.phoneNumber);
+    formData.append('role', user.role);
+
+    if (user.role === 'user') {
+      const userModel = user as UserRegistrationModel;
+      formData.append('firstName', userModel.firstName);
+      formData.append('lastName', userModel.lastName);
+      formData.append('dateOfBirth', userModel.dateOfBirth.toISOString());
+
+      if (userModel.image) {
+        formData.append('image', userModel.image[0]);
+      }
+    }
+
+    if (user.role === 'hotel') {
+      const hotelModel = user as HotelRegistrationModel;
+      formData.append('hotelName', hotelModel.hotelName);
+      formData.append('address', hotelModel.address);
+      formData.append('city', hotelModel.city);
+      formData.append('country', hotelModel.Country);
+      formData.append('zipCode', hotelModel.ZipCode);
+      formData.append('hotelDescription', hotelModel.HotelDescription);
+      formData.append('latitude', hotelModel.Latitude ? hotelModel.Latitude.toString() : '0');
+      formData.append('longitude', hotelModel.Longitude ? hotelModel.Longitude.toString() : '0');
+
+      if (hotelModel.image) {
+        formData.append('image', hotelModel.image[0]);
+      }
+    }
+
+    return this.http.post<AuthResponse>(`${this.apiUrl}/register`, formData);
+  }
 }
+

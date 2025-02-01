@@ -1,0 +1,116 @@
+$primary-color: #004D40;
+$secondary-color: #00796B;
+$background-color: #F5F5F5;
+
+.register-page {
+    display: flex;
+    height: 100vh;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    background-color: $background-color;
+
+    .branding, .register-container {
+        flex: 1;
+        min-height: 500px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .branding {
+        width: 45%;
+        max-width: 600px;
+        background: $primary-color;
+        border-radius: 16px;
+        box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        padding: 2rem;
+
+        h1 {
+            font-size: 2.2rem;
+            font-weight: bold;
+            color: white;
+        }
+    }
+
+    .register-container {
+        width: 45%;
+        max-width: 600px;
+        background: white;
+        padding: 2rem;
+        border-radius: 16px;
+        box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.1);
+        text-align: center;
+    }
+
+    h2 {
+        font-size: 1.6rem;
+        margin-bottom: 1rem;
+    }
+
+    mat-form-field {
+        width: 100%;
+        margin-bottom: 1.2rem;
+    }
+
+    .register-button {
+        width: 100%;
+        padding: 0.9rem;
+        background-color: $primary-color;
+        color: white;
+        font-size: 1.1rem;
+        border-radius: 8px;
+
+        &:hover {
+            background-color: $secondary-color;
+        }
+    }
+
+    .login-link {
+        margin-top: 1rem;
+        font-size: 1rem;
+
+        a {
+            color: $primary-color;
+            text-decoration: none;
+            font-weight: bold;
+            cursor: pointer;
+
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+    }
+}
+
+.file-input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    cursor: pointer;
+    background-color: white;
+}
+
+@media (max-width: 1024px) {
+    .register-page {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 20px;
+    }
+
+    .branding {
+        width: 90%;
+        min-height: auto;
+        padding: 2rem;
+    }
+
+    .register-container {
+        width: 90%;
+        padding: 2rem;
+    }
+}
