@@ -134,7 +134,7 @@ namespace SleepGo.Api.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetAllHotels([FromQuery] PaginationRequestDto paginationRequestDto)
         {
-            var hotels = await _mediator.Send(new GetAllHotelsQuery(paginationRequestDto));
+            var hotels = await _mediator.Send(new GetPaginatedHotelsByIdQuery(paginationRequestDto));
 
             return Ok(hotels);
         }

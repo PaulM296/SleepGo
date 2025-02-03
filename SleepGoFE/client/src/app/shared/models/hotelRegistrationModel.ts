@@ -4,10 +4,10 @@ export interface HotelRegistrationModel extends BaseRegistrationModel {
     hotelName: string;
     address: string;
     city: string;
-    Country: string;
-    ZipCode: string;
-    HotelDescription: string;
-    Latitude: number;
-    Longitude: number;
+    country: string;
+    zipCode: string;
+    hotelDescription: string;
+    latitude: number;
+    longitude: number;
     image?: FileList | null;
 }

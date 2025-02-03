@@ -68,8 +68,8 @@ export class RegisterComponent {
 
   hotelExtraForm: FormGroup = this.formBuilder.group({
     hotelDescription: ['', Validators.required],
-    latitude: ['', Validators.required],
-    longitude: ['', Validators.required],
+    latitude: [null, Validators.required],
+    longitude: [null, Validators.required],
     image: [null]
   });
 
@@ -134,7 +134,7 @@ export class RegisterComponent {
         registrationData = { 
             ...this.baseForm.value, 
             ...this.hotelForm.value, 
-            ...this.hotelExtraForm.value 
+            ...this.hotelExtraForm.value
         };
     }
 

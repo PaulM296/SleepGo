@@ -42,11 +42,11 @@ export class UserService {
       formData.append('hotelName', hotelModel.hotelName);
       formData.append('address', hotelModel.address);
       formData.append('city', hotelModel.city);
-      formData.append('country', hotelModel.Country);
-      formData.append('zipCode', hotelModel.ZipCode);
-      formData.append('hotelDescription', hotelModel.HotelDescription);
-      formData.append('latitude', hotelModel.Latitude ? hotelModel.Latitude.toString() : '0');
-      formData.append('longitude', hotelModel.Longitude ? hotelModel.Longitude.toString() : '0');
+      formData.append('country', hotelModel.country);
+      formData.append('zipCode', hotelModel.zipCode);
+      formData.append('hotelDescription', hotelModel.hotelDescription);
+      formData.append('latitude', hotelModel.latitude ? hotelModel.latitude.toString() : '0');
+      formData.append('longitude', hotelModel.longitude ? hotelModel.longitude.toString() : '0');
 
       if (hotelModel.image) {
         formData.append('image', hotelModel.image[0]);
@@ -55,5 +55,6 @@ export class UserService {
 
     return this.http.post<AuthResponse>(`${this.apiUrl}/register`, formData);
   }
+
 }
 

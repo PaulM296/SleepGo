@@ -54,7 +54,8 @@ namespace SleepGo.Infrastructure.Services
             {
                 Email = newUser.Email,
                 UserName = newUser.UserName,
-                Role = newUser.Role
+                Role = newUser.Role,
+                PhoneNumber = newUser.PhoneNumber
             };
 
             var createdIdentity = await _userManager.CreateAsync(identityUser, password);
