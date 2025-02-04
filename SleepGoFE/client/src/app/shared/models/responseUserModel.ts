@@ -1,4 +1,4 @@
-export interface User {
+export interface ResponseUserModel {
     id: string;
     userName: string;
     email: string;

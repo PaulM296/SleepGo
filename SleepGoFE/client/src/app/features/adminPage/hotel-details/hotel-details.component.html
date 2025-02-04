@@ -1,1 +1,43 @@
-<p>hotel-details works!</p>
+<mat-card class="container">
+    <mat-toolbar color="primary">
+      <span>Sleep&Go Hotels</span>
+    </mat-toolbar>
+
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+      
+      <ng-container matColumnDef="username">
+        <th mat-header-cell *matHeaderCellDef> Username </th>
+        <td mat-cell *matCellDef="let hotel"> {{ hotel.userName }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="email">
+        <th mat-header-cell *matHeaderCellDef> Email </th>
+        <td mat-cell *matCellDef="let hotel"> {{ hotel.email }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="hotelName">
+        <th mat-header-cell *matHeaderCellDef> Hotel Name </th>
+        <td mat-cell *matCellDef="let hotel"> {{ hotel.hotelName }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef> Actions </th>
+        <td mat-cell *matCellDef="let hotel">
+          <button mat-raised-button [color]="hotel.isBlocked ? 'warn' : 'primary'" (click)="toggleBlock(hotel)">
+            {{ hotel.isBlocked ? 'UNBLOCK' : 'BLOCK' }}
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="custom-row"></tr>
+    </table>
+
+    <div class="pagination">
+      <button mat-raised-button (click)="previousPage()" [disabled]="!paginator || !paginator.hasPreviousPage()">Previous</button>
+      <span *ngIf="paginator">Page {{ paginator.pageIndex + 1 }} of {{ paginator.getNumberOfPages() }}</span>
+      <button mat-raised-button (click)="nextPage()" [disabled]="!paginator || !paginator.hasNextPage()">Next</button>
+    </div>
+
+    <mat-paginator [pageSizeOptions]="[5, 10, 15, 25, 100]" showFirstLastButtons></mat-paginator>
+</mat-card>

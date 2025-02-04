@@ -1,0 +1,43 @@
+.container {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 75%;
+  margin: auto;
+  margin-top: 50px;
+}
+
+.mat-toolbar {
+  width: 100%;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 10px;
+}
+
+th, td {
+  padding: 15px;
+  text-align: left;
+}
+
+.custom-row {
+  background-color: white;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
+
+.pagination {
+  display: flex;
+  justify-content: space-between;
+  margin: 30px 0px 20px 0px;
+  width: 100%;
+}
+
+button {
+  font-weight: bold;
+}

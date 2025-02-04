@@ -1,7 +1,7 @@
 export interface PaginationResponse<T> {
     items: T[];
     pageIndex: number;
-    pageSize: number;
+    totalPages: number;
 }
 
 export interface PaginationRequest {

@@ -1,10 +1,13 @@
-import { inject, Injectable } from '@angular/core';
+import { Inject, inject, Injectable, input } from '@angular/core';
 import { environment } from '../../../environments/environment';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { AuthResponse } from '../../shared/models/authResponse';
 import { UserRegistrationModel } from '../../shared/models/userRegistrationMode';
 import { HotelRegistrationModel } from '../../shared/models/hotelRegistrationModel';
+import { PaginationResponse } from '../../shared/models/paginationResponse';
+import { ResponseUserModel } from '../../shared/models/responseUserModel';
+import { ResponseHotelModel } from '../../shared/models/responseHotelModel';
 
 @Injectable({
   providedIn: 'root'
@@ -56,5 +59,23 @@ export class UserService {
     return this.http.post<AuthResponse>(`${this.apiUrl}/register`, formData);
   }
 
+  getPaginatedUsers(pageIndex: number, pageSize: number): Observable<PaginationResponse<ResponseUserModel>> {
+    const params = new HttpParams().set('pageIndex', pageIndex).set('pageSize', pageSize);
+    return this.http.get<PaginationResponse<ResponseUserModel>>(`${this.apiUrl}/adminPage/users`, { params } )
+  }
+
+  getPaginatedHotels(pageIndex: number, pageSize: number): Observable<PaginationResponse<ResponseHotelModel>> {
+    const params = new HttpParams().set('pageIndex', pageIndex).set('pageSize', pageSize);
+    return this.http.get<PaginationResponse<ResponseHotelModel>>(`${this.apiUrl}/adminPage/hotels`, { params } );
+  }
+
+  blockUser(userId: string): Observable<void> {
+    return this.http.put<void>(`${this.apiUrl}/${userId}/block`, {});
+  }
+
+  unblockUser(userId: string): Observable<void> {
+    return this.http.put<void>(`${this.apiUrl}/${userId}/unblock`, {});
+  }
+  
 }
 

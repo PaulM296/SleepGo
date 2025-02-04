@@ -64,7 +64,7 @@ export class LoginComponent {
   }
 
   goToRegister() : void {
-    this.router.navigate(['/users/register']);
+    this.router.navigate(['/register']);
   }
 
   togglePasswordVisibility() : void {

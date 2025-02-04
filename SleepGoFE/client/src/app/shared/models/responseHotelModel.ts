@@ -2,7 +2,7 @@ import { ResponseAmenityModel } from "./responseAmenityModel";
 import { ResponseReservationModel } from "./responseReservationModel";
 import { ResponseReviewModel } from "./responseReviewModel";
 
-export interface ResponseHotel {
+export interface ResponseHotelModel {
     id: string;
     userName: string;
     email: string;

@@ -142,7 +142,7 @@ export class RegisterComponent {
         next: (response: AuthResponse) => {
             this.snackbarService.success('Registration successful! Redirecting to login...');
             setTimeout(() => {
-                this.router.navigate(['/users/login']);
+                this.router.navigate(['/login']);
             }, 1500);
         },
         error: (error) => {
@@ -150,6 +150,10 @@ export class RegisterComponent {
             this.snackbarService.error(error.error?.message || 'Registration failed. Please try again.');
         }
     });
-}
+  }
+
+  goToLogin(): void {
+    this.router.navigate(['/login']);
+  }
 
 }
