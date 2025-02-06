@@ -47,8 +47,26 @@ export class UserProfileComponent implements OnInit {
   @ViewChild('fileInput') fileInput!: ElementRef<HTMLInputElement>;
 
   ngOnInit(): void {
-    this.fetchUserData();
-  }
+  this.userForm = this.fb.group({
+    email: ['', [Validators.required, Validators.email]],
+    userName: ['', [Validators.required]],
+    phoneNumber: ['', [Validators.required]],
+    firstName: [''],
+    lastName: [''],
+    dateOfBirth: [''],
+    hotelName: [''],
+    city: [''],
+    country: [''],
+    zipCode: [''],
+    address: [''],
+    latitude: [null],
+    longitude: [null],
+    hotelDescription: ['']
+  });
+
+  this.fetchUserData();
+}
+
 
   fetchUserData() {
     this.userService.getLoggedUser().subscribe({
@@ -58,6 +76,8 @@ export class UserProfileComponent implements OnInit {
         this.userId = user.id;
 
         this.initializeForm();
+        this.fetchUserImage();
+
         this.snackbarService.success('User data successfully fetched.');
       },
       error: (error) =>  {
@@ -134,5 +154,22 @@ export class UserProfileComponent implements OnInit {
   onDateChange(event: any) {
     const selectedDate = event.value;
     this.userForm.patchValue({ dateOfBirth: selectedDate });
+  }
+
+  fetchUserImage() {
+    if (this.userData?.imageId) {
+      this.userService.getImageById(this.userData.imageId).subscribe({
+        next: (response) =>  {
+          this.userData.imageId = response.imageSrc;
+        },
+        error: (error) => {
+          console.error('Error fetching image:', error);
+        }
+      });
+    }
+  }
+
+  getUserImage(): string {
+    return this.userData?.imageId;
   }
 }

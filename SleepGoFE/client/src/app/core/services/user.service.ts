@@ -92,5 +92,9 @@ export class UserService {
   getUserById(userId: string): Observable<ResponseUserModel | ResponseHotelModel> {
     return this.http.get<ResponseUserModel | ResponseHotelModel>(`${this.apiUrl}/${userId}`)
   }
+
+  getImageById(imageId: string): Observable<{ imageSrc: string }> {
+    return this.http.get<{ imageSrc: string }>(`${environment.apiUrl}Image/${imageId}`);
+  }
 }
 

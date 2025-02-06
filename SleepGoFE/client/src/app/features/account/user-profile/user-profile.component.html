@@ -1,7 +1,7 @@
 <div class="container">
     <mat-card class="profile-card">
       <div class="avatar-container" (mouseenter)="avatarHover = true" (mouseleave)="avatarHover = false">
-        <img [src]="userData.imageId || 'assets/default-avatar.png'" class="avatar" />
+        <img [src]="getUserImage()" class="avatar" />
         <div class="avatar-overlay" *ngIf="avatarHover">
           <button mat-button color="primary" (click)="triggerFileInput()">Update</button>
           <button mat-button color="warn" (click)="deleteProfilePicture()">Delete</button>
