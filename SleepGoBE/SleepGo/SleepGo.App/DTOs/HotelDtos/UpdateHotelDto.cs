@@ -8,7 +8,6 @@ namespace SleepGo.App.DTOs.HotelDtos
     {
         [Required]
         public string HotelName { get; set; }
-
         [Required]
         [EmailAddress(ErrorMessage = "Invalid email address format.")]
         public string Email { get; set; }
@@ -29,7 +28,7 @@ namespace SleepGo.App.DTOs.HotelDtos
         public double Latitude { get; set; }
         [Required]
         public double Longitude { get; set; }
-        [AllowedExtensions(new string[] { ".png", ".jpg", ".jpeg" })]
+        [AllowedExtensions([".png", ".jpg", ".jpeg"])]
         public IFormFile? HotelImageFile { get; set; }
     }
 }

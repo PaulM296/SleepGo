@@ -6,6 +6,7 @@ import { NotFoundComponent } from './shared/components/not-found/not-found.compo
 import { UserDetailsComponent } from './features/adminPage/user-details/user-details.component';
 import { HotelDetailsComponent } from './features/adminPage/hotel-details/hotel-details.component';
 import { authGuard } from './core/guards/auth.guard';
+import { UserProfileComponent } from './features/account/user-profile/user-profile.component';
 
 export const routes: Routes = [
     {path: '', component: HomeComponent},
@@ -14,5 +15,6 @@ export const routes: Routes = [
     {path: 'not-found', component: NotFoundComponent},
     {path: 'adminPage/users', component: UserDetailsComponent, canActivate: [authGuard]},
     {path: 'adminPage/hotels', component: HotelDetailsComponent, canActivate: [authGuard]},
+    {path: 'user-profile', component: UserProfileComponent},
     {path: '**', redirectTo: 'not-found', pathMatch: 'full'}
 ];

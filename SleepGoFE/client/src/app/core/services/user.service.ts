@@ -13,7 +13,7 @@ import { ResponseHotelModel } from '../../shared/models/responseHotelModel';
   providedIn: 'root'
 })
 export class UserService {
-  private apiUrl = `${ environment .apiUrl }users`;
+  private apiUrl = `${ environment.apiUrl }users`;
   private http = inject(HttpClient);
 
   login(email: string, password: string): Observable <AuthResponse> {
@@ -77,5 +77,20 @@ export class UserService {
     return this.http.put<void>(`${this.apiUrl}/${userId}/unblock`, {});
   }
   
+  updateUser(userId: string, userData: FormData): Observable<void> {
+    return this.http.put<void>(`${this.apiUrl}/${userId}`, userData);
+  }
+
+  deleteUser(userId: string): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${userId}`);
+  }
+
+  getLoggedUser(): Observable<ResponseUserModel> {
+    return this.http.get<ResponseUserModel>(`${this.apiUrl}/logged-user`);
+  }
+
+  getUserById(userId: string): Observable<ResponseUserModel | ResponseHotelModel> {
+    return this.http.get<ResponseUserModel | ResponseHotelModel>(`${this.apiUrl}/${userId}`)
+  }
 }
 

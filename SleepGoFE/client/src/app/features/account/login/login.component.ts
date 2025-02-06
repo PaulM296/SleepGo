@@ -32,7 +32,6 @@ export class LoginComponent {
   private userService = inject(UserService);
   private router = inject(Router);
   private snackbarService = inject(SnackbarService);
-  errorMessage: string = '';
   showPassword: boolean = false;
 
   loginForm: FormGroup = this.formBuilder.group({
@@ -57,7 +56,6 @@ export class LoginComponent {
         this.snackbarService.success('Login successful.');
       },
       error: () => {
-        this.errorMessage = 'Invalid email or password!';
         this.snackbarService.error('Login failed. Please try again.');
       }
     });

@@ -1,0 +1,99 @@
+<div class="container">
+    <mat-card class="profile-card">
+      <div class="avatar-container" (mouseenter)="avatarHover = true" (mouseleave)="avatarHover = false">
+        <img [src]="userData.imageId || 'assets/default-avatar.png'" class="avatar" />
+        <div class="avatar-overlay" *ngIf="avatarHover">
+          <button mat-button color="primary" (click)="triggerFileInput()">Update</button>
+          <button mat-button color="warn" (click)="deleteProfilePicture()">Delete</button>
+          <input type="file" #fileInput hidden (change)="onFileSelected($event)" />
+        </div>
+      </div>
+    </mat-card>
+  
+    <mat-card class="settings-card">
+      <h2>My Settings</h2>
+      <form [formGroup]="userForm" (ngSubmit)="updateProfile()">
+        <mat-form-field appearance="outline">
+          <mat-label>Email</mat-label>
+          <input matInput formControlName="email" type="email" />
+        </mat-form-field>
+  
+        <mat-form-field appearance="outline">
+          <mat-label>Username</mat-label>
+          <input matInput formControlName="userName" />
+        </mat-form-field>
+  
+        <mat-form-field appearance="outline">
+          <mat-label>Phone Number</mat-label>
+          <input matInput formControlName="phoneNumber" type="tel" />
+        </mat-form-field>
+  
+        <ng-container *ngIf="isHotelUser">
+            <mat-form-field appearance="outline">
+              <mat-label>Hotel Name</mat-label>
+              <input matInput formControlName="hotelName" />
+            </mat-form-field>
+          
+            <mat-form-field appearance="outline">
+              <mat-label>City</mat-label>
+              <input matInput formControlName="city" />
+            </mat-form-field>
+          
+            <mat-form-field appearance="outline">
+              <mat-label>Country</mat-label>
+              <input matInput formControlName="country" />
+            </mat-form-field>
+          
+            <mat-form-field appearance="outline">
+              <mat-label>Zip Code</mat-label>
+              <input matInput formControlName="zipCode" />
+            </mat-form-field>
+          
+            <mat-form-field appearance="outline">
+              <mat-label>Address</mat-label>
+              <input matInput formControlName="address" />
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label>Hotel Description</mat-label>
+                <input matInput formControlName="hotelDescription" />
+              </mat-form-field>
+          
+            <mat-form-field appearance="outline">
+              <mat-label>Latitude</mat-label>
+              <input matInput formControlName="latitude" type="number" />
+            </mat-form-field>
+          
+            <mat-form-field appearance="outline">
+              <mat-label>Longitude</mat-label>
+              <input matInput formControlName="longitude" type="number" />
+            </mat-form-field>
+          </ng-container>
+
+        <ng-container *ngIf="!isHotelUser">
+          <mat-form-field appearance="outline">
+            <mat-label>First Name</mat-label>
+            <input matInput formControlName="firstName" />
+          </mat-form-field>
+  
+          <mat-form-field appearance="outline">
+            <mat-label>Last Name</mat-label>
+            <input matInput formControlName="lastName" />
+          </mat-form-field>
+  
+          <mat-form-field appearance="outline">
+            <mat-label>Date of Birth</mat-label>
+            <input matInput [matDatepicker]="picker" formControlName="dateOfBirth" (dateChange)="onDateChange($event)" />
+            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+        </ng-container>
+  
+        <div class="button-container">
+          <button mat-raised-button color="primary" type="submit">Update</button>
+          <button mat-raised-button color="warn">Delete Account</button>
+        </div>
+      </form>
+    </mat-card>
+  </div>
+  

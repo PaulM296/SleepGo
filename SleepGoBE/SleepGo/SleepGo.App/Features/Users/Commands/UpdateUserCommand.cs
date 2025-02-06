@@ -5,12 +5,13 @@ using SleepGo.App.DTOs.UserDtos;
 using SleepGo.App.Exceptions;
 using SleepGo.App.Interfaces;
 using SleepGo.Domain.Entities;
+using SleepGo.Domain.Enums;
 
 namespace SleepGo.App.Features.Users.Commands
 {
-    public record UpdateUserCommand(Guid userId, UpdateUserDto updateUserDto) : IRequest<ResponseUserDto>;
+    public record UpdateUserCommand(Guid userId, UpdateUserDto updateUserDto) : IRequest<object>;
 
-    public class UpdateUserCommandHandler : IRequestHandler<UpdateUserCommand, ResponseUserDto>
+    public class UpdateUserCommandHandler : IRequestHandler<UpdateUserCommand, object>
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly ILogger<UpdateUserCommandHandler> _logger;
@@ -23,7 +24,7 @@ namespace SleepGo.App.Features.Users.Commands
             _mapper = mapper;
         }
 
-        public async Task<ResponseUserDto> Handle(UpdateUserCommand request, CancellationToken cancellationToken)
+        public async Task<object> Handle(UpdateUserCommand request, CancellationToken cancellationToken)
         {
             var user = await _unitOfWork.UserRepository.GetByIdAsync(request.userId);
 
@@ -62,14 +63,40 @@ namespace SleepGo.App.Features.Users.Commands
                 await _unitOfWork.SaveAsync();
             }
 
-            user.UserName = request.updateUserDto.UserName;
-            user.NormalizedUserName = request.updateUserDto.UserName.ToUpper();
-            user.Email = request.updateUserDto.Email;
-            user.NormalizedEmail = request.updateUserDto.Email.ToUpper();
-            user.Role = request.updateUserDto.Role;
-            user.UserProfile.ImageId = image?.Id ?? Guid.Empty;
-            user.UserProfile.FirstName = request.updateUserDto.FirstName;
-            user.UserProfile.LastName = request.updateUserDto.LastName;
+            if(user.Role == Role.User)
+            {
+                user.UserName = request.updateUserDto.UserName;
+                user.NormalizedUserName = request.updateUserDto.UserName.ToUpper();
+                user.Email = request.updateUserDto.Email;
+                user.NormalizedEmail = request.updateUserDto.Email.ToUpper();
+                user.PhoneNumber = request.updateUserDto.PhoneNumber;
+                
+                if(user.UserProfile != null)
+                {
+                    user.UserProfile.FirstName = request.updateUserDto.FirstName ?? user.UserProfile.FirstName;
+                    user.UserProfile.LastName = request.updateUserDto.LastName ?? user.UserProfile.LastName;
+                    user.UserProfile.DateOfBirth = request.updateUserDto.DateOfBirth ?? user.UserProfile.DateOfBirth;
+                    user.UserProfile.ImageId = image?.Id ?? user.UserProfile.ImageId;
+                }
+            }
+            else if(user.Role == Role.Hotel)
+            {
+                user.UserName = request.updateUserDto.UserName;
+                user.NormalizedUserName = request.updateUserDto.UserName.ToUpper();
+                user.Email = request.updateUserDto.Email;
+                user.NormalizedEmail = request.updateUserDto.Email.ToUpper();
+                user.PhoneNumber = request.updateUserDto.PhoneNumber;
+
+                user.Hotel.HotelName = request.updateUserDto.HotelName ?? user.Hotel.HotelName;
+                user.Hotel.HotelDescription = request.updateUserDto.HotelDescription ?? user.Hotel.HotelDescription;
+                user.Hotel.City = request.updateUserDto.City ?? user.Hotel.City;
+                user.Hotel.Country = request.updateUserDto.Country ?? user.Hotel.Country;
+                user.Hotel.ZipCode = request.updateUserDto.ZipCode ?? user.Hotel.ZipCode;
+                user.Hotel.Address = request.updateUserDto.Address ?? user.Hotel.Address;
+                user.Hotel.Latitude = request.updateUserDto.Latitude ?? user.Hotel.Latitude;
+                user.Hotel.Longitude = request.updateUserDto.Longitude ?? user.Hotel.Longitude;
+                user.Hotel.ImageId = image?.Id ?? user.Hotel.ImageId;
+            }
 
             var updatedUser = await _unitOfWork.UserRepository.UpdateUserAsync(user);
 
@@ -77,7 +104,9 @@ namespace SleepGo.App.Features.Users.Commands
 
             _logger.LogInformation("User has been successfully updated!");
 
-            return _mapper.Map<ResponseUserDto>(updatedUser);
+            return user.Role == Role.Hotel
+                ? _mapper.Map<ResponseHotelUserDto>(updatedUser)
+                : _mapper.Map<ResponseUserDto>(updatedUser);
         }
     }
 }

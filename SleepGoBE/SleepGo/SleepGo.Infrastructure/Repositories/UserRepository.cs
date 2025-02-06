@@ -27,7 +27,15 @@ namespace SleepGo.Infrastructure.Repositories
 
         public async Task<AppUser> GetByIdAsync(Guid id)
         {
-            var user = await _context.Set<AppUser>().FirstOrDefaultAsync(u => u.Id == id);
+            var user = await _context.Set<AppUser>()
+            .Include(u => u.UserProfile)
+            .Include(u => u.Hotel)
+                .ThenInclude(h => h.Rooms)
+            .Include(u => u.Hotel)
+                .ThenInclude(h => h.Amenities)
+            .Include(u => u.Hotel)
+                .ThenInclude(h => h.Reviews)
+            .FirstOrDefaultAsync(u => u.Id == id);
 
             if (user == null)
             {
