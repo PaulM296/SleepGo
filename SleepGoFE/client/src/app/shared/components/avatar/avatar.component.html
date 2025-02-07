@@ -1,0 +1,4 @@
+<div class="avatar" [ngStyle]="{'width': size, 'height': size}">
+    <img *ngIf="src" [src]="src" [alt]="alt" class="avatar-img" />
+    <mat-icon *ngIf="!src">account_circle</mat-icon>
+  </div>

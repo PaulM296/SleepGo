@@ -1,7 +1,12 @@
 <div class="container">
     <mat-card class="profile-card">
       <div class="avatar-container" (mouseenter)="avatarHover = true" (mouseleave)="avatarHover = false">
-        <img [src]="getUserImage()" class="avatar" />
+        <app-avatar
+          [src]="getUserImage()"
+          [alt]="'Profile Picture'"
+          [size]="'150px'">
+        </app-avatar>
+
         <div class="avatar-overlay" *ngIf="avatarHover">
           <button mat-button color="primary" (click)="triggerFileInput()">Update</button>
           <button mat-button color="warn" (click)="deleteProfilePicture()">Delete</button>
@@ -91,7 +96,7 @@
   
         <div class="button-container">
           <button mat-raised-button color="primary" type="submit">Update</button>
-          <button mat-raised-button color="warn">Delete Account</button>
+          <button mat-raised-button color="warn" (click)="openDeleteDialog()">Delete Account</button>
         </div>
       </form>
     </mat-card>

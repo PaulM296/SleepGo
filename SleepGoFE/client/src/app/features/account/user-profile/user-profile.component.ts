@@ -13,6 +13,10 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
+import { ConfirmDialogComponent } from '../../../shared/components/confirm-dialog/confirm-dialog.component';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { Router } from '@angular/router';
+import { AvatarComponent } from '../../../shared/components/avatar/avatar.component';
 
 @Component({
   selector: 'app-user-profile',
@@ -26,7 +30,10 @@ import { MatNativeDateModule } from '@angular/material/core';
     MatCardModule,
     MatIconModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatDialogModule,
+    ConfirmDialogComponent,
+    AvatarComponent
   ],
   templateUrl: './user-profile.component.html',
   styleUrl: './user-profile.component.scss'
@@ -43,6 +50,8 @@ export class UserProfileComponent implements OnInit {
   private userService = inject(UserService);
   private jwtService = inject(JwtService);
   private snackbarService = inject(SnackbarService);
+  private dialog = inject(MatDialog);
+  private router = inject(Router);
 
   @ViewChild('fileInput') fileInput!: ElementRef<HTMLInputElement>;
 
@@ -78,11 +87,10 @@ export class UserProfileComponent implements OnInit {
         this.initializeForm();
         this.fetchUserImage();
 
-        this.snackbarService.success('User data successfully fetched.');
+        console.log('User data successfully fetched.');
       },
       error: (error) =>  {
         console.error('Error fetching user:', error);
-        this.snackbarService.error('Error fetching user data.');
       }
     });
   }
@@ -135,7 +143,6 @@ export class UserProfileComponent implements OnInit {
     this.userService.updateUser(this.userId, formData).subscribe({
       next: () => {
         this.snackbarService.success("Profile updated successfully!");
-        this.fetchUserData;
       }, 
       error: (error) => {
         this.snackbarService.error("Error updating profile!");
@@ -170,6 +177,34 @@ export class UserProfileComponent implements OnInit {
   }
 
   getUserImage(): string {
-    return this.userData?.imageId;
+    return this.userData?.imageId || '';
+  }
+
+  openDeleteDialog() {
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      data: {
+        title: 'Delete Account',
+        message: 'Are you sure you want to delete your account? This action cannot be undone.'
+      }
+    });
+  
+    dialogRef.afterClosed().subscribe((confirmed) => {
+      if (confirmed) {
+        this.deleteAccount();
+      }
+    });
+  }
+
+  deleteAccount() {
+    this.userService.deleteUser(this.userId).subscribe({
+      next: () => {
+        this.snackbarService.success('Account deleted successfully.');
+        this.router.navigate(['/']);
+      },
+      error: (error) => {
+        console.error('Error deleting account:', error);
+        this.snackbarService.error('Failed to delete account.');
+      }
+    });
   }
 }

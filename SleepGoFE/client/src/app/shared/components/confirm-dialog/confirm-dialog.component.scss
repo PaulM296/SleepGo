@@ -1,0 +1,14 @@
+::ng-deep .mat-dialog-container {
+    width: 400px;
+    max-width: 90vw;
+}
+
+.dialog-actions {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+  }
+  
+  .spacer {
+    flex: 1;
+  }
