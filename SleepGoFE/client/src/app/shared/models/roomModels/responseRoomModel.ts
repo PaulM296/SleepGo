@@ -1,5 +1,5 @@
-import { ResponseReservationModel } from "./responseReservationModel";
-import { RoomType } from "./roomType";
+import { ResponseReservationModel } from "../reservationModels/responseReservationModel";
+import { RoomType } from "../roomType";
 
 export interface ResponseRoomModel {
     id: string;

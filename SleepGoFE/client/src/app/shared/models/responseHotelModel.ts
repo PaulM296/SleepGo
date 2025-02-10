@@ -1,6 +1,6 @@
-import { ResponseAmenityModel } from "./responseAmenityModel";
-import { ResponseReservationModel } from "./responseReservationModel";
-import { ResponseReviewModel } from "./responseReviewModel";
+import { ResponseAmenityModel } from "./amenityModels/responseAmenityModel";
+import { ResponseReservationModel } from "./reservationModels/responseReservationModel";
+import { ResponseReviewModel } from "./reviewModels/responseReviewModel";
 
 export interface ResponseHotelModel {
     id: string;
