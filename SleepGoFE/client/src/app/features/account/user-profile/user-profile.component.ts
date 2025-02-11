@@ -151,7 +151,22 @@ export class UserProfileComponent implements OnInit {
   }
 
   deleteProfilePicture() {
-    this.snackbarService.success('Profile picture deleted!');
+    if(!this.userData?.imageId) {
+      this.snackbarService.error('No profile picture to delete.');
+      return;
+    }
+
+    this.userService.deleteImage(this.userData.imageId).subscribe({
+      next: () => {
+        this.snackbarService.success('Profile picture deleted successfully!');
+        this.userData.imageId = '';
+        this.userData.imageUrl = '';
+      }, 
+      error: (error) => {
+        console.log('Error deleting profile picture: ', error);
+        this.snackbarService.error('Failed to delete profile picture.');
+      }
+    });
   }
 
   triggerFileInput() {
@@ -167,7 +182,7 @@ export class UserProfileComponent implements OnInit {
     if (this.userData?.imageId) {
       this.userService.getImageById(this.userData.imageId).subscribe({
         next: (response) =>  {
-          this.userData.imageId = response.imageSrc;
+          this.userData.imageUrl = response.imageSrc;
         },
         error: (error) => {
           console.error('Error fetching image:', error);
@@ -177,7 +192,7 @@ export class UserProfileComponent implements OnInit {
   }
 
   getUserImage(): string {
-    return this.userData?.imageId || '';
+    return this.userData?.imageUrl || '';
   }
 
   openDeleteDialog() {

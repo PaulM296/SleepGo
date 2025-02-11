@@ -96,5 +96,10 @@ export class UserService {
   getImageById(imageId: string): Observable<{ imageSrc: string }> {
     return this.http.get<{ imageSrc: string }>(`${environment.apiUrl}Image/${imageId}`);
   }
+  
+  deleteImage(imageId: string): Observable<void> {
+    return this.http.delete<void>(`${environment.apiUrl}Image/${imageId}`);
+  }
+  
 }
 

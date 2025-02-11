@@ -31,6 +31,12 @@ namespace SleepGo.Infrastructure.Configurations
                 .WithOne(u => u.Hotel)
                 .HasForeignKey<Hotel>(h => h.UserId)
                 .OnDelete(DeleteBehavior.Cascade);
+
+            builder
+                .HasOne(h => h.Image)
+                .WithOne()
+                .HasForeignKey<Hotel>(h => h.ImageId)
+                .OnDelete(DeleteBehavior.SetNull);
         }
     }
 }

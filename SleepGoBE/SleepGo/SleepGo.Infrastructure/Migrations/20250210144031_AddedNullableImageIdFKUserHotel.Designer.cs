@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SleepGo.Infrastructure;
 
@@ -11,9 +12,11 @@ using SleepGo.Infrastructure;
 namespace SleepGo.Infrastructure.Migrations
 {
     [DbContext(typeof(SleepGoDbContext))]
-    partial class SleepGoDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250210144031_AddedNullableImageIdFKUserHotel")]
+    partial class AddedNullableImageIdFKUserHotel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

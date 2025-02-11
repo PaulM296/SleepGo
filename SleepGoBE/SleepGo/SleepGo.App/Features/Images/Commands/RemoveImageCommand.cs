@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using Microsoft.Extensions.Logging;
+using SleepGo.App.Exceptions;
 using SleepGo.App.Interfaces;
 
 namespace SleepGo.App.Features.Images.Commands
@@ -18,6 +19,12 @@ namespace SleepGo.App.Features.Images.Commands
         }
         public async Task<Unit> Handle(RemoveImageCommand request, CancellationToken cancellationToken)
         {
+            var image = await _unitOfWork.ImageRepository.GetImageById(request.id);
+            if(image == null)
+            {
+                throw new ImageNotFoundException($"Image with ID {request.id} has not been found!");
+            }
+            
             await _unitOfWork.ImageRepository.RemoveImage(request.id);
 
             return Unit.Value;

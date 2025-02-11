@@ -12,7 +12,7 @@ namespace SleepGo.Infrastructure.Configurations
                 .HasOne(up => up.Image)
                 .WithOne()
                 .HasForeignKey<UserProfile>(up => up.ImageId)
-                .OnDelete(DeleteBehavior.NoAction);
+                .OnDelete(DeleteBehavior.SetNull);
 
             builder
                 .HasOne(up => up.AppUser)

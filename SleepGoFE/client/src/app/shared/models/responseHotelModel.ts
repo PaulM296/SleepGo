@@ -20,5 +20,6 @@ export interface ResponseHotelModel {
     reviews: ResponseReviewModel[];
     amenities: ResponseAmenityModel[];
     imageId: string;
+    imageUrl?: string;
     isBlocked: boolean;
 }

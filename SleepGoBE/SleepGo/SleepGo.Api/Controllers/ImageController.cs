@@ -28,7 +28,7 @@ namespace SleepGo.Api.Controllers
             return Ok(response);
         }
 
-        [HttpDelete("id")]
+        [HttpDelete("{id}")]
         public async Task<IActionResult> RemoveImage(Guid id)
         {
             var command = new RemoveImageCommand(id);
