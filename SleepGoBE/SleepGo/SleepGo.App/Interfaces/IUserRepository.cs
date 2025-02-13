@@ -13,5 +13,6 @@ namespace SleepGo.App.Interfaces
         Task<AppUser> UpdateUserAsync(AppUser updatedUser);
         Task<PaginationResponseDto<AppUser>> GetPaginatedUsersByIdAsync(int pageIndex, int pageSize);
         Task<PaginationResponseDto<AppUser>> GetPaginatedHotelsByIdAsync(int pageIndex, int pageSize);
+        Task<IEnumerable<AppUser>> FindAsync(Expression<Func<AppUser, bool>> predicate);
     }
 }

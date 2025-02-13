@@ -1,0 +1,28 @@
+<app-header></app-header>
+<div class="hotel-list">
+  <mat-card *ngFor="let hotel of hotels" class="hotel-card" (click)="navigateToHotel(hotel.id)">
+    <div class="hotel-container">
+      <div class="hotel-image">
+        <img [src]="hotel.imageUrl" alt="Hotel Image">
+      </div>
+
+      <div class="hotel-details">
+        <h2 class="hotel-name">{{ hotel.hotelName }}</h2>
+        <p class="hotel-location">{{ hotel.city }}, {{ hotel.country }}</p>
+        <p class="hotel-description">{{ hotel.hotelDescription }}</p>
+      </div>
+    </div>
+
+    <div class="hotel-rating">
+      <div class="rating-box">{{ hotel.rating }}</div>
+    </div>
+  </mat-card>
+
+  <mat-paginator
+    [length]="totalHotels"
+    [pageSize]="pageSize"
+    [pageSizeOptions] ="[1, 5, 10, 20]"
+    (page)="onPageChange($event)"
+    >
+  </mat-paginator>
+</div>

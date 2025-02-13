@@ -1,11 +1,11 @@
 import { Inject, inject, Injectable, input } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { AuthResponse } from '../../shared/models/authResponse';
 import { UserRegistrationModel } from '../../shared/models/userRegistrationMode';
 import { HotelRegistrationModel } from '../../shared/models/hotelRegistrationModel';
-import { PaginationResponse } from '../../shared/models/paginationResponse';
+import { PaginationRequest, PaginationResponse } from '../../shared/models/paginationResponse';
 import { ResponseUserModel } from '../../shared/models/responseUserModel';
 import { ResponseHotelModel } from '../../shared/models/responseHotelModel';
 
@@ -101,5 +101,25 @@ export class UserService {
     return this.http.delete<void>(`${environment.apiUrl}Image/${imageId}`);
   }
   
+  searchHotels(query: string): Observable<ResponseHotelModel[]> {
+    const params = new HttpParams()
+      .set('query', query);
+
+    return this.http.get<ResponseHotelModel[]>(`${this.apiUrl}/search`, { params });
+  }
+
+  getAllPaginatedHotels(paginationRequest: PaginationRequest): Observable<PaginationResponse<ResponseHotelModel>> {
+    const params = new HttpParams()
+      .set('pageIndex', paginationRequest.pageIndex.toString())
+      .set('pageSize', paginationRequest.pageSize.toString());
+
+    return this.http.get<PaginationResponse<ResponseHotelModel>>(`${environment.apiUrl}hotels`, { params })
+      .pipe(
+        map(response => ({
+          ...response,
+          items: response.items.filter((hotel: ResponseHotelModel) => !hotel.isBlocked)
+        }))
+      );
+  }
 }
 

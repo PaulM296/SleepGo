@@ -138,5 +138,12 @@ namespace SleepGo.Api.Controllers
 
             return Ok(hotels);
         }
+
+        [HttpGet("search")]
+        public async Task<IActionResult> SearchHotels([FromQuery] string query)
+        {
+            var hotelUsers = await _mediator.Send(new SearchHotelsQuery(query));
+            return Ok(hotelUsers);
+        }
     }
 }

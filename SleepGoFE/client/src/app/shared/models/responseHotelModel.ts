@@ -16,6 +16,7 @@ export interface ResponseHotelModel {
     hotelDescription: string;
     latitude: number;
     longitude: number;
+    rating: number;
     reservations: ResponseReservationModel[];
     reviews: ResponseReviewModel[];
     amenities: ResponseAmenityModel[];

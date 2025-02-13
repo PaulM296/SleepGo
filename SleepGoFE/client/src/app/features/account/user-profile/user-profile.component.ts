@@ -32,7 +32,6 @@ import { AvatarComponent } from '../../../shared/components/avatar/avatar.compon
     MatDatepickerModule,
     MatNativeDateModule,
     MatDialogModule,
-    ConfirmDialogComponent,
     AvatarComponent
   ],
   templateUrl: './user-profile.component.html',

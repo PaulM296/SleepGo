@@ -22,4 +22,12 @@ export class JwtService {
     const decodeToken = this.decodeToken(token);
     return decodeToken?.sub || decodeToken?.userId || null
   }
+
+  getToken(): string | null {
+    return localStorage.getItem('token');
+  }
+
+  clearToken(): void {
+    localStorage.removeItem('token');
+  }
 }

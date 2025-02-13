@@ -9,6 +9,7 @@ using SleepGo.App.Features.Hotels.Commands;
 using SleepGo.App.Features.Hotels.Queries;
 using SleepGo.App.Features.UserProfiles.Commands;
 using SleepGo.App.Features.UserProfiles.Queries;
+using SleepGo.App.Features.Users.Queries;
 
 namespace SleepGo.Api.Controllers
 {
@@ -48,6 +49,14 @@ namespace SleepGo.Api.Controllers
             var hotelProfile = await _mediator.Send(new GetHotelProfileByIdQuery(hotelId));
 
             return Ok(hotelProfile);
+        }
+
+        [HttpGet()]
+        public async Task<IActionResult> GetAllHotels([FromQuery] PaginationRequestDto paginationRequestDto)
+        {
+            var hotels = await _mediator.Send(new GetPaginatedHotelsByIdQuery(paginationRequestDto));
+
+            return Ok(hotels);
         }
     }
 }

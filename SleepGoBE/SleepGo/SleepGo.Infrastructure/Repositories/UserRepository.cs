@@ -4,6 +4,7 @@ using SleepGo.App.Interfaces;
 using SleepGo.Domain.Entities;
 using SleepGo.Domain.Enums;
 using SleepGo.Infrastructure.Exceptions;
+using System.Linq.Expressions;
 
 namespace SleepGo.Infrastructure.Repositories
 {
@@ -107,6 +108,14 @@ namespace SleepGo.Infrastructure.Repositories
             var totalPages = (int)Math.Ceiling(count / (double)pageSize);
 
             return new PaginationResponseDto<AppUser>(user, pageIndex, totalPages);
+        }
+
+        public async Task<IEnumerable<AppUser>> FindAsync(Expression<Func<AppUser, bool>> predicate)
+        {
+            return await _context.Users
+                .Include(u => u.Hotel)
+                .Where(predicate)
+                .ToListAsync();
         }
     }
 }
