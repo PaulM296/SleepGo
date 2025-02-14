@@ -29,6 +29,7 @@ export class SearchBarComponent {
   @Output() searchEvent = new EventEmitter<string>();
 
   onSearch() {
-    this.searchEvent.emit(this.searchQuery);
+    this.searchEvent.emit(this.searchQuery.trim());
   }
+  
 }

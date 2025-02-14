@@ -81,11 +81,13 @@ export class HeaderComponent implements OnInit {
     }
   }
 
-  performSearch() {
-    if (this.searchQuery.trim() !== '') {
-      this.router.navigate(['/search'], { queryParams: { query: this.searchQuery } });
-    }
+performSearch(query: string) {
+  if (query.trim() === '') {
+      this.router.navigate(['/hotels'], { queryParams: {} });
+  } else {
+      this.router.navigate(['/hotels'], { queryParams: { query } });
   }
+}
 
   logout() {
     this.jwtService.clearToken();

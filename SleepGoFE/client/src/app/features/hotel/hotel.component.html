@@ -1,4 +1,5 @@
 <app-header></app-header>
+
 <div class="hotel-list">
   <mat-card *ngFor="let hotel of hotels" class="hotel-card" (click)="navigateToHotel(hotel.id)">
     <div class="hotel-container">
@@ -19,6 +20,7 @@
   </mat-card>
 
   <mat-paginator
+    *ngIf="!isSearchActive"
     [length]="totalHotels"
     [pageSize]="pageSize"
     [pageSizeOptions] ="[1, 5, 10, 20]"

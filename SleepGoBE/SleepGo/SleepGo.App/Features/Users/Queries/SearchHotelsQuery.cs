@@ -7,9 +7,9 @@ using SleepGo.App.Interfaces;
 
 namespace SleepGo.App.Features.Users.Queries
 {
-    public record SearchHotelsQuery(string query) : IRequest<IEnumerable<ResponseUserDto>>;
+    public record SearchHotelsQuery(string query) : IRequest<IEnumerable<ResponseHotelUserDto>>;
 
-    public class SearchHotelsQueryHandler : IRequestHandler<SearchHotelsQuery, IEnumerable<ResponseUserDto>>
+    public class SearchHotelsQueryHandler : IRequestHandler<SearchHotelsQuery, IEnumerable<ResponseHotelUserDto>>
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly ILogger<SearchHotelsQuery> _logger;
@@ -22,7 +22,7 @@ namespace SleepGo.App.Features.Users.Queries
             _mapper = mapper;
         }
 
-        public async Task<IEnumerable<ResponseUserDto>> Handle(SearchHotelsQuery request, CancellationToken cancellationToken)
+        public async Task<IEnumerable<ResponseHotelUserDto>> Handle(SearchHotelsQuery request, CancellationToken cancellationToken)
         {
             var query = request.query.ToLower();
             var hotelUsers = await _unitOfWork.UserRepository
@@ -33,10 +33,10 @@ namespace SleepGo.App.Features.Users.Queries
             if (!hotelUsers.Any())
             {
                 _logger.LogInformation("No hotels found matching the query.");
-                return Enumerable.Empty<ResponseUserDto>();
+                return Enumerable.Empty<ResponseHotelUserDto>();
             }
 
-            var hotelUsersDtos = _mapper.Map<IEnumerable<ResponseUserDto>>(hotelUsers);
+            var hotelUsersDtos = _mapper.Map<IEnumerable<ResponseHotelUserDto>>(hotelUsers);
 
             _logger.LogInformation("Hotels successfully retrieved.");
             return hotelUsersDtos;

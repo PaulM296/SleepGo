@@ -104,6 +104,8 @@ export class UserService {
   searchHotels(query: string): Observable<ResponseHotelModel[]> {
     const params = new HttpParams()
       .set('query', query);
+      // .set('pageIndex', pageIndex.toString())
+      // .set('pageSize', pageSize.toString());
 
     return this.http.get<ResponseHotelModel[]>(`${this.apiUrl}/search`, { params });
   }
