@@ -95,19 +95,21 @@ namespace SleepGo.Infrastructure.Repositories
 
         public async Task<PaginationResponseDto<AppUser>> GetPaginatedHotelsByIdAsync(int pageIndex, int pageSize)
         {
-            var user = await _context.Users
+            var query = _context.Users
                 .Include(u => u.Hotel)
                     .ThenInclude(i => i.Image)
-                .Where(u => u.Role == Role.Hotel)
+                .Where(u => u.Role == Role.Hotel);
+
+            var count = await query.CountAsync();
+            var totalPages = (int)Math.Ceiling(count / (double)pageSize);
+
+            var users = await query
                 .OrderBy(u => u.UserName)
                 .Skip((pageIndex - 1) * pageSize)
                 .Take(pageSize)
                 .ToListAsync();
 
-            var count = await _context.Users.CountAsync();
-            var totalPages = (int)Math.Ceiling(count / (double)pageSize);
-
-            return new PaginationResponseDto<AppUser>(user, pageIndex, totalPages);
+            return new PaginationResponseDto<AppUser>(users, pageIndex, totalPages);
         }
 
         public async Task<IEnumerable<AppUser>> FindAsync(Expression<Func<AppUser, bool>> predicate)

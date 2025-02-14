@@ -101,13 +101,13 @@ export class UserService {
     return this.http.delete<void>(`${environment.apiUrl}Image/${imageId}`);
   }
   
-  searchHotels(query: string): Observable<ResponseHotelModel[]> {
+  searchHotels(query: string, paginationRequest: PaginationRequest): Observable<PaginationResponse<ResponseHotelModel>> {
     const params = new HttpParams()
-      .set('query', query);
-      // .set('pageIndex', pageIndex.toString())
-      // .set('pageSize', pageSize.toString());
+      .set('query', query)
+      .set('pageIndex', paginationRequest.pageIndex.toString())
+      .set('pageSize', paginationRequest.pageSize.toString());
 
-    return this.http.get<ResponseHotelModel[]>(`${this.apiUrl}/search`, { params });
+    return this.http.get<PaginationResponse<ResponseHotelModel>>(`${this.apiUrl}/search`, { params });
   }
 
   getAllPaginatedHotels(paginationRequest: PaginationRequest): Observable<PaginationResponse<ResponseHotelModel>> {

@@ -8,7 +8,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
 import { UserService } from '../../core/services/user.service';
-import { switchMap } from 'rxjs';
+import { catchError, of, switchMap, tap } from 'rxjs';
 
 @Component({
   selector: 'app-hotel',
@@ -38,7 +38,7 @@ export class HotelComponent implements OnInit {
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
       this.searchQuery = params['query'] || null;
-
+      
       if (!this.searchQuery || this.searchQuery.trim() === '') {
         this.router.navigate(['/hotels'], { queryParams: {} }); 
         this.isSearchActive = false;
@@ -48,46 +48,53 @@ export class HotelComponent implements OnInit {
         this.loadHotels();
       }
     });
-}
+  }
 
-  loadHotels() {
+  loadHotels(): void {
     if (!this.searchQuery || this.searchQuery.trim() === '') {
       this.loadAllHotels();
       return;
     }
-  
+
     this.isSearchActive = true;
-    this.userService.searchHotels(this.searchQuery)
-      .subscribe((hotels: ResponseHotelModel[]) => {
-  
-        if (hotels) {
-          this.hotels = hotels;
+    const paginationRequest: PaginationRequest = { pageIndex: this.pageIndex + 1, pageSize: this.pageSize };
+
+    this.userService.searchHotels(this.searchQuery, paginationRequest)
+      .pipe(
+        tap(response => {
+          console.log("Search Response:", response);
+          this.hotels = response.items;
+          this.totalHotels = response.totalPages * this.pageSize;
           this.loadHotelImages();
-        } else {
+        }),
+        catchError(error => {
+          console.error("Error fetching searched hotels:", error);
           this.hotels = [];
-        }
-      }, error => {
-        console.error("Error fetching searched hotels:", error);
-        this.hotels = [];
-      });
+          return of();
+        })
+      )
+      .subscribe();
   }
 
-  loadAllHotels() {
+  loadAllHotels(): void {
     this.isSearchActive = false;
-    this.userService.getAllPaginatedHotels({ pageIndex: 1, pageSize: 10 })
-      .subscribe((response: PaginationResponse<ResponseHotelModel>) => {
-        console.log("All Hotels Response:", response);
-  
-        if (response && response.items) {
+    const paginationRequest: PaginationRequest = { pageIndex: this.pageIndex + 1, pageSize: this.pageSize };
+
+    this.userService.getAllPaginatedHotels(paginationRequest)
+      .pipe(
+        tap(response => {
+          console.log("All Hotels Response:", response);
           this.hotels = response.items;
+          this.totalHotels = response.totalPages * this.pageSize;
           this.loadHotelImages();
-        } else {
+        }),
+        catchError(error => {
+          console.error("Error fetching all hotels:", error);
           this.hotels = [];
-        }
-      }, error => {
-        console.error("Error fetching all hotels:", error);
-        this.hotels = [];
-      });
+          return of();
+        })
+      )
+      .subscribe();
   }
 
   loadHotelImages() {
@@ -107,8 +114,12 @@ export class HotelComponent implements OnInit {
     });
   }
 
-
-  onPageChange(event: PageEvent) {
+  onPageChange(event: PageEvent): void {
+    if (event.pageIndex * this.pageSize >= this.totalHotels) {
+      console.warn("No more pages, preventing navigation.");
+      return; 
+    }
+  
     this.pageIndex = event.pageIndex;
     this.pageSize = event.pageSize;
     this.loadHotels();

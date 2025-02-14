@@ -20,11 +20,11 @@
   </mat-card>
 
   <mat-paginator
-    *ngIf="!isSearchActive"
+    *ngIf="hotels.length > 0"
     [length]="totalHotels"
     [pageSize]="pageSize"
-    [pageSizeOptions] ="[1, 5, 10, 20]"
-    (page)="onPageChange($event)"
-    >
+    [pageSizeOptions]="[1, 5, 10, 20]"
+    [pageIndex]="pageIndex"
+    (page)="onPageChange($event)">
   </mat-paginator>
 </div>

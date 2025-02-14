@@ -2,14 +2,16 @@
 using MediatR;
 using Microsoft.Extensions.Logging;
 using SleepGo.App.DTOs.HotelDtos;
+using SleepGo.App.DTOs.PaginationDtos;
 using SleepGo.App.DTOs.UserDtos;
 using SleepGo.App.Interfaces;
+using SleepGo.Domain.Enums;
 
 namespace SleepGo.App.Features.Users.Queries
 {
-    public record SearchHotelsQuery(string query) : IRequest<IEnumerable<ResponseHotelUserDto>>;
+    public record SearchHotelsQuery(string query, PaginationRequestDto paginationRequestDto) : IRequest<PaginationResponseDto<ResponseHotelUserDto>>;
 
-    public class SearchHotelsQueryHandler : IRequestHandler<SearchHotelsQuery, IEnumerable<ResponseHotelUserDto>>
+    public class SearchHotelsQueryHandler : IRequestHandler<SearchHotelsQuery, PaginationResponseDto<ResponseHotelUserDto>>
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly ILogger<SearchHotelsQuery> _logger;
@@ -22,24 +24,32 @@ namespace SleepGo.App.Features.Users.Queries
             _mapper = mapper;
         }
 
-        public async Task<IEnumerable<ResponseHotelUserDto>> Handle(SearchHotelsQuery request, CancellationToken cancellationToken)
+        public async Task<PaginationResponseDto<ResponseHotelUserDto>> Handle(SearchHotelsQuery request, CancellationToken cancellationToken)
         {
             var query = request.query.ToLower();
-            var hotelUsers = await _unitOfWork.UserRepository
-                .FindAsync(u => u.Hotel.HotelName.ToLower().Contains(query) ||
+            var filteredHotels = await _unitOfWork.UserRepository
+                .FindAsync(u => u.Role == Role.Hotel && 
+                (u.Hotel.HotelName.ToLower().Contains(query) ||
                 u.Hotel.Country.ToLower().Contains(query) ||
-                u.Hotel.City.ToLower().Contains(query));
+                u.Hotel.City.ToLower().Contains(query)));
 
-            if (!hotelUsers.Any())
+            if (!filteredHotels.Any())
             {
                 _logger.LogInformation("No hotels found matching the query.");
-                return Enumerable.Empty<ResponseHotelUserDto>();
+                return new PaginationResponseDto<ResponseHotelUserDto>(new List<ResponseHotelUserDto>(), request.paginationRequestDto.PageIndex, 0);
             }
 
-            var hotelUsersDtos = _mapper.Map<IEnumerable<ResponseHotelUserDto>>(hotelUsers);
+            var totalCount = filteredHotels.Count();
+            var totalPages = (int)Math.Ceiling(totalCount / (double)request.paginationRequestDto.PageSize);
+            var paginatedHotels = filteredHotels
+                .Skip((request.paginationRequestDto.PageIndex - 1) * request.paginationRequestDto.PageSize)
+                .Take(request.paginationRequestDto.PageSize)
+                .ToList();
+
+            var hotelUsersDtos = _mapper.Map<IEnumerable<ResponseHotelUserDto>>(paginatedHotels);
 
             _logger.LogInformation("Hotels successfully retrieved.");
-            return hotelUsersDtos;
+            return new PaginationResponseDto<ResponseHotelUserDto>(hotelUsersDtos.ToList(), request.paginationRequestDto.PageIndex, totalPages);
         }
     }
 }
