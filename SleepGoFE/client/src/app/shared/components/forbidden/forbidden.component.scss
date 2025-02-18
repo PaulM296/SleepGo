@@ -1,0 +1,31 @@
+.forbidden-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #D2E7E7;
+}
+
+.forbidden-content {
+    text-align: center;
+    font: Arial, sans-serif;
+}
+
+.forbidden-content h1 {
+    font-size: 120px;
+    margin: 0;
+    color: #072E33;
+}
+
+.forbidden-content p {
+    font-size: 44px;
+    margin: 10px 0;
+    color: #072E33;
+}
+
+.forbidden-content span {
+    display: block;
+    margin: 20px 0;
+    font-size: 18px;
+    color: #072E33;
+}

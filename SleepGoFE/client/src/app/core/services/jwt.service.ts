@@ -30,4 +30,22 @@ export class JwtService {
   clearToken(): void {
     localStorage.removeItem('token');
   }
+
+  isLoggedIn(): boolean {
+    const token = this.getToken();
+    return !!token;
+  }
+
+  getUserRole(): string | null {
+    const token = this.getToken();
+    if(!token) return null;
+
+    try {
+      const decoded: any = jwtDecode(token);
+      return decoded.role || null;
+    } catch (error) {
+      console.error('Invalid token', error);
+      return null;
+    }
+  }
 }

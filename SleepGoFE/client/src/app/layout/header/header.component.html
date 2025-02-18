@@ -15,17 +15,23 @@
           </ng-template>
         </button>
     
-        <mat-menu #userMenu="matMenu">
+        <mat-menu #userMenu="matMenu" class="custom-menu">
           <p class="menu-header">{{ userName }}</p>
           <div class="menu-divider"></div>
-          <button mat-menu-item (click)="navigateToProfile()">Profile</button>
+          <button mat-menu-item (click)="navigateToProfile()">
+            <mat-icon>person</mat-icon> Profile
+          </button>
           <div class="menu-divider"></div>
-          <button mat-menu-item color="warn" (click)="logout()">Logout</button>
+          <button mat-menu-item color="warn" (click)="logout()">
+            <mat-icon>logout</mat-icon> Logout
+          </button>
         </mat-menu>
       </div>
 
     <ng-template #guestButtons>
-        <button mat-button color="accent" (click)="navigateToLogin()">Login</button>
-        <button mat-button color="accent" (click)="navigateToRegister()">Register</button>
+      <div class="guest-buttons">
+        <button mat-raised-button color="accent" (click)="navigateToLogin()">Login</button>
+        <button mat-raised-button color="accent" (click)="navigateToRegister()">Register</button>
+      </div>
     </ng-template>
 </mat-toolbar>

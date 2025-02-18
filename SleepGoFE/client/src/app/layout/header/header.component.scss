@@ -2,7 +2,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 20px;
+    padding: 0 80px;
     height: 80px;
     background-color: #0C7075;
     position: relative;
@@ -88,4 +88,14 @@ mat-toolbar {
     height: 1px;
     background-color: #d3d3d3;
     margin: 5px 0;
+}
+
+.guest-buttons {
+    display: flex;
+    gap: 5px;
+}
+
+
+.guest-buttons button {
+    margin: 0 5px;
 }

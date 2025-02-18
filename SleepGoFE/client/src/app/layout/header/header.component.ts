@@ -11,8 +11,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
-import { filter, Observable } from 'rxjs';
-import { ResponseHotelModel } from '../../shared/models/responseHotelModel';
+import { filter } from 'rxjs';
 import { SearchBarComponent } from "../../shared/components/search-bar/search-bar.component";
 
 @Component({
