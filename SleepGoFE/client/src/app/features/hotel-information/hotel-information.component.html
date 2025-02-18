@@ -1,5 +1,33 @@
 <app-header></app-header>
 
 <div class="hotel-information-container">
+  
+  <p *ngIf="!hotel">Loading hotel information...</p>
+
+  <div *ngIf="hotel">
     
+    <div class="hotel-image">
+      <img [src]="hotel.imageUrl || 'assets/default-hotel.jpg'" alt="Hotel Image">
+    </div>
+
+    <div class="hotel-details">
+      <h1>{{ hotel.hotelName }}</h1>
+      <p class="location"><mat-icon>location_on</mat-icon> {{ hotel.city }}, {{ hotel.country }}</p>
+      <p class="description">{{ hotel.hotelDescription }}</p>
+
+      <div class="rating-container">
+        <span class="rating">{{ hotel.rating.toFixed(1) }}</span>
+      </div>
+
+      <button 
+        mat-raised-button 
+        color="primary" 
+        (click)="openReviewDialog()" 
+        [disabled]="!hotelProfileId"
+        >
+        <mat-icon>rate_review</mat-icon> Write a Review
+    </button>
+    </div>
+
+  </div>
 </div>

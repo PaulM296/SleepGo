@@ -8,6 +8,7 @@ namespace SleepGo.App.DTOs.UserDtos
     public class ResponseHotelUserDto
     {
         public Guid Id { get; set; }
+        public Guid HotelId { get; set; }
         public string UserName { get; set; }
         public string Email { get; set; }
         public string PhoneNumber { get; set; }

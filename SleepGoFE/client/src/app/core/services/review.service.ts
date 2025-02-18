@@ -15,7 +15,13 @@ export class ReviewService {
   private http = inject(HttpClient);
 
   addReview(createReviewModel: CreateReviewModel): Observable<ResponseReviewModel> {
-    return this.http.post<ResponseReviewModel>(`${this.apiUrl}`, createReviewModel);
+    // return this.http.post<ResponseReviewModel>(`${this.apiUrl}`, createReviewModel);
+    const formData = new FormData();
+  formData.append('hotelId', createReviewModel.hotelId);
+  formData.append('reviewText', createReviewModel.reviewText);
+  formData.append('rating', createReviewModel.rating.toString());
+
+  return this.http.post<ResponseReviewModel>(`${this.apiUrl}`, formData);
   }
 
   updateReview(reviewId: string, updateReviewModel: UpdateReviewModel): Observable<ResponseReviewModel> {
