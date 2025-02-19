@@ -1,1 +1,30 @@
-<p>user-reviews works!</p>
+<app-header></app-header>
+
+<div class="container">
+    <mat-card class="reviews-card">
+        <mat-card-title>Your Reviews</mat-card-title>
+
+        <div *ngIf="reviews().length > 0">
+            <mat-card *ngFor="let review of reviews(); trackBy: trackById" class="review-card">
+                <mat-card-content>
+                    <h3>Hotel: {{ review.hotelName }}</h3>
+                    <p class="review-text">{{ review.reviewText }}</p>
+                    <p class="review-meta">
+                        <strong>Rating:</strong> {{ review.rating }} ⭐ | 
+                        <strong>Date:</strong> {{ review.createdAt | date:'short' }}
+                    </p>
+                </mat-card-content>
+            </mat-card>
+        </div>
+
+        <p *ngIf="reviews().length === 0" class="no-reviews">No reviews found.</p>
+
+        <mat-paginator
+            *ngIf="totalReviews() > 0"
+            [length]="totalReviews()"
+            [pageSize]="pageSize"
+            [pageSizeOptions]="[1, 5, 10, 20]"
+            (page)="onPageChange($event)">
+        </mat-paginator>
+    </mat-card>
+</div>

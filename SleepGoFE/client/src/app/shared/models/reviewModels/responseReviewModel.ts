@@ -2,6 +2,7 @@ export interface ResponseReviewModel {
     id: string;
     userId: string;
     hotelId: string;
+    hotelName: string;
     reviewText: string;
     createdAt: Date;
     userName: string;

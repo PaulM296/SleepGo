@@ -9,7 +9,8 @@ namespace SleepGo.App.MappingProfiles
         public ReviewMappings() 
         {
             CreateMap<Review, ResponseReviewDto>()
-                .ForMember(dest => dest.UserName, opt => opt.MapFrom(src => src.AppUser.UserName));
+                .ForMember(dest => dest.UserName, opt => opt.MapFrom(src => src.AppUser.UserName))
+                .ForMember(dest => dest.HotelName, opt => opt.MapFrom(src => src.Hotel.HotelName));
         }
     }
 }

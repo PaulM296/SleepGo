@@ -7,7 +7,7 @@
   <div *ngIf="hotel">
     
     <div class="hotel-image">
-      <img [src]="hotel.imageUrl || 'assets/default-hotel.jpg'" alt="Hotel Image">
+      <img [src]="hotel.imageUrl" alt="Hotel Image">
     </div>
 
     <div class="hotel-details">
@@ -27,6 +27,8 @@
         >
         <mat-icon>rate_review</mat-icon> Write a Review
     </button>
+    <button mat-raised-button (click)="navigateToCreateReservationPage()">
+        <mat-icon>assignment</mat-icon>Make a Reservation</button>
     </div>
 
   </div>

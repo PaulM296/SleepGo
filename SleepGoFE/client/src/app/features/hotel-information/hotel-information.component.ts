@@ -5,7 +5,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
 import { WriteReviewsComponent } from '../reviews/write-reviews/write-reviews.component';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from '../../core/services/user.service';
 import { ResponseHotelModel } from '../../shared/models/responseHotelModel';
 import { catchError, of, tap } from 'rxjs';
@@ -28,6 +28,7 @@ export class HotelInformationComponent implements OnInit {
   private dialog = inject(MatDialog);
   private route = inject(ActivatedRoute);
   private userService = inject(UserService);
+  private router = inject(Router);
 
   hotel!: ResponseHotelModel;
   hotelProfileId!: string;
@@ -95,5 +96,9 @@ export class HotelInformationComponent implements OnInit {
         console.log('Review submitted successfully!');
       }
     });
+  }
+
+  navigateToCreateReservationPage() {
+    this.router.navigate(['/make-reservation']);
   }
 }

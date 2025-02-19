@@ -5,6 +5,7 @@
         public Guid Id { get; set; }
         public Guid UserId { get; set; }
         public Guid HotelId { get; set; }
+        public string HotelName { get; set; }
         public string ReviewText { get; set; }
         public DateTime CreatedAt { get; set; }
         public string UserName { get; set; }

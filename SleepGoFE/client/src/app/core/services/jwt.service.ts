@@ -20,7 +20,7 @@ export class JwtService {
     if(!token) return null;
 
     const decodeToken = this.decodeToken(token);
-    return decodeToken?.sub || decodeToken?.userId || null
+    return decodeToken?.userId || decodeToken?.sub || null
   }
 
   getToken(): string | null {

@@ -1,1 +1,45 @@
-<p>make-reservation works!</p>
+<div class="container">
+  <mat-card class="reservation-card">
+    <mat-card-title>Make a Reservation</mat-card-title>
+
+    <form [formGroup]="reservationForm" (ngSubmit)="submitReservation()">
+      <mat-form-field appearance="outline" class="input-field">
+        <mat-label>Room Type</mat-label>
+        <mat-select formControlName="roomType" (selectionChange)="onRoomSelection($event)">
+          <mat-option *ngFor="let room of rooms" [value]="room.roomType">
+            {{ room.roomType }} - ${{ room.price }} / night
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="reservationForm.get('roomType')?.hasError('required')">
+          Room type is required
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="input-field">
+        <mat-label>Check-in Date</mat-label>
+        <input matInput [matDatepicker]="checkInPicker" formControlName="checkIn">
+        <mat-datepicker-toggle matIconSuffix [for]="checkInPicker"></mat-datepicker-toggle>
+        <mat-datepicker #checkInPicker></mat-datepicker>
+        <mat-error *ngIf="reservationForm.get('checkIn')?.hasError('required')">
+          Check-in date is required
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="input-field">
+        <mat-label>Check-out Date</mat-label>
+        <input matInput [matDatepicker]="checkOutPicker" formControlName="checkOut">
+        <mat-datepicker-toggle matIconSuffix [for]="checkOutPicker"></mat-datepicker-toggle>
+        <mat-datepicker #checkOutPicker></mat-datepicker>
+        <mat-error *ngIf="reservationForm.get('checkOut')?.hasError('required')">
+          Check-out date is required
+        </mat-error>
+      </mat-form-field>
+
+      <p *ngIf="totalPrice" class="price-info">Total Price: <strong>${{ totalPrice }}</strong></p>
+
+      <button mat-raised-button color="primary" type="submit" [disabled]="reservationForm.invalid" class="submit-button">
+        Confirm Reservation
+      </button>
+    </form>
+  </mat-card>
+</div>

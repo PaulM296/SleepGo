@@ -16,7 +16,8 @@ namespace SleepGo.Infrastructure.Repositories
         {
             var reviewsForHotel = await _context.Reviews
                 .Include(au => au.AppUser)
-                .ThenInclude(u => u.UserProfile)
+                    .ThenInclude(u => u.UserProfile)
+                .Include(r => r.Hotel)
                 .Where(r => r.HotelId == hotelId)
                 .OrderByDescending(r => r.CreatedAt)
                 .Skip((pageIndex - 1) * pageSize)
@@ -33,7 +34,8 @@ namespace SleepGo.Infrastructure.Repositories
         {
             var reviewsByUser = await _context.Reviews
                .Include(au => au.AppUser)
-               .ThenInclude(u => u.UserProfile)
+                .ThenInclude(u => u.UserProfile)
+               .Include(r => r.Hotel)
                .Where(r => r.UserId == userId)
                .OrderByDescending(r => r.CreatedAt)
                .Skip((pageIndex - 1) * pageSize)
