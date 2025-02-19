@@ -1,0 +1,35 @@
+<h2 mat-dialog-title>Edit Your Review</h2>
+
+<form [formGroup]="reviewForm" (ngSubmit)="onSave()" class="review-form-container">
+    <mat-form-field appearance="outline" class="full-width large-textarea">
+        <mat-label>Review</mat-label>
+        <textarea 
+            matInput rows="6" 
+            formControlName="reviewText"
+            (keyup)="updateCharacterCount()">
+        </textarea>
+        <mat-error *ngIf="reviewForm.get('reviewText')?.hasError('required')">
+            Review text is required
+        </mat-error>
+        <mat-error *ngIf="reviewForm.get('reviewText')?.hasError('maxLength')">
+            Review must be 1500 characters or fewer
+        </mat-error>
+    </mat-form-field>
+
+    <p [ngClass]="{ 'char-count-warning': characterCount > 1500 }">
+        {{ characterCount }} / 1500 characters
+    </p>
+
+    <mat-form-field appearance="outline" class="rating-field">
+        <mat-label>Rating</mat-label>
+        <input matInput type="number" formControlName="rating" min="1" max="10">
+        <mat-error *ngIf="reviewForm.get('rating')?.invalid">
+            Rating must be between 1 and 10
+        </mat-error>
+    </mat-form-field>
+
+    <div class="action-buttons">
+        <button mat-raised-button type="button" (click)="onCancel()" class="cancel-button">Cancel</button>
+        <button mat-raised-button color="primary" type="submit" [disabled]="reviewForm.invalid || characterCount > 1500">Save</button>
+    </div>
+</form>

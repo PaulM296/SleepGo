@@ -48,3 +48,13 @@
 mat-paginator {
     margin-top: 15px;
 }
+
+.review-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+mat-icon {
+    cursor: pointer;
+}

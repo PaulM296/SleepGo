@@ -9,6 +9,10 @@ import { JwtService } from '../../../core/services/jwt.service';
 import { ResponseReviewModel } from '../../../shared/models/reviewModels/responseReviewModel';
 import { PaginationRequest, PaginationResponse } from '../../../shared/models/paginationResponse';
 import { HeaderComponent } from "../../../layout/header/header.component";
+import { MatButtonModule } from '@angular/material/button';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { EditReviewDialogComponent } from '../../../shared/components/edit-review-dialog/edit-review-dialog.component';
 
 @Component({
   selector: 'app-user-reviews',
@@ -19,7 +23,10 @@ import { HeaderComponent } from "../../../layout/header/header.component";
     MatListModule,
     MatIconModule,
     MatPaginatorModule,
-    HeaderComponent
+    HeaderComponent,
+    MatButtonModule,
+    MatMenuModule,
+    MatDialogModule
 ],
   templateUrl: './user-reviews.component.html',
   styleUrl: './user-reviews.component.scss'
@@ -27,6 +34,7 @@ import { HeaderComponent } from "../../../layout/header/header.component";
 export class UserReviewsComponent implements OnInit {
   private reviewService = inject(ReviewService);
   private jwtService = inject(JwtService);
+  private dialog = inject(MatDialog);
 
   reviews = signal<ResponseReviewModel[]>([]);
   totalReviews = signal<number>(0);
@@ -76,6 +84,28 @@ export class UserReviewsComponent implements OnInit {
             this.totalReviews.set(response.items.length);
         },
         error: (error) => console.error("Error fetching total reviews:", error)
+    });
+  }
+
+  openEditDialog(review: ResponseReviewModel): void {
+    const dialogRef = this.dialog.open(EditReviewDialogComponent, {
+      width: '900px',
+      data: { review }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if(result) {
+        this.loadUserReviews();
+      }
+    });
+  }
+
+  deleteReview(reviewId: string): void {
+    this.reviewService.deleteReview(reviewId).subscribe({
+      next: () => {
+        this.loadUserReviews();
+      },
+      error: (error) => console.error('Error deleting review: ', error)
     });
   }
 
