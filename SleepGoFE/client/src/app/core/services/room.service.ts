@@ -5,7 +5,7 @@ import { ResponseRoomModel } from '../../shared/models/roomModels/responseRoomMo
 import { Observable } from 'rxjs';
 import { CreateRoomDto } from '../../shared/models/roomModels/createRoomModel';
 import { UpdateRoomModel } from '../../shared/models/roomModels/updateRoomModel';
-import { RoomType } from '../../shared/models/roomType';
+import { RoomType } from '../../shared/models/roomModels/roomType';
 import { PaginationRequest, PaginationResponse } from '../../shared/models/paginationResponse';
 
 @Injectable({
@@ -16,8 +16,12 @@ export class RoomService {
   private apiUrl = `${ environment.apiUrl }rooms`;
   private http = inject(HttpClient);
 
-  addRoomToHotel(room: CreateRoomDto): Observable<ResponseRoomModel> {
-    return this.http.post<ResponseRoomModel>(`${this.apiUrl}`, room);
+  addRoomToHotel(room: FormData): Observable<ResponseRoomModel> {
+    return this.http.post<ResponseRoomModel>(`${this.apiUrl}`, room, {
+      headers: {
+        'enctype': 'multipart/form-data'
+      }
+    });
   }
 
   updateRoom(roomId: string, room: UpdateRoomModel): Observable<ResponseRoomModel> {
@@ -34,17 +38,17 @@ export class RoomService {
       .set('roomType', roomType.toString())
       .set('pageIndex', paginationRequest.pageIndex.toString())
       .set('pageSize', paginationRequest.pageSize.toString());
+      
     return this.http.get<PaginationResponse<ResponseRoomModel>>(`${this.apiUrl}/hotel/${hotelId}/rooms`, { params });
   }
 
   getAvailableRoomsFromHotelByRoomType(hotelId: string, roomType: RoomType, paginationRequest: PaginationRequest): 
   Observable<PaginationResponse<ResponseRoomModel>> {
-    return this.http.get<PaginationResponse<ResponseRoomModel>>(`${this.apiUrl}/hotel/${hotelId}/available`, {
-      params: {
-        roomType: roomType.toString(),
-        pageIndex: paginationRequest.pageIndex.toString(),
-        pageSize: paginationRequest.pageSize.toString(),
-      }
-    });
+    const params = new HttpParams()
+      .set('roomType', roomType.toString())
+      .set('pageIndex', paginationRequest.pageIndex.toString())
+      .set('pageSize', paginationRequest.pageSize.toString());
+
+    return this.http.get<PaginationResponse<ResponseRoomModel>>(`${this.apiUrl}/hotel/${hotelId}/available`, { params })
   }
 }

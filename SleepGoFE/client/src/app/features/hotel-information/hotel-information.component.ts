@@ -31,7 +31,7 @@ export class HotelInformationComponent implements OnInit {
   private router = inject(Router);
 
   hotel!: ResponseHotelModel;
-  hotelProfileId!: string;
+  hotelId!: string;
   userId?: string;
 
   ngOnInit(): void {
@@ -55,7 +55,7 @@ export class HotelInformationComponent implements OnInit {
       .subscribe(response => {
         if (response && 'hotelId' in response) {
           this.hotel = response as ResponseHotelModel;
-          this.hotelProfileId = String(response.hotelId);
+          this.hotelId = String(response.hotelId);
   
           this.loadHotelImage();
         } else {
@@ -80,7 +80,7 @@ export class HotelInformationComponent implements OnInit {
   
 
   openReviewDialog() {
-    if (!this.hotelProfileId) {
+    if (!this.hotelId) {
       console.error("Hotel Profile ID is missing!");
       return;
     }
@@ -88,7 +88,7 @@ export class HotelInformationComponent implements OnInit {
     const dialogRef = this.dialog.open(WriteReviewsComponent, {
       width: '900px',
       maxWidth: '95vw',
-      data: { hotelId: this.hotelProfileId } 
+      data: { hotelId: this.hotelId } 
     });
 
     dialogRef.afterClosed().subscribe(result => {

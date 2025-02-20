@@ -1,4 +1,5 @@
-import { RoomType } from "../roomType";
+import { RoomType } from "./roomType";
+
 
 export interface CreateRoomDto {
     hotelId: string;

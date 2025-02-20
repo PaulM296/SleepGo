@@ -15,6 +15,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
+import { HeaderComponent } from "../../../layout/header/header.component";
 
 @Component({
   selector: 'app-make-reservation',
@@ -24,14 +25,15 @@ import { MatCardModule } from '@angular/material/card';
     CommonModule,
     ReactiveFormsModule,
     MatFormFieldModule,
-    MatOptionModule, 
+    MatOptionModule,
     MatDatepickerModule,
     ReactiveFormsModule,
     MatSelectModule,
     MatNativeDateModule,
-    MatInputModule, 
-    MatCardModule
-  ],
+    MatInputModule,
+    MatCardModule,
+    HeaderComponent
+],
   templateUrl: './make-reservation.component.html',
   styleUrl: './make-reservation.component.scss'
 })

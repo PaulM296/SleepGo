@@ -1,5 +1,5 @@
 import { ResponseReservationModel } from "../reservationModels/responseReservationModel";
-import { RoomType } from "../roomType";
+import { RoomType } from "./roomType";
 
 export interface ResponseRoomModel {
     id: string;
@@ -10,8 +10,8 @@ export interface ResponseRoomModel {
     balcony: boolean;
     airConditioning: boolean;
     kitchenette: boolean;
-    Hairdryer: boolean;
-    TV: boolean;
-    IsReserved: boolean;
+    hairdryer: boolean;
+    tv: boolean;
+    isReserved: boolean;
     reservations: ResponseReservationModel[];
 }

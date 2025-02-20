@@ -13,6 +13,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { EditReviewDialogComponent } from '../../../shared/components/edit-review-dialog/edit-review-dialog.component';
+import { ConfirmDialogComponent } from '../../../shared/components/confirm-dialog/confirm-dialog.component';
+import { SnackbarService } from '../../../core/services/snackbar.service';
 
 @Component({
   selector: 'app-user-reviews',
@@ -35,6 +37,7 @@ export class UserReviewsComponent implements OnInit {
   private reviewService = inject(ReviewService);
   private jwtService = inject(JwtService);
   private dialog = inject(MatDialog);
+  private snackbarService = inject(SnackbarService);
 
   reviews = signal<ResponseReviewModel[]>([]);
   totalReviews = signal<number>(0);
@@ -101,13 +104,30 @@ export class UserReviewsComponent implements OnInit {
   }
 
   deleteReview(reviewId: string): void {
-    this.reviewService.deleteReview(reviewId).subscribe({
-      next: () => {
-        this.loadUserReviews();
-      },
-      error: (error) => console.error('Error deleting review: ', error)
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      width: '400px',
+      data: { 
+        title: 'Delete Review',
+        message: 'Are you sure you want to delete this review? This action is permanent!' 
+      }
+    });
+  
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.reviewService.deleteReview(reviewId).subscribe({
+          next: () => {
+            this.snackbarService.success("Review deleted successfully!");
+            this.loadUserReviews();
+          },
+          error: (error) => {
+            this.snackbarService.error("Failed to delete review.");
+            console.error('Error deleting review: ', error);
+          }
+        });
+      }
     });
   }
+  
 
   onPageChange(event: PageEvent): void {
     this.pageIndex = event.pageIndex;

@@ -4,7 +4,7 @@ import { ResponseReviewModel } from "./reviewModels/responseReviewModel";
 
 export interface ResponseHotelModel {
     id: string;
-    hotelProfileId: string;
+    hotelId: string;
     userName: string;
     email: string;
     phoneNumber: string;

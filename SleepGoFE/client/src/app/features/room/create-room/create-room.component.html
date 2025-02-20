@@ -1,0 +1,77 @@
+<mat-card class="room-card">
+    <mat-card-title>Add a New Room</mat-card-title>
+    <form [formGroup]="roomForm" (ngSubmit)="submitRoom()">
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Room Type</mat-label>
+        <mat-select formControlName="roomType">
+          <mat-option *ngFor="let type of roomTypes" [value]="type">{{ type }}</mat-option>
+        </mat-select>
+        <mat-error *ngIf="roomForm.get('roomType')?.hasError('required')">Room Type is required</mat-error>
+      </mat-form-field>
+  
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Room Number</mat-label>
+        <input matInput type="number" formControlName="roomNumber">
+        <mat-error *ngIf="roomForm.get('roomNumber')?.hasError('required')">Room Number is required</mat-error>
+      </mat-form-field>
+  
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Price</mat-label>
+        <input matInput type="number" formControlName="price">
+        <mat-error *ngIf="roomForm.get('price')?.hasError('required')">Price is required</mat-error>
+      </mat-form-field>
+
+      <!-- Dropdown for Boolean Fields -->
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Balcony</mat-label>
+        <mat-select formControlName="balcony">
+          <mat-option [value]="true">Yes</mat-option>
+          <mat-option [value]="false">No</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Air Conditioning</mat-label>
+        <mat-select formControlName="airConditioning">
+          <mat-option [value]="true">Yes</mat-option>
+          <mat-option [value]="false">No</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Kitchenette</mat-label>
+        <mat-select formControlName="kitchenette">
+          <mat-option [value]="true">Yes</mat-option>
+          <mat-option [value]="false">No</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Hairdryer</mat-label>
+        <mat-select formControlName="hairdryer">
+          <mat-option [value]="true">Yes</mat-option>
+          <mat-option [value]="false">No</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>TV</mat-label>
+        <mat-select formControlName="tv">
+          <mat-option [value]="true">Yes</mat-option>
+          <mat-option [value]="false">No</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Reserved</mat-label>
+        <mat-select formControlName="isReserved">
+          <mat-option [value]="true">Yes</mat-option>
+          <mat-option [value]="false">No</mat-option>
+        </mat-select>
+      </mat-form-field>
+  
+      <div class="button-group">
+        <button mat-raised-button color="primary" type="submit" [disabled]="roomForm.invalid">Add Room</button>
+      </div>
+    </form>
+</mat-card>

@@ -1,0 +1,63 @@
+<app-header></app-header>
+
+<div class="container">
+    <mat-card class="filter-card">
+        <mat-card-title>Select Room Type</mat-card-title>
+        <form [formGroup]="filterForm">
+            <mat-form-field appearance="outline">
+                <mat-label>Room Type</mat-label>
+                <mat-select formControlName="roomType">
+                    <mat-option *ngFor="let type of roomTypes" [value]="type">{{ type }}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </form>
+    </mat-card>
+
+    <div *ngIf="rooms.length > 0; else noRoomsFound">
+        <div class="rooms-grid">
+            <mat-card *ngFor="let room of rooms" class="room-card">
+                <mat-card-header class="card-header">
+                    <div class="room-info">
+                        <mat-card-title>{{ RoomType[room.roomType] }}</mat-card-title>
+                    <mat-card-subtitle>Room #{{ room.roomNumber }}</mat-card-subtitle>
+                    </div>
+
+                    <button mat-icon-button [matMenuTriggerFor]="roomMenu" (click)="setSelectedRoom(room)" class="more-icon">
+                        <mat-icon>more_vert</mat-icon>
+                    </button>
+        
+                    <mat-menu #roomMenu="matMenu">
+                        <button mat-menu-item (click)="selectedRoom && openUpdateDialog(selectedRoom)">
+                            <mat-icon>edit</mat-icon> Update Room
+                        </button>
+                        <button mat-menu-item (click)="selectedRoom && deleteRoom(selectedRoom.id)">
+                            <mat-icon>delete</mat-icon> Delete Room
+                        </button>
+                    </mat-menu>
+                    
+                </mat-card-header>
+                <mat-card-content>
+                    <p><strong>Price:</strong> ${{ room.price }} / night</p>
+                    <p><strong>Balcony:</strong> {{ room.balcony ? 'Yes' : 'No' }}</p>
+                    <p><strong>Air Conditioning:</strong> {{ room.airConditioning ? 'Yes' : 'No' }}</p>
+                    <p><strong>Kitchenette:</strong> {{ room.kitchenette ? 'Yes' : 'No' }}</p>
+                    <p><strong>Hairdryer:</strong> {{ room.hairdryer ? 'Yes' : 'No' }}</p>
+                    <p><strong>TV:</strong> {{ room.tv ? 'Yes' : 'No' }}</p>
+                    <p><strong>Reserved:</strong> {{ room.isReserved ? 'Yes' : 'No' }}</p>
+                </mat-card-content>
+            </mat-card>
+        </div>
+    </div>
+
+    <ng-template #noRoomsFound>
+        <p class="no-rooms-message">No rooms found for the selected type.</p>
+    </ng-template>
+
+    <mat-paginator
+        [length]="totalPages * pageSize"
+        [pageSize]="pageSize"
+        [pageSizeOptions]="[1, 5, 10, 20]"
+        (page)="onPageChange($event)"
+    >
+    </mat-paginator>
+</div>

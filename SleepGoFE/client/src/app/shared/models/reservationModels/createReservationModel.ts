@@ -1,4 +1,4 @@
-import { RoomType } from "../roomType";
+import { RoomType } from "../roomModels/roomType";
 import { ReservationStatus } from "./reservationStatus";
 
 export interface CreateReservationModel {
