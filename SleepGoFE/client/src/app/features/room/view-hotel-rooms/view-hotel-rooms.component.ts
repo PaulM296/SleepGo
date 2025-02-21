@@ -16,7 +16,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { ResponseRoomModel } from '../../../shared/models/roomModels/responseRoomModel';
 import { RoomType } from '../../../shared/models/roomModels/roomType';
-import { PaginationRequest } from '../../../shared/models/paginationResponse';
+import { PaginationRequest } from '../../../shared/models/paginationModels/paginationResponse';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatMenuModule } from '@angular/material/menu';
 import { UpdateRoomModel } from '../../../shared/models/roomModels/updateRoomModel';

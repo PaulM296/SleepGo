@@ -5,7 +5,7 @@ import { CreateReviewModel } from '../../shared/models/reviewModels/createReview
 import { Observable } from 'rxjs';
 import { ResponseReviewModel } from '../../shared/models/reviewModels/responseReviewModel';
 import { UpdateReviewModel } from '../../shared/models/reviewModels/updateReviewModel';
-import { PaginationRequest, PaginationResponse } from '../../shared/models/paginationResponse';
+import { PaginationRequest, PaginationResponse } from '../../shared/models/paginationModels/paginationResponse';
 
 @Injectable({
   providedIn: 'root'

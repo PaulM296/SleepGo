@@ -1,5 +1,5 @@
 import { AfterViewInit, ChangeDetectorRef, Component, inject, OnInit, ViewChild } from '@angular/core';
-import { ResponseUserModel } from '../../../shared/models/responseUserModel';
+import { ResponseUserModel } from '../../../shared/models/userModels/responseUserModel';
 import { UserService } from '../../../core/services/user.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatButtonModule } from '@angular/material/button';
@@ -9,6 +9,7 @@ import { CommonModule } from '@angular/common';
 import { MatCard } from '@angular/material/card';
 import { SnackbarService } from '../../../core/services/snackbar.service';
 import { MatPaginator } from '@angular/material/paginator';
+import { HeaderComponent } from "../../../layout/header/header.component";
 
 @Component({
   selector: 'app-user-details',
@@ -20,8 +21,9 @@ import { MatPaginator } from '@angular/material/paginator';
     CommonModule,
     MatButtonModule,
     MatCard,
-    MatPaginator
-  ],
+    MatPaginator,
+    HeaderComponent
+],
   templateUrl: './user-details.component.html',
   styleUrl: './user-details.component.scss'
 })

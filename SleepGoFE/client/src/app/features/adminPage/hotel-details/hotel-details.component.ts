@@ -1,6 +1,6 @@
 import { AfterViewInit, ChangeDetectorRef, Component, inject, OnInit, ViewChild } from '@angular/core';
 import { UserService } from '../../../core/services/user.service';
-import { ResponseHotelModel } from '../../../shared/models/responseHotelModel';
+import { ResponseHotelModel } from '../../../shared/models/userModels/responseHotelModel';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -8,6 +8,7 @@ import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { CommonModule } from '@angular/common';
 import { SnackbarService } from '../../../core/services/snackbar.service';
 import { MatCard } from '@angular/material/card';
+import { HeaderComponent } from "../../../layout/header/header.component";
 
 @Component({
   selector: 'app-hotel-details',
@@ -18,8 +19,9 @@ import { MatCard } from '@angular/material/card';
     MatToolbarModule,
     MatPaginatorModule,
     CommonModule,
-    MatCard
-  ],
+    MatCard,
+    HeaderComponent
+],
   templateUrl: './hotel-details.component.html',
   styleUrl: './hotel-details.component.scss'
 })

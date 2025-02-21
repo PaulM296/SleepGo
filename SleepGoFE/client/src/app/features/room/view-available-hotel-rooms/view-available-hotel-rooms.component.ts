@@ -17,7 +17,7 @@ import { JwtService } from '../../../core/services/jwt.service';
 import { SnackbarService } from '../../../core/services/snackbar.service';
 import { ResponseRoomModel } from '../../../shared/models/roomModels/responseRoomModel';
 import { RoomType } from '../../../shared/models/roomModels/roomType';
-import { PaginationRequest } from '../../../shared/models/paginationResponse';
+import { PaginationRequest } from '../../../shared/models/paginationModels/paginationResponse';
 import { RoomService } from '../../../core/services/room.service';
 import { UpdateRoomDialogComponent } from '../../../shared/components/update-room-dialog/update-room-dialog.component';
 import { UpdateRoomModel } from '../../../shared/models/roomModels/updateRoomModel';
@@ -146,7 +146,7 @@ export class ViewAvailableHotelRoomsComponent implements OnInit {
             this.lastRoomType = roomType;
           }
       } else {
-        this.snackbarService.error("Error fetching rooms.");
+        // this.snackbarService.error("Error fetching rooms.");
         console.error("Error fetching rooms:", error);
         }
       }

@@ -14,17 +14,72 @@
             <mat-icon class="avatar-icon">account_circle</mat-icon>
           </ng-template>
         </button>
-    
+
         <mat-menu #userMenu="matMenu" class="custom-menu">
           <p class="menu-header">{{ userName }}</p>
           <div class="menu-divider"></div>
-          <button mat-menu-item (click)="navigateToProfile()">
-            <mat-icon>person</mat-icon> Profile
-          </button>
-          <div class="menu-divider"></div>
-          <button mat-menu-item color="warn" (click)="logout()">
-            <mat-icon>logout</mat-icon> Logout
-          </button>
+
+          <ng-container *ngIf="userRole === 'Hotel'; else normalUserMenu">
+            <button mat-menu-item (click)="navigateToProfile()">
+              <mat-icon>business</mat-icon> Hotel Profile
+            </button>
+            <button mat-menu-item (click)="navigateToHotelRooms()">
+              <mat-icon>bedroom_parent</mat-icon> Hotel Rooms
+            </button>
+            <button mat-menu-item (click)="navigateToAvailableHotelRooms()">
+              <mat-icon>bedroom_parent</mat-icon> Available Hotel Rooms
+            </button>
+            <button mat-menu-item (click)="navigateToHotelReviews()">
+              <mat-icon>rate_review</mat-icon> Hotel Reviews
+            </button>
+            <button mat-menu-item (click)="navigateToHotelReservations()">
+              <mat-icon>assignment</mat-icon> Hotel Reservations
+            </button>
+            <button mat-menu-item (click)="navigateToHotelsList()">
+              <mat-icon>hotel</mat-icon> Search Hotels
+            </button>
+            <button mat-menu-item (click)="logout()">
+              <mat-icon>logout</mat-icon> Logout
+            </button>
+          </ng-container>
+
+          <ng-template #normalUserMenu>
+            <ng-container *ngIf="userRole === 'User'; else adminUserMenu">
+              <button mat-menu-item (click)="navigateToProfile()">
+                <mat-icon>person</mat-icon> My Profile
+              </button>
+              <button mat-menu-item (click)="navigateToHotelsList()">
+                <mat-icon>hotel</mat-icon> Search Hotels
+              </button>
+              <button mat-menu-item (click)="navigateToUserReviews()">
+                <mat-icon>rate_review</mat-icon> My Reviews
+              </button>
+              <button mat-menu-item (click)="navigateToUserReservations()">
+                <mat-icon>assignment</mat-icon> My Reservations
+              </button>
+              <button mat-menu-item (click)="logout()">
+                <mat-icon>logout</mat-icon> Logout
+              </button>
+            </ng-container>
+          </ng-template>
+
+          <ng-template #adminUserMenu>
+            <button mat-menu-item (click)="navigateToProfile()">
+              <mat-icon>account_circle</mat-icon> My Profile
+            </button>
+            <button mat-menu-item (click)="navigateToHotelsList()">
+              <mat-icon>hotel</mat-icon> Search Hotels
+            </button>
+            <button mat-menu-item (click)="navigateToAdminUsersPage()">
+              <mat-icon>person</mat-icon> Users
+            </button>
+            <button mat-menu-item (click)="navigateToAdminHotelsPage()">
+              <mat-icon>business</mat-icon> Hotels
+            </button>
+            <button mat-menu-item (click)="logout()">
+              <mat-icon>logout</mat-icon> Logout
+            </button>
+          </ng-template>
         </mat-menu>
       </div>
 

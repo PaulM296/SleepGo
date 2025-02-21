@@ -1,9 +1,9 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { HeaderComponent } from "../../layout/header/header.component";
 import { ActivatedRoute, Router } from '@angular/router';
-import { ResponseHotelModel } from '../../shared/models/responseHotelModel';
+import { ResponseHotelModel } from '../../shared/models/userModels/responseHotelModel';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
-import { PaginationRequest, PaginationResponse } from '../../shared/models/paginationResponse';
+import { PaginationRequest, PaginationResponse } from '../../shared/models/paginationModels/paginationResponse';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';

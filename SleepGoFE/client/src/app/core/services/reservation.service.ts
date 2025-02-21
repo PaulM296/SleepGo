@@ -5,7 +5,7 @@ import { CreateReservationModel } from '../../shared/models/reservationModels/cr
 import { Observable } from 'rxjs';
 import { ResponseReservationModel } from '../../shared/models/reservationModels/responseReservationModel';
 import { UpdateReservationModel } from '../../shared/models/reservationModels/updateReservationModel';
-import { PaginationRequest, PaginationResponse } from '../../shared/models/paginationResponse';
+import { PaginationRequest, PaginationResponse } from '../../shared/models/paginationModels/paginationResponse';
 
 @Injectable({
   providedIn: 'root'

@@ -12,7 +12,7 @@ import { JwtService } from '../../../core/services/jwt.service';
 import { RoomType } from '../../../shared/models/roomModels/roomType';
 import { Router } from '@angular/router';
 import { UserService } from '../../../core/services/user.service';
-import { ResponseHotelModel } from '../../../shared/models/responseHotelModel';
+import { ResponseHotelModel } from '../../../shared/models/userModels/responseHotelModel';
 
 @Component({
   selector: 'app-create-room',

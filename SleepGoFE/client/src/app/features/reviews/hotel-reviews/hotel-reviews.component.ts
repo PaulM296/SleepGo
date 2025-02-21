@@ -11,7 +11,7 @@ import { ReviewService } from '../../../core/services/review.service';
 import { SnackbarService } from '../../../core/services/snackbar.service';
 import { Router } from '@angular/router';
 import { ResponseReviewModel } from '../../../shared/models/reviewModels/responseReviewModel';
-import { PaginationRequest, PaginationResponse } from '../../../shared/models/paginationResponse';
+import { PaginationRequest, PaginationResponse } from '../../../shared/models/paginationModels/paginationResponse';
 import { UserService } from '../../../core/services/user.service';
 
 @Component({

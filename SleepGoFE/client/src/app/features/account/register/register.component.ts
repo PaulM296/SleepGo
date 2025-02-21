@@ -12,7 +12,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { SnackbarService } from '../../../core/services/snackbar.service';
 import { UserService } from '../../../core/services/user.service';
-import { AuthResponse } from '../../../shared/models/authResponse';
+import { AuthResponse } from '../../../shared/models/registrationModels/authResponse';
 
 @Component({
   selector: 'app-register',

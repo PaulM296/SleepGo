@@ -1,4 +1,4 @@
-import { BaseRegistrationModel } from "./baseRegistrationModel";
+import { BaseRegistrationModel } from "../registrationModels/baseRegistrationModel";
 
 export interface UserRegistrationModel extends BaseRegistrationModel {
     firstName: string;

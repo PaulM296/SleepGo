@@ -2,12 +2,12 @@ import { Inject, inject, Injectable, input } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { map, Observable } from 'rxjs';
-import { AuthResponse } from '../../shared/models/authResponse';
-import { UserRegistrationModel } from '../../shared/models/userRegistrationMode';
-import { HotelRegistrationModel } from '../../shared/models/hotelRegistrationModel';
-import { PaginationRequest, PaginationResponse } from '../../shared/models/paginationResponse';
-import { ResponseUserModel } from '../../shared/models/responseUserModel';
-import { ResponseHotelModel } from '../../shared/models/responseHotelModel';
+import { AuthResponse } from '../../shared/models/registrationModels/authResponse';
+import { UserRegistrationModel } from '../../shared/models/userModels/userRegistrationMode';
+import { HotelRegistrationModel } from '../../shared/models/registrationModels/hotelRegistrationModel';
+import { PaginationRequest, PaginationResponse } from '../../shared/models/paginationModels/paginationResponse';
+import { ResponseUserModel } from '../../shared/models/userModels/responseUserModel';
+import { ResponseHotelModel } from '../../shared/models/userModels/responseHotelModel';
 
 @Injectable({
   providedIn: 'root'

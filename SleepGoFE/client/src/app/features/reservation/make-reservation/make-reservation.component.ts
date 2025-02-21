@@ -6,7 +6,7 @@ import { ReservationService } from '../../../core/services/reservation.service';
 import { JwtService } from '../../../core/services/jwt.service';
 import { SnackbarService } from '../../../core/services/snackbar.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ResponseHotelModel } from '../../../shared/models/responseHotelModel';
+import { ResponseHotelModel } from '../../../shared/models/userModels/responseHotelModel';
 import { ResponseRoomModel } from '../../../shared/models/roomModels/responseRoomModel';
 import { ReservationStatus } from '../../../shared/models/reservationModels/reservationStatus';
 import { MatFormFieldModule } from '@angular/material/form-field';

@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 import { CreateRoomDto } from '../../shared/models/roomModels/createRoomModel';
 import { UpdateRoomModel } from '../../shared/models/roomModels/updateRoomModel';
 import { RoomType } from '../../shared/models/roomModels/roomType';
-import { PaginationRequest, PaginationResponse } from '../../shared/models/paginationResponse';
+import { PaginationRequest, PaginationResponse } from '../../shared/models/paginationModels/paginationResponse';
 
 @Injectable({
   providedIn: 'root'

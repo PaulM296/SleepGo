@@ -1,7 +1,7 @@
 import { Component, ElementRef, inject, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ResponseUserModel } from '../../../shared/models/responseUserModel';
-import { ResponseHotelModel } from '../../../shared/models/responseHotelModel';
+import { ResponseUserModel } from '../../../shared/models/userModels/responseUserModel';
+import { ResponseHotelModel } from '../../../shared/models/userModels/responseHotelModel';
 import { UserService } from '../../../core/services/user.service';
 import { JwtService } from '../../../core/services/jwt.service';
 import { SnackbarService } from '../../../core/services/snackbar.service';
@@ -17,6 +17,7 @@ import { ConfirmDialogComponent } from '../../../shared/components/confirm-dialo
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { AvatarComponent } from '../../../shared/components/avatar/avatar.component';
+import { HeaderComponent } from "../../../layout/header/header.component";
 
 @Component({
   selector: 'app-user-profile',
@@ -32,8 +33,9 @@ import { AvatarComponent } from '../../../shared/components/avatar/avatar.compon
     MatDatepickerModule,
     MatNativeDateModule,
     MatDialogModule,
-    AvatarComponent
-  ],
+    AvatarComponent,
+    HeaderComponent
+],
   templateUrl: './user-profile.component.html',
   styleUrl: './user-profile.component.scss'
 })

@@ -7,7 +7,7 @@ import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { ReviewService } from '../../../core/services/review.service';
 import { JwtService } from '../../../core/services/jwt.service';
 import { ResponseReviewModel } from '../../../shared/models/reviewModels/responseReviewModel';
-import { PaginationRequest, PaginationResponse } from '../../../shared/models/paginationResponse';
+import { PaginationRequest, PaginationResponse } from '../../../shared/models/paginationModels/paginationResponse';
 import { HeaderComponent } from "../../../layout/header/header.component";
 import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';

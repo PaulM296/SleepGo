@@ -7,7 +7,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { WriteReviewsComponent } from '../reviews/write-reviews/write-reviews.component';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from '../../core/services/user.service';
-import { ResponseHotelModel } from '../../shared/models/responseHotelModel';
+import { ResponseHotelModel } from '../../shared/models/userModels/responseHotelModel';
 import { catchError, of, tap } from 'rxjs';
 import { CommonModule } from '@angular/common';
 

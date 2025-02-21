@@ -34,6 +34,7 @@ import { SearchBarComponent } from "../../shared/components/search-bar/search-ba
 })
 export class HeaderComponent implements OnInit {
   isLoggedIn = false;
+  userRole: string | null = null;
   userImageUrl: string | null = null;
   userName: string = '';
   searchQuery: string = '';
@@ -58,6 +59,7 @@ export class HeaderComponent implements OnInit {
 
   checkUserStatus() {
     this.isLoggedIn = !!this.jwtService.getToken();
+    this.userRole = this.jwtService.getUserRole();
 
     if (this.isLoggedIn) {
       this.userService.getLoggedUser().subscribe(user => {
@@ -109,5 +111,41 @@ performSearch(query: string) {
 
   navigateToHome() {
     this.router.navigate(['']);
+  }
+
+  navigateToUserReviews() {
+    this.router.navigate(['user-reviews']);
+  }
+
+  navigateToHotelReviews() {
+    this.router.navigate(['hotel-reviews']);
+  }
+
+  navigateToUserReservations() {
+    this.router.navigate(['user-reservations']);
+  }
+
+  navigateToHotelReservations() {
+    this.router.navigate(['hotel-reservations']);
+  }
+
+  navigateToHotelRooms() {
+    this.router.navigate(['hotel-rooms-by-type']);
+  }
+
+  navigateToAvailableHotelRooms() {
+    this.router.navigate(['available-hotel-rooms-by-type']);
+  }
+
+  navigateToAdminUsersPage() {
+    this.router.navigate(['adminPage/users']);
+  }
+
+  navigateToAdminHotelsPage() {
+    this.router.navigate(['adminPage/hotels']);
+  }
+
+  navigateToHotelsList() {
+    this.router.navigate(['/hotels'])
   }
 }
