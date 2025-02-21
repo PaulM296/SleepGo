@@ -36,12 +36,12 @@ export class ReservationService {
       return this.http.get<PaginationResponse<ResponseReservationModel>>(`${this.apiUrl}/hotel/${hotelId}`, { params });
     }
 
-  getAllUserReservations(paginationRequest: PaginationRequest): 
+  getAllUserReservations(userId: string, paginationRequest: PaginationRequest): 
     Observable<PaginationResponse<ResponseReservationModel>> {
       const params = new HttpParams()
         .set('pageIndex', paginationRequest.pageIndex.toString())
         .set('pageSize', paginationRequest.pageSize.toString());
 
-      return this.http.get<PaginationResponse<ResponseReservationModel>>(`${this.apiUrl}/user`, { params });
+      return this.http.get<PaginationResponse<ResponseReservationModel>>(`${this.apiUrl}/user/${userId}`, { params });
     }
 }

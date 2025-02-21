@@ -13,6 +13,7 @@ import { RoomType } from '../../../shared/models/roomModels/roomType';
 import { Router } from '@angular/router';
 import { UserService } from '../../../core/services/user.service';
 import { ResponseHotelModel } from '../../../shared/models/userModels/responseHotelModel';
+import { HeaderComponent } from "../../../layout/header/header.component";
 
 @Component({
   selector: 'app-create-room',
@@ -24,8 +25,9 @@ import { ResponseHotelModel } from '../../../shared/models/userModels/responseHo
     MatFormFieldModule,
     MatInputModule,
     MatSelectModule,
-    ReactiveFormsModule
-  ],
+    ReactiveFormsModule,
+    HeaderComponent
+],
   templateUrl: './create-room.component.html',
   styleUrl: './create-room.component.scss'
 })

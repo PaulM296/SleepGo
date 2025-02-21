@@ -4,7 +4,7 @@ export interface ResponseReservationModel {
     roomId: string;
     hotelName: string;
     checkIn: Date;
-    checkout: Date;
+    checkOut: Date;
     price: number;
     status: string;
 }

@@ -16,6 +16,10 @@ mat-form-field {
     justify-content: center;
     align-items: center;
     margin-bottom: 20px;
+    border-radius: 50%;
+    overflow: hidden;
+    box-shadow: none;
+    border: 2px solid #ccc;
   }
   
   .avatar-container {

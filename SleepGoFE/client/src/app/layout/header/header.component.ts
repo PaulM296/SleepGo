@@ -148,4 +148,8 @@ performSearch(query: string) {
   navigateToHotelsList() {
     this.router.navigate(['/hotels'])
   }
+
+  navigateToCreateRoomPage() {
+    this.router.navigate(['/create-room']);
+  }
 }

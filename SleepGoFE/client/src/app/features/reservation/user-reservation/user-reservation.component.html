@@ -1,1 +1,43 @@
 <app-header></app-header>
+
+<div class="container">
+    <mat-card class="reservations">
+        <mat-card-title>Your Reservations</mat-card-title>
+
+        <div *ngIf="reservations().length > 0">
+            <mat-card *ngFor="let reservation of reservations(); trackBy: trackById" class="reservation-card">
+                <mat-card-content>
+                    <div class="reservation-header">
+                        <h3 class="hotel-name">Hotel: {{ reservation.hotelName }}</h3>
+                        <button mat-icon-button [matMenuTriggerFor]="menu">
+                            <mat-icon>more_vert</mat-icon>
+                        </button>
+                    </div>
+
+                    <mat-menu #menu="matMenu">
+                        <button mat-menu-item (click)="deleteReservation(reservation.id)">
+                            <mat-icon>delete</mat-icon> Cancel Reservation
+                        </button>
+                    </mat-menu>
+                    <p class="reservation-price"><strong>Price: </strong> {{ reservation.price }}</p>
+                    <p class="reservation-status"><strong>Reservation Status:</strong> {{ reservation.status }}</p>
+                    <p class="reservation-dates">
+                        <strong>CheckIn:</strong> {{ reservation.checkIn | date:'short' }} | 
+                        <strong>CheckOut:</strong> {{ reservation.checkOut | date:'short' }}
+                    </p>
+                </mat-card-content>
+            </mat-card>
+        </div>
+
+        <p *ngIf="reservations().length === 0" clas="no-reservations">No reservations found.</p>
+
+        <mat-paginator
+            *ngIf="totalReservations() > 0"
+            [length]="totalReservations()"
+            [pageSize]="pageSize"
+            [pageSizeOptions]="[1, 5, 10, 20]"
+            (page)="onPageChange($event)"
+        >
+        </mat-paginator>
+    </mat-card>
+</div>

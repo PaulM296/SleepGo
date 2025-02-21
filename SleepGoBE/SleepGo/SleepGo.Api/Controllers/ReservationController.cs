@@ -55,11 +55,9 @@ namespace SleepGo.Api.Controllers
             return Ok(response);
         }
 
-        [HttpGet("user")]
-        public async Task<IActionResult> GetAllUserReservations([FromQuery] PaginationRequestDto paginationRequestDto) 
+        [HttpGet("user/{userId}/")]
+        public async Task<IActionResult> GetAllUserReservations(Guid userId, [FromQuery] PaginationRequestDto paginationRequestDto) 
         {
-            var userId = HttpContext.GetUserIdClaimValue();
-
             var response = await _mediator.Send(new GetAllUserReservationsQuery(userId, paginationRequestDto));
 
             return Ok(response);

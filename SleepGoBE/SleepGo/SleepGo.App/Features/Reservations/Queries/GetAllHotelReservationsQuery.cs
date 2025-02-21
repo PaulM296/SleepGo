@@ -33,15 +33,27 @@ namespace SleepGo.App.Features.Reservations.Queries
                 throw new ReservationNotFoundException($"Could not get the reservations for hotelId {request.hotelId}, because there aren't any yet!");
             }
 
-            var reservationDtos = new PaginationResponseDto<ResponseReservationDto>(
-                items: _mapper.Map<List<ResponseReservationDto>>(reservations.Items),
+            var reservationDtos = reservations.Items.Select(r => new ResponseReservationDto
+            {
+                Id = r.Id,
+                UserId = r.UserId,
+                RoomId = r.RoomId,
+                CheckIn = r.CheckIn,
+                CheckOut = r.CheckOut,
+                Price = r.Price,
+                Status = r.Status,
+                HotelName = r.Room.Hotel.HotelName
+            }).ToList();
+
+            var pagedReservationDtos = new PaginationResponseDto<ResponseReservationDto>(
+                items: reservationDtos,
                 pageIndex: reservations.PageIndex,
                 totalPages: reservations.TotalPages
                 );
 
             _logger.LogInformation("All hotel reservations have been successfully retrieved!");
 
-            return reservationDtos;
+            return pagedReservationDtos;
         }
     }
 }

@@ -1,3 +1,5 @@
+<app-header></app-header>
+
 <mat-card class="room-card">
     <mat-card-title>Add a New Room</mat-card-title>
     <form [formGroup]="roomForm" (ngSubmit)="submitRoom()">
@@ -21,7 +23,6 @@
         <mat-error *ngIf="roomForm.get('price')?.hasError('required')">Price is required</mat-error>
       </mat-form-field>
 
-      <!-- Dropdown for Boolean Fields -->
       <mat-form-field appearance="outline" class="full-width">
         <mat-label>Balcony</mat-label>
         <mat-select formControlName="balcony">
