@@ -4,22 +4,34 @@
   <mat-card class="reservation-card">
     <mat-card-title>Make a Reservation</mat-card-title>
 
-    <form [formGroup]="reservationForm" (ngSubmit)="submitReservation()">
+    <form [formGroup]="reservationForm" (ngSubmit)="onSubmit()">
+      <!-- <mat-form-field appearance="outline" class="input-field">
+        <mat-label>Room Type</mat-label>
+        <mat-select formControlName="roomType" (selectionChange)="calculateTotalPrice()">
+          <mat-option *ngFor="let room of availableRooms" [value]="room.roomType">
+            {{ getRoomTypeName(room.roomType) }}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="reservationForm.get('roomType')?.hasError('required')">
+          Room type is required
+        </mat-error>
+      </mat-form-field> -->
       <mat-form-field appearance="outline" class="input-field">
         <mat-label>Room Type</mat-label>
-        <mat-select formControlName="roomType" (selectionChange)="onRoomSelection($event)">
-          <mat-option *ngFor="let room of rooms" [value]="room.roomType">
-            {{ room.roomType }} - ${{ room.price }} / night
+        <mat-select formControlName="roomType" (selectionChange)="calculateTotalPrice()">
+          <mat-option *ngFor="let roomType of availableRoomTypes" [value]="roomType">
+            {{ getRoomTypeName(roomType) }}
           </mat-option>
         </mat-select>
         <mat-error *ngIf="reservationForm.get('roomType')?.hasError('required')">
           Room type is required
         </mat-error>
       </mat-form-field>
+      
 
       <mat-form-field appearance="outline" class="input-field">
         <mat-label>Check-in Date</mat-label>
-        <input matInput [matDatepicker]="checkInPicker" formControlName="checkIn">
+        <input matInput [matDatepicker]="checkInPicker" formControlName="checkIn" (dateChange)="calculateTotalPrice()">
         <mat-datepicker-toggle matIconSuffix [for]="checkInPicker"></mat-datepicker-toggle>
         <mat-datepicker #checkInPicker></mat-datepicker>
         <mat-error *ngIf="reservationForm.get('checkIn')?.hasError('required')">
@@ -29,7 +41,7 @@
 
       <mat-form-field appearance="outline" class="input-field">
         <mat-label>Check-out Date</mat-label>
-        <input matInput [matDatepicker]="checkOutPicker" formControlName="checkOut">
+        <input matInput [matDatepicker]="checkOutPicker" formControlName="checkOut" (dateChange)="calculateTotalPrice()">
         <mat-datepicker-toggle matIconSuffix [for]="checkOutPicker"></mat-datepicker-toggle>
         <mat-datepicker #checkOutPicker></mat-datepicker>
         <mat-error *ngIf="reservationForm.get('checkOut')?.hasError('required')">
@@ -37,7 +49,7 @@
         </mat-error>
       </mat-form-field>
 
-      <p *ngIf="totalPrice" class="price-info">Total Price: <strong>${{ totalPrice }}</strong></p>
+      <p *ngIf="totalPrice > 0" class="price-info">Total Price: <strong>${{ totalPrice }}</strong></p>
 
       <button mat-raised-button color="primary" type="submit" [disabled]="reservationForm.invalid" class="submit-button">
         Confirm Reservation

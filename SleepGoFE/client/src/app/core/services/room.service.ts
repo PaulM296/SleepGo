@@ -51,4 +51,8 @@ export class RoomService {
 
     return this.http.get<PaginationResponse<ResponseRoomModel>>(`${this.apiUrl}/hotel/${hotelId}/available`, { params })
   }
+
+  getAllAvailableRoomsFromHotelByHotelId(hotelId: string): Observable<ResponseRoomModel[]> {
+    return this.http.get<ResponseRoomModel[]>(`${this.apiUrl}/hotel/available/${hotelId}/rooms`);
+  }
 }

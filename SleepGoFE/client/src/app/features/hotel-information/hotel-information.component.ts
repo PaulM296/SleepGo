@@ -99,6 +99,13 @@ export class HotelInformationComponent implements OnInit {
   }
 
   navigateToCreateReservationPage() {
-    this.router.navigate(['/make-reservation']);
+    if(!this.hotelId) {
+      console.error('Hotel ID is missing!');
+      return;
+    }
+
+    console.log('Hotel ID:', this.hotelId);
+
+    this.router.navigate(['/make-reservation'], { queryParams: { hotelId: this.hotelId }});
   }
 }

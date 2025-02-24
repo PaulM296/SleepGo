@@ -47,7 +47,8 @@ export class CreateRoomComponent implements OnInit {
     const userId = this.jwtService.getUserIdFromToken();
 
     if(!userId) {
-      this.snackbarService.error("Error: user ID not found!");
+      this.snackbarService.error('You must be logged in to make a review!');
+      this.router.navigate(['/login'])
       return;
     }
 

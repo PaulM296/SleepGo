@@ -14,8 +14,15 @@ export class ReservationService {
   private apiUrl = `${environment.apiUrl}reservations`;
   private http = inject(HttpClient);
 
-  addReservation(createReservationModel: CreateReservationModel): Observable<ResponseReservationModel> {
-    return this.http.post<ResponseReservationModel>(`${this.apiUrl}`, createReservationModel);
+  // addReservation(createReservationModel: CreateReservationModel): Observable<ResponseReservationModel> {
+  //   return this.http.post<ResponseReservationModel>(`${this.apiUrl}`, createReservationModel);
+  // }
+  addReservation(reservation: FormData): Observable<ResponseReservationModel> {
+    return this.http.post<ResponseReservationModel>(`${this.apiUrl}`, reservation , {
+      headers: {
+        'enctype': 'multipart/form-data'
+      }
+    })
   }
 
   updateReservation(reservationId: string, updateReservationModel: UpdateReservationModel): 

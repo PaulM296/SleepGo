@@ -80,7 +80,7 @@ export class ViewAvailableHotelRoomsComponent implements OnInit {
     this.userService.getUserById(userId).subscribe({
       next: (user) => {
         if(!('hotelId' in user)) {
-          console.error('Error: Logged0in user does not have a hotel profile.');
+          console.error('Error: Logged in user does not have a hotel profile.');
           this.snackbarService.error('Error: User is not associated with a hotel.');
           return;
         }
@@ -146,7 +146,6 @@ export class ViewAvailableHotelRoomsComponent implements OnInit {
             this.lastRoomType = roomType;
           }
       } else {
-        // this.snackbarService.error("Error fetching rooms.");
         console.error("Error fetching rooms:", error);
         }
       }

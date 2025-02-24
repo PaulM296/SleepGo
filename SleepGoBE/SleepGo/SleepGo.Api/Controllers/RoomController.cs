@@ -63,5 +63,13 @@ namespace SleepGo.Api.Controllers
 
             return Ok(response);
         }
+
+        [HttpGet("hotel/available/{hotelId}/rooms")]
+        public async Task<IActionResult> GetAllAvailableRoomsFromHotelByHotelId(Guid hotelId)
+        {
+            var response = await _mediator.Send(new GetAllAvailableRoomsFromHotelByHotelIdQuery(hotelId));
+
+            return Ok(response);
+        }
     }
 }
