@@ -1,0 +1,57 @@
+.amenities-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.amenities-card-title {
+    margin: 10px 0px 20px 0px;
+    padding: 10px;
+}
+
+.amenities-card {
+    width: 50%;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.form-container {
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    align-items: center;
+}
+
+mat-form-field {
+    width: 70%;
+    margin-bottom: 14px;
+}
+
+.buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.no-amenities {
+    text-align: center;
+    font-size: 18px;
+    color: #666;
+}
+
+.add-link {
+    display: block;
+    margin-top: 10px;
+    font-size: 16px;
+    color: #1976d2;
+    text-decoration: none;
+    
+}
+
+.add-link:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}

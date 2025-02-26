@@ -1,0 +1,75 @@
+<app-header></app-header>
+
+<div class="amenities-container">
+    <mat-card class="amenities-card">
+        <mat-card-title class="amenities-card-title">Your Amenities</mat-card-title>
+
+        <div *ngIf="!amenitiesForm || !hasAmenities" class="no-amenities">
+            <p> You have not added any amenities yet!</p>
+            <p (click)="navigateToCreateHotelAmenities()" class="add-link">Click here to create amenities</p>
+        </div>
+
+        <form *ngIf="amenitiesForm && hasAmenities" [formGroup]="amenitiesForm" class="form-container">
+            <mat-form-field appearance="outline" class="full-width">
+                <mat-label>
+                    <mat-icon>pool</mat-icon> Pool
+                </mat-label>
+                <mat-select formControlName="pool">
+                    <mat-option [value]="true">Yes</mat-option>
+                    <mat-option [value]="false">No</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="full-width">
+                <mat-label>
+                   <mat-icon>restaurant_menu</mat-icon> Restaurant
+                </mat-label>
+                <mat-select formControlName="restaurant">
+                    <mat-option [value]="true">Yes</mat-option>
+                    <mat-option [value]="false">No</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="full-width">
+                <mat-label>
+                    <mat-icon>fitness_center</mat-icon> Fitness
+                </mat-label>
+                <mat-select formControlName="fitness">
+                    <mat-option [value]="true">Yes</mat-option>
+                    <mat-option [value]="false">No</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="full-width">
+                <mat-label>
+                    <mat-icon>wifi</mat-icon> WiFi
+                </mat-label>
+                <mat-select formControlName="wiFi">
+                    <mat-option [value]="true">Yes</mat-option>
+                    <mat-option [value]="false">No</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="full-width">
+                <mat-label>
+                    <mat-icon>room_service</mat-icon> Room Service
+                </mat-label>
+                <mat-select formControlName="roomService">
+                    <mat-option [value]="true">Yes</mat-option>
+                    <mat-option [value]="false">No</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="full-width">
+                <mat-label>
+                    <mat-icon>local_bar</mat-icon> Bar
+                </mat-label>
+                <mat-select formControlName="bar">
+                    <mat-option [value]="true">Yes</mat-option>
+                    <mat-option [value]="false">No</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <div class="buttons">
+                <button *ngIf="!isEditMode" mat-raised-button color="primary" (click)="toggleEditMode()">Edit Amenities</button>
+                <button *ngIf="!isEditMode" mat-raised-button color="warn" (click)="openDeleteDialog()">Delete Amenities</button>
+                <button *ngIf="isEditMode" mat-raised-button color="primary" (click)="saveChanges()">Save Changes</button>
+                <button *ngIf="isEditMode" mat-raised-button color="warn" (click)="cancelEdit()">Cancel</button>
+            </div>
+        </form>
+    </mat-card>
+</div>

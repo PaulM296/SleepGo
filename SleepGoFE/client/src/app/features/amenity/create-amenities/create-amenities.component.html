@@ -1,0 +1,58 @@
+<app-header></app-header>
+
+<mat-card class="amenities-card">
+    <mat-card-title>Add Hotel Amenities</mat-card-title>
+    <form [formGroup]="amenitiesForm" (ngSubmit)="submitAmenities()">
+        <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Pool</mat-label>
+            <mat-select formControlName="pool">
+                <mat-option [value]="true">Yes</mat-option>
+                <mat-option [value]="false">No</mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Restaurant</mat-label>
+            <mat-select formControlName="restaurant">
+                <mat-option [value]="true">Yes</mat-option>
+                <mat-option [value]="false">No</mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Fitness</mat-label>
+            <mat-select formControlName="fitness">
+                <mat-option [value]="true">Yes</mat-option>
+                <mat-option [value]="false">No</mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+            <mat-label>WiFi</mat-label>
+            <mat-select formControlName="wiFi">
+                <mat-option [value]="true">Yes</mat-option>
+                <mat-option [value]="false">No</mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Room Service</mat-label>
+            <mat-select formControlName="roomService">
+                <mat-option [value]="true">Yes</mat-option>
+                <mat-option [value]="false">No</mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Bar</mat-label>
+            <mat-select formControlName="bar">
+                <mat-option [value]="true">Yes</mat-option>
+                <mat-option [value]="false">No</mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <div class="button-group">
+            <button mat-raised-button color="primary" type="submit" [disabled]="amenitiesForm.invalid">Add Amenities</button>
+        </div>
+    </form>
+</mat-card>

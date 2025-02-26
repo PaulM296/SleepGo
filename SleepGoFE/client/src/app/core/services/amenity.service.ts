@@ -13,8 +13,12 @@ export class AmenityService {
   private apiUrl = `${environment.apiUrl}amenities`;
   private http = inject(HttpClient);
 
-  addAmenities(createAmenityModel: CreateAmenityModel): Observable<ResponseAmenityModel> {
-    return this.http.post<ResponseAmenityModel>(`${this.apiUrl}`, createAmenityModel);
+  addAmenities(amenities: FormData): Observable<ResponseAmenityModel> {
+    return this.http.post<ResponseAmenityModel>(`${this.apiUrl}`, amenities, {
+      headers: {
+        'enctype': 'multipart/form-data'
+      }
+    });
   }
 
   updateAmenities(amenityId: string, updateAmenitiesModel: UpdateAmenityModel): Observable<ResponseAmenityModel> {

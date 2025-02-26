@@ -24,7 +24,10 @@
               <mat-icon>business</mat-icon> Hotel Profile
             </button>
             <button mat-menu-item (click)="navigateToCreateRoomPage()">
-              <mat-icon>edit</mat-icon> Add New Room
+              <mat-icon>add_circle</mat-icon> Add New Room
+            </button>
+            <button mat-menu-item (click)="navigateToCreateAmenitiesPage()">
+              <mat-icon>add_circle</mat-icon> Add Hotel Amenities
             </button>
             <button mat-menu-item (click)="navigateToHotelRooms()">
               <mat-icon>bedroom_parent</mat-icon> Hotel Rooms
@@ -37,6 +40,9 @@
             </button>
             <button mat-menu-item (click)="navigateToHotelReservations()">
               <mat-icon>assignment</mat-icon> Hotel Reservations
+            </button>
+            <button mat-menu-item (click)="navigateToHotelAmenitiesPage()">
+              <mat-icon>view_list</mat-icon> Hotel Amenities
             </button>
             <button mat-menu-item (click)="navigateToHotelsList()">
               <mat-icon>hotel</mat-icon> Search Hotels

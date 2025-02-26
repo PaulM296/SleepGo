@@ -5,17 +5,6 @@
     <mat-card-title>Make a Reservation</mat-card-title>
 
     <form [formGroup]="reservationForm" (ngSubmit)="onSubmit()">
-      <!-- <mat-form-field appearance="outline" class="input-field">
-        <mat-label>Room Type</mat-label>
-        <mat-select formControlName="roomType" (selectionChange)="calculateTotalPrice()">
-          <mat-option *ngFor="let room of availableRooms" [value]="room.roomType">
-            {{ getRoomTypeName(room.roomType) }}
-          </mat-option>
-        </mat-select>
-        <mat-error *ngIf="reservationForm.get('roomType')?.hasError('required')">
-          Room type is required
-        </mat-error>
-      </mat-form-field> -->
       <mat-form-field appearance="outline" class="input-field">
         <mat-label>Room Type</mat-label>
         <mat-select formControlName="roomType" (selectionChange)="calculateTotalPrice()">

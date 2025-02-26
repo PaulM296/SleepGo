@@ -152,4 +152,12 @@ performSearch(query: string) {
   navigateToCreateRoomPage() {
     this.router.navigate(['/create-room']);
   }
+
+  navigateToCreateAmenitiesPage() {
+    this.router.navigate(['/create-amenities']);
+  }
+
+  navigateToHotelAmenitiesPage() {
+    this.router.navigate(['/hotel-amenities']);
+  }
 }
