@@ -46,5 +46,9 @@
 }
   
 mat-paginator {
+    display: flex;
     margin-top: 15px;
+    background-color: transparent;
+    align-items: center;
+    justify-content: center;
 }

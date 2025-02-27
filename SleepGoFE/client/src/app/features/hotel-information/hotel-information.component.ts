@@ -10,6 +10,12 @@ import { UserService } from '../../core/services/user.service';
 import { ResponseHotelModel } from '../../shared/models/userModels/responseHotelModel';
 import { catchError, of, tap } from 'rxjs';
 import { CommonModule } from '@angular/common';
+import { AmenityService } from '../../core/services/amenity.service';
+import { RoomService } from '../../core/services/room.service';
+import { ReviewService } from '../../core/services/review.service';
+import { PaginationRequest, PaginationResponse } from '../../shared/models/paginationModels/paginationResponse';
+import { SnackbarService } from '../../core/services/snackbar.service';
+import { ResponseReviewModel } from '../../shared/models/reviewModels/responseReviewModel';
 
 @Component({
   selector: 'app-hotel-information',
@@ -29,10 +35,18 @@ export class HotelInformationComponent implements OnInit {
   private route = inject(ActivatedRoute);
   private userService = inject(UserService);
   private router = inject(Router);
+  private amenityService = inject(AmenityService);
+  private roomService = inject(RoomService);
+  private reviewService = inject(ReviewService);
+  private snackbarService = inject(SnackbarService);
 
   hotel!: ResponseHotelModel;
   hotelId!: string;
   userId?: string;
+  pageIndex: number = 0;
+  pageSize: number = 3;
+  reviews: ResponseReviewModel[] = [];
+  hasMoreReviews: boolean = true;
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
@@ -58,6 +72,7 @@ export class HotelInformationComponent implements OnInit {
           this.hotelId = String(response.hotelId);
   
           this.loadHotelImage();
+          this.fetchHotelReviews();
         } else {
           console.warn("The user is not a hotel profile.");
         }
@@ -76,8 +91,6 @@ export class HotelInformationComponent implements OnInit {
       console.error("Error fetching hotel image:", error);
     });
   }
-  
-  
 
   openReviewDialog() {
     if (!this.hotelId) {
@@ -104,8 +117,64 @@ export class HotelInformationComponent implements OnInit {
       return;
     }
 
-    console.log('Hotel ID:', this.hotelId);
-
     this.router.navigate(['/make-reservation'], { queryParams: { hotelId: this.hotelId }});
   }
+
+  fetchHotelReviews(): void {
+    console.log('HotelId: ', this.hotelId);
+    if (!this.hotelId) {
+      console.error('Error fetching hotel ID');
+      return;
+    }
+  
+    const paginationRequest: PaginationRequest = {
+      pageIndex: this.pageIndex + 1,
+      pageSize: this.pageSize,
+    };
+  
+    this.reviewService.getAllHotelReviews(this.hotelId, paginationRequest).subscribe({
+      next: (response: PaginationResponse<ResponseReviewModel>) => {
+        console.log('Reviews successfully retrieved!');
+  
+        if (response.items.length > 0) {
+          this.pageIndex++;
+  
+          const processedReviews: ResponseReviewModel[] = [];
+
+          response.items.forEach((review) => {
+            this.userService.getUserById(review.userId).subscribe((user) => {
+              if (user.imageId) {
+                this.userService.getImageById(user.imageId).subscribe((img) => {
+                  review.userImageUrl = img.imageSrc;
+                  processedReviews.push(review);
+                  
+                  if (processedReviews.length === response.items.length) {
+                    this.reviews = [...this.reviews, ...processedReviews];
+                  }
+                });
+              } else {
+                review.userImageUrl = null;
+                processedReviews.push(review);
+  
+                if (processedReviews.length === response.items.length) {
+                  this.reviews = [...this.reviews, ...processedReviews];
+                }
+              }
+            });
+          });
+  
+          this.hasMoreReviews = response.items.length === this.pageSize;
+        } else {
+          this.hasMoreReviews = false;
+        }
+      },
+      error: (error) => {
+        console.error('Failed to retrieve reviews: ', error);
+        if (error.status === 404) {
+          this.hasMoreReviews = false;
+        }
+      },
+    });
+  }
+  
 }

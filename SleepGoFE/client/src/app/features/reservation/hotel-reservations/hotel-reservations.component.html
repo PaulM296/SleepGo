@@ -35,7 +35,7 @@
             *ngIf="totalReservations() > 0"
             [length]="totalReservations()"
             [pageSize]="pageSize"
-            [pageSizeOptions]="[1, 5, 10, 20]"
+            [pageSizeOptions]="[5, 10, 15, 20]"
             (page)="onPageChange($event)"
         >
         </mat-paginator>

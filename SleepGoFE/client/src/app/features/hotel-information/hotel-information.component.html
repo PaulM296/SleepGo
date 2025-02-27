@@ -11,14 +11,44 @@
     </div>
 
     <div class="hotel-details">
-      <h1>{{ hotel.hotelName }}</h1>
+      <div class="hotel-header">
+        <h1>{{ hotel.hotelName }}</h1>
+        <span class="rating">
+          <mat-icon>star</mat-icon> {{ hotel.rating.toFixed(1) }}
+        </span>
+      </div>
+    
       <p class="location"><mat-icon>location_on</mat-icon> {{ hotel.city }}, {{ hotel.country }}</p>
       <p class="description">{{ hotel.hotelDescription }}</p>
+    </div>
 
-      <div class="rating-container">
-        <span class="rating">{{ hotel.rating.toFixed(1) }}</span>
-      </div>
+    <div class="review-section" *ngIf="reviews.length > 0">
+      <h2>Customer Reviews</h2>
+      <mat-card class="review-card" *ngFor="let review of reviews">
+        <div class="review-header">
+          <div class="review-user">
+            <img *ngIf="review.userImageUrl; else defaultAvatar" [src]="review.userImageUrl" alt="User Avatar" class="review-avatar">
+            <ng-template #defaultAvatar>
+              <mat-icon class="avatar-icon">account_circle</mat-icon>
+            </ng-template>
+            <span class="review-author">{{ review.userName }}</span>
+          </div>
+      
+          <span class="review-rating">
+            <mat-icon>star</mat-icon> {{ review.rating }}
+          </span>
+        </div>
+        <p class="review-text">{{ review.reviewText }}</p>
+      </mat-card>
 
+      <button *ngIf="hasMoreReviews" mat-raised-button color="primary" (click)="fetchHotelReviews()">
+        Load More Reviews
+      </button>
+    </div>
+
+    <p *ngIf="reviews.length === 0" class="no-reviews"> There are no reviews yet for this hotel. Be the first to write one!</p>
+
+    <div class="button-container">
       <button 
         mat-raised-button 
         color="primary" 
@@ -26,10 +56,10 @@
         [disabled]="!hotelId"
         >
         <mat-icon>rate_review</mat-icon> Write a Review
-    </button>
-    <button mat-raised-button (click)="navigateToCreateReservationPage()">
-        <mat-icon>assignment</mat-icon>Make a Reservation</button>
+      </button>
+      <button mat-raised-button (click)="navigateToCreateReservationPage()">
+        <mat-icon>assignment</mat-icon>Make a Reservation
+      </button>
     </div>
-
   </div>
 </div>

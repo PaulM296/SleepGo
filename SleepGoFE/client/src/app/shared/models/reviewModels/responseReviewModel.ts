@@ -8,4 +8,5 @@ export interface ResponseReviewModel {
     userName: string;
     rating: number;
     isModerated: boolean;
+    userImageUrl?: string | null;
 }

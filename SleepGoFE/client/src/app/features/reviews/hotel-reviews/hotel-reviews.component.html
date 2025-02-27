@@ -23,7 +23,7 @@
             *ngIf="totalReviews() > 0"
             [length]="totalReviews()"
             [pageSize]="pageSize"
-            [pageSizeOptions]="[1, 5, 10, 20]"
+            [pageSizeOptions]="[5, 10, 15, 20]"
             (page)="onPageChange($event)">
         </mat-paginator>
     </mat-card>
