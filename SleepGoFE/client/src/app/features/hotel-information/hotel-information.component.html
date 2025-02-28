@@ -22,6 +22,58 @@
       <p class="description">{{ hotel.hotelDescription }}</p>
     </div>
 
+    <div class="rooms-section" *ngIf="rooms.length > 0">
+      <h2 class="rooms-header">Hotel Rooms</h2>
+      <table class="room-table">
+        <thead>
+          <tr>
+            <th>Room Type</th>
+            <th>Price / Night</th>
+            <th>Balcony</th>
+            <th>Air Conditioning</th>
+            <th>Kitchenette</th>
+            <th>Hairdryer</th>
+            <th>TV</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let room of rooms">
+            <td>{{ getRoomTypeName(room.roomType) }}</td>
+            <td>{{ room.price }} </td>
+            <td><mat-icon *ngIf="room.balcony">check</mat-icon><mat-icon *ngIf="!room.balcony">close</mat-icon></td>
+            <td><mat-icon *ngIf="room.airConditioning">check</mat-icon><mat-icon *ngIf="!room.airConditioning">close</mat-icon></td>
+            <td><mat-icon *ngIf="room.kitchenette">check</mat-icon><mat-icon *ngIf="!room.kitchenette">close</mat-icon></td>
+            <td><mat-icon *ngIf="room.hairdryer">check</mat-icon><mat-icon *ngIf="!room.hairdryer">close</mat-icon></td>
+            <td><mat-icon *ngIf="room.tv">check</mat-icon><mat-icon *ngIf="!room.tv">close</mat-icon></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="amenities-section" *ngIf="amenities">
+      <h2 class="amenities-header">Hotel Amenities</h2>
+      <div class="amenities-list">
+        <div *ngIf="amenities.pool">
+          <mat-icon>pool</mat-icon> Pool
+        </div>
+        <div *ngIf="amenities.restaurant">
+          <mat-icon>restaurant_menu</mat-icon> Restaurant
+        </div>
+        <div *ngIf="amenities.fitness">
+          <mat-icon>fitness_center</mat-icon> Fitness
+        </div>
+        <div *ngIf="amenities.wiFi">
+          <mat-icon>wifi</mat-icon> WiFi
+        </div>
+        <div *ngIf="amenities.roomService">
+          <mat-icon>room_service</mat-icon> Room Service
+        </div>
+        <div *ngIf="amenities.bar">
+          <mat-icon>local_bar</mat-icon> Bar
+        </div>
+      </div>
+    </div>
+
     <div class="review-section" *ngIf="reviews.length > 0">
       <h2>Customer Reviews</h2>
       <mat-card class="review-card" *ngFor="let review of reviews">

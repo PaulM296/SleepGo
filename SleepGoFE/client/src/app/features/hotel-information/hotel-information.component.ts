@@ -16,6 +16,9 @@ import { ReviewService } from '../../core/services/review.service';
 import { PaginationRequest, PaginationResponse } from '../../shared/models/paginationModels/paginationResponse';
 import { SnackbarService } from '../../core/services/snackbar.service';
 import { ResponseReviewModel } from '../../shared/models/reviewModels/responseReviewModel';
+import { ResponseAmenityModel } from '../../shared/models/amenityModels/responseAmenityModel';
+import { ResponseRoomModel } from '../../shared/models/roomModels/responseRoomModel';
+import { RoomType } from '../../shared/models/roomModels/roomType';
 
 @Component({
   selector: 'app-hotel-information',
@@ -47,6 +50,9 @@ export class HotelInformationComponent implements OnInit {
   pageSize: number = 3;
   reviews: ResponseReviewModel[] = [];
   hasMoreReviews: boolean = true;
+  amenities!: ResponseAmenityModel;
+  rooms: ResponseRoomModel[] = [];
+  roomTypes: RoomType[] = [];
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
@@ -73,6 +79,8 @@ export class HotelInformationComponent implements OnInit {
   
           this.loadHotelImage();
           this.fetchHotelReviews();
+          this.fetchHotelAmenities();
+          this.fetchHotelRooms();
         } else {
           console.warn("The user is not a hotel profile.");
         }
@@ -175,6 +183,73 @@ export class HotelInformationComponent implements OnInit {
         }
       },
     });
+  }
+
+  fetchHotelAmenities(): void {
+    if(!this.hotelId) {
+      console.error('Error fetching Hotel ID');
+      return;
+    }
+
+    this.amenityService.getAmenitiesByHotelId(this.hotelId).subscribe({
+      next: (response: ResponseAmenityModel) => {
+        console.log('Amenities received before assigning: ', response);
+        if(Array.isArray(response) && response.length > 0) {
+          this.amenities = response[0];
+        } else {
+          this.amenities = response;
+        }
+        console.log('Amenities retrieved:', this.amenities);
+      },
+      error: (error) => {
+        console.error('Error fecthing amenities: ', error);
+      }
+    });
+  }
+
+  fetchHotelRooms(): void {
+    if (!this.hotelId) {
+      console.error('Error fetching Hotel ID');
+      return;
+    }
+  
+    this.roomService.getAllRoomsFromHotelByHotelId(this.hotelId).subscribe({
+      next: (response: ResponseRoomModel[]) => {
+        console.log('Rooms retrieved:', response);
+  
+        if (!response || response.length === 0) {
+          console.warn("No rooms found.");
+          this.rooms = [];
+          return;
+        }
+
+        const roomMap = new Map<number, ResponseRoomModel>();
+  
+        response.forEach((room) => {
+          if (!roomMap.has(room.roomType)) {
+            roomMap.set(room.roomType, room);
+          }
+        });
+
+        this.rooms = Array.from(roomMap.values());
+  
+        console.log('Processed rooms:', this.rooms);
+      },
+      error: (error) => {
+        console.error('Error fetching rooms: ', error);
+      }
+    });
+  }
+  
+
+  extractUniqueRoomTypes(): void {
+    this.roomTypes = Array.from(
+      new Set(this.rooms.map(room => room.roomType))
+    ).sort((a, b) => a - b);
+  }
+
+  getRoomTypeName(roomType: RoomType): string {
+    return RoomType[roomType];
   }
   
 }

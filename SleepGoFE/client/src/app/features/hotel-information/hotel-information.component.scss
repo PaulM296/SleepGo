@@ -168,3 +168,94 @@ mat-card-header {
   text-align: center;
   margin-top: 10px;
 }
+
+.amenities-section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-top: 15px;
+
+  div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 8px 12px;
+    border-radius: 10px;
+    background-color: #f5f5f5;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+    transition: 0.3s ease;
+
+    mat-icon {
+      font-size: 24px;
+      color: #0C7075;
+    }
+
+    &:hover {
+      background-color: #e0e0e0;
+      transform: scale(1.05);
+    }
+  }
+}
+
+.rooms-section {
+  margin-top: 30px;
+  text-align: center;
+}
+
+.room-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.room-table th {
+  background: #0C7075;
+  color: white;
+  font-size: 18px;
+  padding: 12px;
+}
+
+.room-table td, .room-table th {
+  padding: 15px;
+  border: 1px solid #ddd;
+  text-align: center;
+}
+
+.room-table tr:nth-child(even) {
+  background: #f9f9f9;
+}
+
+.room-table tr:hover {
+  background: #e3f2fd; 
+}
+
+.room-table td:first-child {
+  font-weight: bold;
+  color: #0C7075;
+}
+
+mat-icon {
+  font-size: 22px;
+  vertical-align: middle;
+}
+
+mat-icon[ng-reflect-svg-icon="close"] {
+  color: red;
+}
+
+mat-icon[ng-reflect-svg-icon="check"] {
+  color: green;
+}
+
+.rooms-header, .amenities-header {
+  color: #0C7075;
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 15px;
+}
