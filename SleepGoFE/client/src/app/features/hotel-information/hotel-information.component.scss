@@ -259,3 +259,22 @@ mat-icon[ng-reflect-svg-icon="check"] {
   text-align: center;
   margin-bottom: 15px;
 }
+
+.hotel-map-container {
+  margin-top: 20px;
+  padding: 15px;
+  background: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.map-header {
+  font-size: 22px;
+  color: #0C7075;
+  margin-bottom: 15px;
+}
+
+google-map {
+  border-radius: 10px;
+}

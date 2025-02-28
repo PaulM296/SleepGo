@@ -19,6 +19,9 @@ import { ResponseReviewModel } from '../../shared/models/reviewModels/responseRe
 import { ResponseAmenityModel } from '../../shared/models/amenityModels/responseAmenityModel';
 import { ResponseRoomModel } from '../../shared/models/roomModels/responseRoomModel';
 import { RoomType } from '../../shared/models/roomModels/roomType';
+import { animation } from '@angular/animations';
+import { GoogleMap, MapMarker } from '@angular/google-maps';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-hotel-information',
@@ -29,6 +32,8 @@ import { RoomType } from '../../shared/models/roomModels/roomType';
     MatIconModule,
     MatButtonModule,
     CommonModule,
+    GoogleMap,
+    MapMarker
   ],
   templateUrl: './hotel-information.component.html',
   styleUrl: './hotel-information.component.scss'
@@ -53,8 +58,13 @@ export class HotelInformationComponent implements OnInit {
   amenities!: ResponseAmenityModel;
   rooms: ResponseRoomModel[] = [];
   roomTypes: RoomType[] = [];
+  center!: google.maps.LatLngLiteral;
+  zoom = 13;
+  markerPosition!: google.maps.LatLngLiteral;
+  isGoogleMapsLoaded = false;
 
   ngOnInit(): void {
+    this.loadGoogleMaps();
     this.route.params.subscribe(params => {
       this.userId = params['id'];
       if (this.userId) {
@@ -76,6 +86,9 @@ export class HotelInformationComponent implements OnInit {
         if (response && 'hotelId' in response) {
           this.hotel = response as ResponseHotelModel;
           this.hotelId = String(response.hotelId);
+
+          console.log("Hotel details loaded:", this.hotel);
+          this.setMapLocation();
   
           this.loadHotelImage();
           this.fetchHotelReviews();
@@ -251,5 +264,45 @@ export class HotelInformationComponent implements OnInit {
   getRoomTypeName(roomType: RoomType): string {
     return RoomType[roomType];
   }
+
+  setMapLocation() {
+    if (!this.hotel) {
+      console.error("Hotel data is not available yet.");
+      return;
+    }
   
+    if (this.hotel.latitude && this.hotel.longitude) {
+      this.center = { 
+        lat: this.hotel.latitude, 
+        lng: this.hotel.longitude 
+      };
+      
+      this.markerPosition = {
+        lat: this.hotel.latitude,
+        lng: this.hotel.longitude
+      };
+  
+      console.log("Map location set:", this.center);
+    } else {
+      console.error("Latitude or longitude is missing for this hotel!");
+    }
+  }
+  
+
+  loadGoogleMaps(): void {
+    if (typeof google === 'undefined' || !google.maps) {
+      const script = document.createElement('script');
+      script.src = `https://maps.googleapis.com/maps/api/js?key=${environment.googleMapsApiKey}`;
+      script.async = true;
+      script.defer = true;
+      script.onload = () => {
+        this.isGoogleMapsLoaded = true;
+        this.setMapLocation();
+      };
+      document.head.appendChild(script);
+    } else {
+      this.isGoogleMapsLoaded = true;
+      this.setMapLocation();
+    }
+  }
 }
