@@ -1,0 +1,35 @@
+.blocked-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #D2E7E7;
+}
+
+.blocked-content {
+    text-align: center;
+    font: Arial, sans-serif;
+}
+
+.blocked-content h1 {
+    font-size: 120px;
+    margin: 0;
+    color: #072E33;
+}
+
+.blocked-content p {
+    font-size: 44px;
+    margin: 10px 0;
+    color: #072E33;
+}
+
+.blocked-content span {
+    display: block;
+    margin: 20px 0;
+    font-size: 18px;
+    color: #072E33;
+}
+
+.return-to-login {
+    cursor: pointer;
+}

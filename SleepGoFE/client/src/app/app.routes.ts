@@ -24,6 +24,8 @@ import { ViewHotelRoomsComponent } from './features/room/view-hotel-rooms/view-h
 import { ViewAvailableHotelRoomsComponent } from './features/room/view-available-hotel-rooms/view-available-hotel-rooms.component';
 import { CreateAmenitiesComponent } from './features/amenity/create-amenities/create-amenities.component';
 import { HotelAmenitiesComponent } from './features/amenity/hotel-amenities/hotel-amenities.component';
+import { BlockedComponent } from './shared/components/blocked/blocked.component';
+import { blockedGuard } from './core/guards/blocked.guard';
 
 export const routes: Routes = [
     {path: '', component: HomeComponent},
@@ -31,21 +33,22 @@ export const routes: Routes = [
     {path: 'register', component: RegisterComponent},
     {path: 'not-found', component: NotFoundComponent},
     {path: 'forbidden', component: ForbiddenComponent},
-    {path: 'hotels', component: HotelComponent, canActivate: [authGuard]},
-    {path: 'hotels/:id', component: HotelInformationComponent, canActivate: [authGuard]},
-    {path: 'adminPage/users', component: UserDetailsComponent, canActivate: [authGuard, adminGuard]},
-    {path: 'adminPage/hotels', component: HotelDetailsComponent, canActivate: [authGuard, adminGuard]},
-    {path: 'user-profile', component: UserProfileComponent, canActivate: [authGuard]},
-    {path: 'create-room', component: CreateRoomComponent, canActivate: [authGuard, hotelGuard]},
-    {path: 'write-reviews', component: WriteReviewsComponent, canActivate: [authGuard]},
-    {path: 'make-reservation', component: MakeReservationComponent, canActivate: [authGuard, userGuard]},
-    {path: 'user-reviews', component: UserReviewsComponent, canActivate: [authGuard]},
-    {path: 'user-reservations', component: UserReservationComponent, canActivate: [authGuard]},
-    {path: 'hotel-reviews', component: HotelReviewsComponent},
-    {path: 'hotel-reservations', component: HotelReservationsComponent, canActivate: [authGuard, hotelGuard]},
-    {path: 'hotel-rooms-by-type', component: ViewHotelRoomsComponent, canActivate:[authGuard, hotelGuard]},
-    {path: 'available-hotel-rooms-by-type', component: ViewAvailableHotelRoomsComponent, canActivate:[authGuard, hotelGuard]},
-    {path: 'create-amenities', component: CreateAmenitiesComponent, canActivate:[authGuard, hotelGuard]},
-    {path: 'hotel-amenities', component: HotelAmenitiesComponent, canActivate: [authGuard, hotelGuard]},
+    {path: 'blocked', component: BlockedComponent},
+    {path: 'hotels', component: HotelComponent, canActivate: [authGuard, blockedGuard]},
+    {path: 'hotels/:id', component: HotelInformationComponent, canActivate: [authGuard, blockedGuard]},
+    {path: 'adminPage/users', component: UserDetailsComponent, canActivate: [authGuard, adminGuard, blockedGuard]},
+    {path: 'adminPage/hotels', component: HotelDetailsComponent, canActivate: [authGuard, adminGuard, blockedGuard]},
+    {path: 'user-profile', component: UserProfileComponent, canActivate: [authGuard, blockedGuard]},
+    {path: 'create-room', component: CreateRoomComponent, canActivate: [authGuard, hotelGuard, blockedGuard]},
+    {path: 'write-reviews', component: WriteReviewsComponent, canActivate: [authGuard, blockedGuard]},
+    {path: 'make-reservation', component: MakeReservationComponent, canActivate: [authGuard, userGuard, blockedGuard]},
+    {path: 'user-reviews', component: UserReviewsComponent, canActivate: [authGuard, blockedGuard]},
+    {path: 'user-reservations', component: UserReservationComponent, canActivate: [authGuard, blockedGuard]},
+    {path: 'hotel-reviews', component: HotelReviewsComponent, canActivate: [authGuard, hotelGuard, blockedGuard]},
+    {path: 'hotel-reservations', component: HotelReservationsComponent, canActivate: [authGuard, hotelGuard, blockedGuard]},
+    {path: 'hotel-rooms-by-type', component: ViewHotelRoomsComponent, canActivate:[authGuard, hotelGuard, blockedGuard]},
+    {path: 'available-hotel-rooms-by-type', component: ViewAvailableHotelRoomsComponent, canActivate:[authGuard, hotelGuard, blockedGuard]},
+    {path: 'create-amenities', component: CreateAmenitiesComponent, canActivate:[authGuard, hotelGuard, blockedGuard]},
+    {path: 'hotel-amenities', component: HotelAmenitiesComponent, canActivate: [authGuard, hotelGuard, blockedGuard]},
     {path: '**', redirectTo: 'not-found', pathMatch: 'full'}
 ];

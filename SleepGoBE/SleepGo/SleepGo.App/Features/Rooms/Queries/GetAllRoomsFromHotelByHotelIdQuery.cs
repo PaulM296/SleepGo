@@ -33,7 +33,7 @@ namespace SleepGo.App.Features.Rooms.Queries
 
             _logger.LogInformation($"Hotel rooms successfully retrieved!");
 
-            return _mapper.Map<ICollection<ResponseRoomDto>>(hotelRooms);
+            return  _mapper.Map<ICollection<ResponseRoomDto>>(hotelRooms);
         }
     }
 }
