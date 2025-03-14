@@ -125,8 +125,19 @@ export class UserProfileComponent implements OnInit {
   }
 
   onFileSelected(event: any) {
-    this.selectedFile = event.target.files[0];
+    const file = event.target.files[0];
+  
+    if (file) {
+      this.selectedFile = file;
+  
+      const reader = new FileReader();
+      reader.onload = (e: any) => {
+        this.userData.imageUrl = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    }
   }
+  
 
   updateProfile() {
     if(this.userForm.invalid) return;
@@ -144,6 +155,9 @@ export class UserProfileComponent implements OnInit {
     this.userService.updateUser(this.userId, formData).subscribe({
       next: () => {
         this.snackbarService.success("Profile updated successfully!");
+        setTimeout(() => {
+          window.location.reload();
+        }, 500);
       }, 
       error: (error) => {
         this.snackbarService.error("Error updating profile!");
@@ -175,8 +189,15 @@ export class UserProfileComponent implements OnInit {
   }
 
   onDateChange(event: any) {
-    const selectedDate = event.value;
-    this.userForm.patchValue({ dateOfBirth: selectedDate });
+    const selectedDate: Date = event.value;
+  
+    const year = selectedDate.getFullYear();
+    const month = (selectedDate.getMonth() + 1).toString().padStart(2, '0');
+    const day = selectedDate.getDate().toString().padStart(2, '0');
+  
+    const formattedDate = `${year}-${month}-${day}`;
+  
+    this.userForm.patchValue({ dateOfBirth: formattedDate });
   }
 
   fetchUserImage() {
@@ -212,10 +233,11 @@ export class UserProfileComponent implements OnInit {
   }
 
   deleteAccount() {
+    console.log(this.userId);
     this.userService.deleteUser(this.userId).subscribe({
       next: () => {
         this.snackbarService.success('Account deleted successfully.');
-        this.router.navigate(['/']);
+        this.router.navigate(['/login']);
       },
       error: (error) => {
         console.error('Error deleting account:', error);

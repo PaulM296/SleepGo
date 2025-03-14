@@ -1,19 +1,74 @@
 .amenities-card {
-    width: 50%;
-    margin: 20px auto;
-    padding: 20px;
-    box-shadow: 0px 4px 10px rbga(0, 0, 0, 0.2);
+    width: 60%;
+    margin: 40px auto;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.12);
     text-align: center;
-    width: 600px;
+    background: #ffffff;
 }
 
-.full-width {
+.title {
+    font-size: 22px;
+    font-weight: bold;
+    color: #0C7075;
+    margin-bottom: 20px;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+mat-form-field {
     width: 100%;
-    margin-bottom: 15px;
+    background: #f9f9f9;
+    border-radius: 8px;
+    padding: 5px;
+}
+
+mat-label {
+    font-weight: bold;
+    color: #0C7075;
 }
 
 .button-group {
     display: flex;
     justify-content: center;
     margin-top: 20px;
+}
+
+button {
+    padding: 12px 20px;
+    font-size: 16px;
+    border-radius: 20px;
+}
+
+button[disabled] {
+    background: #ccc;
+    cursor: not-allowed;
+}
+
+mat-icon {
+    vertical-align: middle;
+    margin-right: 5px;
+}
+
+.icon-success {
+    color: #4CAF50;
+}
+
+.icon-error {
+    color: #F44336;
+}
+
+@media (max-width: 768px) {
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .amenities-card {
+        width: 90%;
+    }
 }

@@ -37,13 +37,37 @@
                     
                 </mat-card-header>
                 <mat-card-content>
-                    <p><strong>Price:</strong> ${{ room.price }} / night</p>
-                    <p><strong>Balcony:</strong> {{ room.balcony ? 'Yes' : 'No' }}</p>
-                    <p><strong>Air Conditioning:</strong> {{ room.airConditioning ? 'Yes' : 'No' }}</p>
-                    <p><strong>Kitchenette:</strong> {{ room.kitchenette ? 'Yes' : 'No' }}</p>
-                    <p><strong>Hairdryer:</strong> {{ room.hairdryer ? 'Yes' : 'No' }}</p>
-                    <p><strong>TV:</strong> {{ room.tv ? 'Yes' : 'No' }}</p>
-                    <p><strong>Reserved:</strong> {{ room.isReserved ? 'Yes' : 'No' }}</p>
+                    <p class="room-price"><strong>Price:</strong> ${{ room.price }} / night</p>
+                    <div class="room-features">
+                        <div class="feature-item">
+                            <mat-icon>balcony</mat-icon>
+                            <span><strong>Balcony:</strong> {{ room.balcony ? 'Yes' : 'No' }}</span>
+                        </div>
+
+                        <div class="feature-item">
+                            <mat-icon>ac_unit</mat-icon>
+                            <span><strong>Air Conditioning:</strong> {{ room.airConditioning ? 'Yes' : 'No' }}</span>
+                        </div>
+
+                        <div class="feature-item">
+                            <mat-icon>kitchen</mat-icon>
+                            <span><strong>Kitchenette:</strong> {{ room.kitchenette ? 'Yes' : 'No' }}</span>
+                        </div>
+
+                        <div class="feature-item">
+                            <mat-icon>air</mat-icon>
+                            <span><strong>Hairdryer:</strong> {{ room.hairdryer ? 'Yes' : 'No' }}</span>
+                        </div>
+
+                        <div class="feature-item">
+                            <mat-icon>tv</mat-icon>
+                            <span><strong>TV:</strong> {{ room.tv ? 'Yes' : 'No' }}</span>
+                        </div>
+                    </div>
+
+                    <p class="reserved-status" [ngClass]="room.isReserved ? 'reserved-yes' : 'reserved-no'">
+                        <strong>Reserved:</strong> {{ room.isReserved ? 'Yes' : 'No' }}
+                    </p>
                 </mat-card-content>
             </mat-card>
         </div>

@@ -14,6 +14,7 @@ import { Router } from '@angular/router';
 import { UserService } from '../../../core/services/user.service';
 import { ResponseHotelModel } from '../../../shared/models/userModels/responseHotelModel';
 import { HeaderComponent } from "../../../layout/header/header.component";
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-create-room',
@@ -26,7 +27,8 @@ import { HeaderComponent } from "../../../layout/header/header.component";
     MatInputModule,
     MatSelectModule,
     ReactiveFormsModule,
-    HeaderComponent
+    HeaderComponent,
+    MatIconModule
 ],
   templateUrl: './create-room.component.html',
   styleUrl: './create-room.component.scss'

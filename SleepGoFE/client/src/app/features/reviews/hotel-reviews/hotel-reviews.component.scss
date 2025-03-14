@@ -20,8 +20,13 @@
     box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.15);
     text-align: left;
     background: white;
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
 }
 
+.review-card:hover {
+    transform: scale(1.02);
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+}
 .review-content {
     display: flex;
     flex-direction: column;

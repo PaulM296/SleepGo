@@ -1,4 +1,4 @@
-<app-header></app-header>
+<!-- <app-header></app-header>
 
 <mat-card class="amenities-card">
     <mat-card-title>Add Hotel Amenities</mat-card-title>
@@ -53,6 +53,94 @@
 
         <div class="button-group">
             <button mat-raised-button color="primary" type="submit" [disabled]="amenitiesForm.invalid">Add Amenities</button>
+        </div>
+    </form>
+</mat-card> -->
+
+<app-header></app-header>
+
+<mat-card class="amenities-card">
+    <mat-card-title class="title"> Add Hotel Amenities</mat-card-title>
+    <form [formGroup]="amenitiesForm" (ngSubmit)="submitAmenities()">
+        
+        <div class="form-grid">
+            <mat-form-field appearance="outline">
+                <mat-label>Pool</mat-label>
+                <mat-select formControlName="pool">
+                    <mat-option [value]="true">
+                        <mat-icon class="icon-success">pool</mat-icon> Yes
+                    </mat-option>
+                    <mat-option [value]="false">
+                        <mat-icon class="icon-error">cancel</mat-icon> No
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label>Restaurant</mat-label>
+                <mat-select formControlName="restaurant">
+                    <mat-option [value]="true">
+                        <mat-icon class="icon-success">restaurant</mat-icon> Yes
+                    </mat-option>
+                    <mat-option [value]="false">
+                        <mat-icon class="icon-error">cancel</mat-icon> No
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label>Fitness</mat-label>
+                <mat-select formControlName="fitness">
+                    <mat-option [value]="true">
+                        <mat-icon class="icon-success">fitness_center</mat-icon> Yes
+                    </mat-option>
+                    <mat-option [value]="false">
+                        <mat-icon class="icon-error">cancel</mat-icon> No
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label>WiFi</mat-label>
+                <mat-select formControlName="wiFi">
+                    <mat-option [value]="true">
+                        <mat-icon class="icon-success">wifi</mat-icon> Yes
+                    </mat-option>
+                    <mat-option [value]="false">
+                        <mat-icon class="icon-error">cancel</mat-icon> No
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label>Room Service</mat-label>
+                <mat-select formControlName="roomService">
+                    <mat-option [value]="true">
+                        <mat-icon class="icon-success">room_service</mat-icon> Yes
+                    </mat-option>
+                    <mat-option [value]="false">
+                        <mat-icon class="icon-error">cancel</mat-icon> No
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label>Bar</mat-label>
+                <mat-select formControlName="bar">
+                    <mat-option [value]="true">
+                        <mat-icon class="icon-success">local_bar</mat-icon> Yes
+                    </mat-option>
+                    <mat-option [value]="false">
+                        <mat-icon class="icon-error">cancel</mat-icon> No
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+        <div class="button-group">
+            <button mat-raised-button color="primary" type="submit" [disabled]="amenitiesForm.invalid">
+                <mat-icon>add</mat-icon> Add Amenities
+            </button>
         </div>
     </form>
 </mat-card>

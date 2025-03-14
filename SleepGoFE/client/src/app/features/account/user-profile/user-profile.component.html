@@ -1,41 +1,44 @@
 <app-header></app-header>
 
-<div class="container">
-    <mat-card class="profile-card">
-      <div class="avatar-container" (mouseenter)="avatarHover = true" (mouseleave)="avatarHover = false">
-        <app-avatar
-          [src]="getUserImage()"
-          [alt]="'Profile Picture'"
-          [size]="'150px'">
-        </app-avatar>
+<div class="profile-container">
+  <div class="profile-avatar">
+    <app-avatar [src]="getUserImage()" [alt]="'Profile Picture'" [size]="'150px'"></app-avatar>
+    <div class="avatar-actions">
+      <button mat-button color="primary" (click)="triggerFileInput()">Update</button>
+      <button mat-button color="warn" (click)="deleteProfilePicture()">Delete</button>
+      <input type="file" #fileInput hidden (change)="onFileSelected($event)" />
+    </div>
+  </div>
 
-        <div class="avatar-overlay" *ngIf="avatarHover">
-          <button mat-button color="primary" (click)="triggerFileInput()">Update</button>
-          <button mat-button color="warn" (click)="deleteProfilePicture()">Delete</button>
-          <input type="file" #fileInput hidden (change)="onFileSelected($event)" />
+  <mat-card class="settings-card">
+    <h2 class="settings-header">My Settings</h2>
+    <form [formGroup]="userForm" (ngSubmit)="updateProfile()">
+      <div class="divider"></div>
+      <div class="form-section">
+        <h3>Personal Information</h3>
+        <div class="form-grid">
+          <mat-form-field appearance="outline">
+            <mat-label>Email</mat-label>
+            <input matInput formControlName="email" type="email" />
+          </mat-form-field>
+    
+          <mat-form-field appearance="outline">
+            <mat-label>Username</mat-label>
+            <input matInput formControlName="userName" />
+          </mat-form-field>
+    
+          <mat-form-field appearance="outline">
+            <mat-label>Phone Number</mat-label>
+            <input matInput formControlName="phoneNumber" type="tel" />
+          </mat-form-field>
         </div>
       </div>
-    </mat-card>
-  
-    <mat-card class="settings-card">
-      <h2>My Settings</h2>
-      <form [formGroup]="userForm" (ngSubmit)="updateProfile()">
-        <mat-form-field appearance="outline">
-          <mat-label>Email</mat-label>
-          <input matInput formControlName="email" type="email" />
-        </mat-form-field>
-  
-        <mat-form-field appearance="outline">
-          <mat-label>Username</mat-label>
-          <input matInput formControlName="userName" />
-        </mat-form-field>
-  
-        <mat-form-field appearance="outline">
-          <mat-label>Phone Number</mat-label>
-          <input matInput formControlName="phoneNumber" type="tel" />
-        </mat-form-field>
-  
-        <ng-container *ngIf="isHotelUser">
+
+      <ng-container *ngIf="isHotelUser">
+        <div class="divider"></div>
+        <div class="form-section">
+          <h3>Hotel Information</h3>
+          <div class="form-grid">
             <mat-form-field appearance="outline">
               <mat-label>Hotel Name</mat-label>
               <input matInput formControlName="hotelName" />
@@ -60,7 +63,7 @@
               <mat-label>Address</mat-label>
               <input matInput formControlName="address" />
             </mat-form-field>
-
+  
             <mat-form-field appearance="outline">
                 <mat-label>Hotel Description</mat-label>
                 <input matInput formControlName="hotelDescription" />
@@ -75,32 +78,41 @@
               <mat-label>Longitude</mat-label>
               <input matInput formControlName="longitude" type="number" />
             </mat-form-field>
-          </ng-container>
-
-        <ng-container *ngIf="!isHotelUser">
-          <mat-form-field appearance="outline">
-            <mat-label>First Name</mat-label>
-            <input matInput formControlName="firstName" />
-          </mat-form-field>
-  
-          <mat-form-field appearance="outline">
-            <mat-label>Last Name</mat-label>
-            <input matInput formControlName="lastName" />
-          </mat-form-field>
-  
-          <mat-form-field appearance="outline">
-            <mat-label>Date of Birth</mat-label>
-            <input matInput [matDatepicker]="picker" formControlName="dateOfBirth" (dateChange)="onDateChange($event)" />
-            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-            <mat-datepicker #picker></mat-datepicker>
-          </mat-form-field>
-        </ng-container>
-  
-        <div class="button-container">
-          <button mat-raised-button color="primary" type="submit">Update</button>
-          <button mat-raised-button color="warn" (click)="openDeleteDialog()">Delete Account</button>
+          </div>
         </div>
-      </form>
-    </mat-card>
-  </div>
+      </ng-container>
+
+      <ng-container *ngIf="!isHotelUser">
+        <div class="form-section">
+          <h3>User Information</h3>
+          <div class="form-grid">
+            <div class="name-fields">
+              <mat-form-field appearance="outline" class="half-width">
+                <mat-label>First Name</mat-label>
+                <input matInput formControlName="firstName" />
+              </mat-form-field>
+      
+              <mat-form-field appearance="outline" class="half-width">
+                <mat-label>Last Name</mat-label>
+                <input matInput formControlName="lastName" />
+              </mat-form-field>
+            </div>
+    
+            <mat-form-field appearance="outline">
+              <mat-label>Date of Birth</mat-label>
+              <input matInput [matDatepicker]="picker" formControlName="dateOfBirth" (dateChange)="onDateChange($event)" />
+              <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+          </div>
+        </div>
+      </ng-container>
+
+      <div class="button-container">
+        <button mat-raised-button color="primary" type="submit">Update</button>
+        <button mat-raised-button color="warn" type="button" (click)="openDeleteDialog()">Delete Account</button>
+      </div>
+    </form>
+  </mat-card>
+</div>
   
