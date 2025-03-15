@@ -36,7 +36,7 @@
     border-radius: 12px;
     background-color: white;
     transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-    border-left: 8px solid #0C7075;
+    border-left: 8px solid #AF7A38;
 }
 
 .room-card:hover {
@@ -80,7 +80,7 @@
 }
 
 .feature-item mat-icon {
-    color: #0C7075;
+    color: #AF7A38;
     font-size: 18px;
     display: flex;
     align-items: center;
@@ -90,7 +90,7 @@
 .room-price {
     font-size: 18px;
     font-weight: bold;
-    color: #0C7075;
+    color: #AF7A38;
     margin-top: 1rem;
 }
 
