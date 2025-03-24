@@ -1,4 +1,6 @@
-﻿namespace SleepGo.App.DTOs.ReservationDtos
+﻿using SleepGo.App.DTOs.PaymentDtos;
+
+namespace SleepGo.App.DTOs.ReservationDtos
 {
     public class ResponseReservationDto
     {
@@ -10,5 +12,6 @@
         public DateTime CheckOut { get; set; }
         public decimal Price { get; set; }
         public string Status { get; set; }
+        public PaymentDto Payment { get; set; }
     }
 }

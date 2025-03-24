@@ -22,6 +22,8 @@ namespace SleepGo.Api.Extensions
             services.AddScoped<IIdentityService, IdentityService>();
             services.AddScoped<IAuthenticationService, AuthenticationService>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddScoped<IPaymentRepository, PaymentRepository>();
+            services.AddScoped<IPaymentService, PaymentService>();
         }
 
         public static void AddMediatR(this IServiceCollection services)

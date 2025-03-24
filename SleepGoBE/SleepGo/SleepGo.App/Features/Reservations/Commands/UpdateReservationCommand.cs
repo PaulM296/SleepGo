@@ -33,6 +33,12 @@ namespace SleepGo.App.Features.Reservations.Commands
 
             getReservation.Status = request.updateReservationDto.Status;
 
+            if (getReservation.Payment != null && request.updateReservationDto.Status == "Successful")
+            {
+                getReservation.Payment.Status = "Succeeded";
+                getReservation.Payment.PaidAt = DateTime.UtcNow;
+            }
+
             var updatedReservation = await _unitOfWork.ReservationRepository.UpdateAsync(getReservation);
             await _unitOfWork.SaveAsync();
 

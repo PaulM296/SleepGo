@@ -7,11 +7,9 @@ using SleepGo.App.Interfaces;
 
 namespace SleepGo.App.Features.Amenities.Queries
 {
-    //public record GetAmenitiesByHotelIdQuery(Guid hotelId) : IRequest<ResponseAmenityDto>;
     public record GetAmenitiesByHotelIdQuery(Guid hotelId) : IRequest<List<ResponseAmenityDto>>;
 
 
-    //public class GetAmenitiesByHotelIdQueryHandler : IRequestHandler<GetAmenitiesByHotelIdQuery, ResponseAmenityDto>
     public class GetAmenitiesByHotelIdQueryHandler : IRequestHandler<GetAmenitiesByHotelIdQuery, List<ResponseAmenityDto>>
     {
         private readonly IUnitOfWork _unitOfWork;
@@ -25,7 +23,6 @@ namespace SleepGo.App.Features.Amenities.Queries
             _mapper = mapper;
         }
 
-        //public async Task<ResponseAmenityDto> Handle(GetAmenitiesByHotelIdQuery request, CancellationToken cancellationToken)
         public async Task<List<ResponseAmenityDto>> Handle(GetAmenitiesByHotelIdQuery request, CancellationToken cancellationToken)
         {
             var amenitiesForHotel = await _unitOfWork.AmenityRepository.GetHotelAmenitiesByHotelIdAsync(request.hotelId);
@@ -37,7 +34,6 @@ namespace SleepGo.App.Features.Amenities.Queries
 
             _logger.LogInformation($"Hotel amenities successfully retrieved!");
 
-            //return _mapper.Map<ResponseAmenityDto>(amenitiesForHotel);
             return _mapper.Map<List<ResponseAmenityDto>>(amenitiesForHotel);
         }
     }

@@ -13,10 +13,12 @@ namespace SleepGo.Infrastructure
         public IRoomRepository RoomRepository { get; private set; }
         public IUserProfileRepository UserProfileRepository { get; private set; }
         public IUserRepository UserRepository { get; private set; }
+        public IPaymentRepository PaymentRepository { get; private set; }
 
         public UnitOfWork(SleepGoDbContext context, IAmenityRepository amenityRepository, IHotelRepository hotelRepository,
             IImageRepository imageRepository, IReservationRepository reservationRepository, IReviewRepository reviewRepository,
-            IRoomRepository roomRepository, IUserProfileRepository userProfileRepository, IUserRepository userRepository)
+            IRoomRepository roomRepository, IUserProfileRepository userProfileRepository, IUserRepository userRepository,
+            IPaymentRepository paymentRepository)
         {
             _context = context;
             AmenityRepository = amenityRepository;
@@ -27,6 +29,7 @@ namespace SleepGo.Infrastructure
             RoomRepository = roomRepository;
             UserProfileRepository = userProfileRepository;
             UserRepository = userRepository;
+            PaymentRepository = paymentRepository;
         }
 
         public async Task BeginTransactionAsync()

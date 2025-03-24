@@ -39,7 +39,6 @@ namespace SleepGo.App.Features.Users.Commands
                     {
                         await _unitOfWork.ReviewRepository.RemoveAsync(review);
 
-                        //Add a recalculating hotel rating once adding a field.
                     }
                 }
 

@@ -10,6 +10,7 @@
         public IRoomRepository RoomRepository { get; }
         public IUserProfileRepository UserProfileRepository { get; }
         public IUserRepository UserRepository { get; }
+        public IPaymentRepository PaymentRepository { get; }
 
         Task SaveAsync();
         Task BeginTransactionAsync();

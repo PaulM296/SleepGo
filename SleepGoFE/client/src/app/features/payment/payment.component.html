@@ -1,0 +1,16 @@
+<app-header></app-header>
+
+<div class="payment-container">
+  <mat-card class="payment-card">
+    <mat-card-title>Enter your payment details</mat-card-title>
+
+    <div #paymentElement class="payment-element"></div>
+
+    <div class="payment-actions">
+      <button mat-raised-button color="primary" (click)="onPay()" [disabled]="isLoading">
+        {{ isLoading ? 'Processing...' : 'Pay Now' }}
+      </button>
+      <p *ngIf="error" class="payment-error">{{ error }}</p>
+    </div>
+  </mat-card>
+</div>

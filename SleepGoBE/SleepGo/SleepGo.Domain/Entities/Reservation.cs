@@ -12,5 +12,6 @@ namespace SleepGo.Domain.Entities
         public DateTime CheckOut {  get; set; }
         public decimal Price { get; set; }
         public string Status { get; set; }
+        public Payment Payment { get; set; }
     }
 }

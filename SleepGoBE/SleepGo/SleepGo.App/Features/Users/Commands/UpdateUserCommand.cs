@@ -36,7 +36,6 @@ namespace SleepGo.App.Features.Users.Commands
             Image image = null;
             if (request.updateUserDto.ProfilePicture != null)
             {
-                // Validate image format
                 var allowedFormats = new[] { ".png", ".jpg", ".jpeg" };
                 var fileExtension = Path.GetExtension(request.updateUserDto.ProfilePicture.FileName).ToLower();
                 if (!allowedFormats.Contains(fileExtension))
@@ -44,7 +43,6 @@ namespace SleepGo.App.Features.Users.Commands
                     throw new InvalidImageFormatException("Invalid image format. Only .png, .jpg, and .jpeg are allowed.");
                 }
 
-                // Convert image to binary format
                 byte[] imageData;
                 using (var memoryStream = new MemoryStream())
                 {

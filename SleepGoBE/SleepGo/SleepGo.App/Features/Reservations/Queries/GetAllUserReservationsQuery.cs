@@ -3,6 +3,7 @@ using MediatR;
 using Microsoft.Extensions.Logging;
 using SleepGo.App.DTOs.HotelDtos;
 using SleepGo.App.DTOs.PaginationDtos;
+using SleepGo.App.DTOs.PaymentDtos;
 using SleepGo.App.DTOs.ReservationDtos;
 using SleepGo.App.Exceptions;
 using SleepGo.App.Features.Hotels.Queries;
@@ -44,7 +45,16 @@ namespace SleepGo.App.Features.Reservations.Queries
                 CheckOut = r.CheckOut,
                 Price = r.Price,
                 Status = r.Status,
-                HotelName = r.Room.Hotel.HotelName
+                HotelName = r.Room.Hotel.HotelName,
+                Payment = r.Payment != null ? new PaymentDto
+                {
+                    ClientSecret = r.Payment.ClientSecret,
+                    PaymentIntentId = r.Payment.PaymentIntentId,
+                    Status = r.Payment.Status,
+                    PaidAt = r.Payment.PaidAt,
+                    Amount = r.Payment.Amount,
+                    Currency = r.Payment.Currency
+                } : null
             }).ToList();
 
             var pagedReservationDtos = new PaginationResponseDto<ResponseReservationDto>(

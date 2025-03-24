@@ -26,6 +26,7 @@ import { CreateAmenitiesComponent } from './features/amenity/create-amenities/cr
 import { HotelAmenitiesComponent } from './features/amenity/hotel-amenities/hotel-amenities.component';
 import { BlockedComponent } from './shared/components/blocked/blocked.component';
 import { blockedGuard } from './core/guards/blocked.guard';
+import { PaymentComponent } from './features/payment/payment.component';
 
 export const routes: Routes = [
     {path: '', component: HomeComponent},
@@ -50,5 +51,6 @@ export const routes: Routes = [
     {path: 'available-hotel-rooms-by-type', component: ViewAvailableHotelRoomsComponent, canActivate:[authGuard, hotelGuard, blockedGuard]},
     {path: 'create-amenities', component: CreateAmenitiesComponent, canActivate:[authGuard, hotelGuard, blockedGuard]},
     {path: 'hotel-amenities', component: HotelAmenitiesComponent, canActivate: [authGuard, hotelGuard, blockedGuard]},
+    {path: 'payment/:reservationId', component: PaymentComponent, canActivate: [authGuard, userGuard, blockedGuard]},
     {path: '**', redirectTo: 'not-found', pathMatch: 'full'}
 ];

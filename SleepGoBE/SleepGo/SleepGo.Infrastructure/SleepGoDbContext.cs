@@ -16,6 +16,7 @@ namespace SleepGo.Infrastructure
         public DbSet<Review> Reviews { get; set; }
         public DbSet<Amenity> Amenities { get; set; }
         public DbSet<Image> Images { get; set; }
+        public DbSet<Payment> Payments { get; set; }
 
         public SleepGoDbContext(DbContextOptions options) : base(options)
         {
@@ -31,6 +32,7 @@ namespace SleepGo.Infrastructure
             modelBuilder.ApplyConfiguration(new ReviewConfiguration());
             modelBuilder.ApplyConfiguration(new RoomConfiguration());
             modelBuilder.ApplyConfiguration(new UserProfileConfiguration());
+            modelBuilder.ApplyConfiguration(new PaymentConfiguration());
         }
     }
 }

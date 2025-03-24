@@ -15,6 +15,7 @@ import { PaginationRequest, PaginationResponse } from '../../../shared/models/pa
 import { ResponseReviewModel } from '../../../shared/models/reviewModels/responseReviewModel';
 import { ConfirmDialogComponent } from '../../../shared/components/confirm-dialog/confirm-dialog.component';
 import { MatIconModule } from '@angular/material/icon';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-reservation',
@@ -38,6 +39,7 @@ export class UserReservationComponent implements OnInit {
   private jwtService = inject(JwtService);
   private snackbarService = inject(SnackbarService);
   private dialog = inject(MatDialog);
+  private router = inject(Router);
 
   reservations = signal<ResponseReservationModel[]>([]);
   totalReservations = signal<number>(0);
@@ -125,4 +127,7 @@ export class UserReservationComponent implements OnInit {
     return item.id;
   }
 
+  navigateToPayment(reservationId: string): void {
+    this.router.navigate(['/payment', reservationId]);
+  }
 }

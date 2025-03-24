@@ -1,4 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
+import { PaymentSummary } from '../models/paymentModels/paymentSummary';
 
 @Pipe({
   name: 'paymentCard',
@@ -6,8 +7,13 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class PaymentCardPipe implements PipeTransform {
 
-  transform(value: unknown, ...args: unknown[]): unknown {
-    return null;
+  transform(value?: PaymentSummary): string {
+    if(value) {
+      const { brand, last4, expMonth, expYear } = value;
+      return `${brand.toUpperCase()}, **** **** **** ${last4}, Exp: ${expMonth}/${expYear}`;
+    }
+
+    return 'Unknown payment method';
   }
 
 }

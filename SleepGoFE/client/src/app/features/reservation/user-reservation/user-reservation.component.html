@@ -15,8 +15,15 @@
                     </div>
 
                     <mat-menu #menu="matMenu">
-                        <button mat-menu-item (click)="deleteReservation(reservation.id)">
+                        <button *ngIf="reservation.status == 'Pending'" mat-menu-item (click)="deleteReservation(reservation.id)">
                             <mat-icon>delete</mat-icon> Cancel Reservation
+                        </button>
+                        <button *ngIf="reservation.status == 'Pending'" mat-menu-item (click)="navigateToPayment(reservation.id)">
+                            <mat-icon>payment</mat-icon> Pay Now
+                        </button>
+
+                        <button mat-menu-item disabled *ngIf="reservation.status !== 'Pending'">
+                            <mat-icon>info</mat-icon> No actions available for this reservation
                         </button>
                     </mat-menu>
                     <p class="reservation-price"><strong>Price: </strong> {{ reservation.price }}</p>
