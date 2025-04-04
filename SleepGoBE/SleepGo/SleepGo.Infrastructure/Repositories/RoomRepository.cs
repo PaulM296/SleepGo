@@ -72,5 +72,11 @@ namespace SleepGo.Infrastructure.Repositories
                 .Where(r => r.HotelId == hotelId)
                 .ToListAsync();
         }
+
+        public IQueryable<Room> GetQueryable()
+        {
+            return _context.Rooms.Include(r => r.Hotel);
+        }
+
     }
 }

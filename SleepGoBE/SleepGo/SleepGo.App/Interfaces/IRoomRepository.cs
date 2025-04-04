@@ -12,5 +12,6 @@ namespace SleepGo.App.Interfaces
         Task<ICollection<Room>> GetRoomsByHotelIdAsync(Guid hotelId);
         Task<ICollection<Room>> GetAvailableRoomsByHotelIdAsync(Guid hotelId);
         Task<ICollection<Room>> GetAllRoomsByHotelIdAsync(Guid hotelId);
+        IQueryable<Room> GetQueryable();
     }
 }

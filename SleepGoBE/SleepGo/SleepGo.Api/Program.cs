@@ -14,10 +14,12 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwagger();
 
+
 builder.Services.AddMediatR();
 builder.Services.AddRepositories();
 builder.Services.AddDbContext(builder);
 builder.Services.AddAutoMapper();
+builder.Services.AddRecommendationService();
 
 builder.Services.AddCors(options =>
 {

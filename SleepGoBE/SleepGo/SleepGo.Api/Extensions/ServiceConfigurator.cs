@@ -1,4 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using SleepGo.Api.Interfaces;
+using SleepGo.Api.Services;
 using SleepGo.App.Interfaces;
 using SleepGo.Infrastructure;
 using SleepGo.Infrastructure.Repositories;
@@ -28,7 +30,12 @@ namespace SleepGo.Api.Extensions
 
         public static void AddMediatR(this IServiceCollection services)
         {
-            services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(IUserRepository).Assembly));
+            //services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(IUserRepository).Assembly));
+            services.AddMediatR(cfg =>
+            {
+                cfg.RegisterServicesFromAssembly(typeof(IUserRepository).Assembly); // App
+                cfg.RegisterServicesFromAssembly(typeof(SleepGo.Api.Features.Queries.GetUserRecommendationsQueryHandler).Assembly); // Api
+            });
         }
 
         public static void AddDbContext(this IServiceCollection services, WebApplicationBuilder builder)
@@ -39,6 +46,11 @@ namespace SleepGo.Api.Extensions
         public static void AddAutoMapper(this IServiceCollection services)
         {
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+        }
+
+        public static void AddRecommendationService(this IServiceCollection services)
+        {
+            services.AddSingleton<IRecommendationService, RecommendationService>();
         }
     }
 }
