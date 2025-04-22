@@ -52,5 +52,10 @@ namespace SleepGo.Api.Extensions
         {
             services.AddSingleton<IRecommendationService, RecommendationService>();
         }
+
+        public static void AddOpenAI(this IServiceCollection services)
+        {
+            services.AddHttpClient<IOpenAIService, OpenAIService>();
+        }
     }
 }

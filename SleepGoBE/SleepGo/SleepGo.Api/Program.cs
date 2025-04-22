@@ -20,6 +20,7 @@ builder.Services.AddRepositories();
 builder.Services.AddDbContext(builder);
 builder.Services.AddAutoMapper();
 builder.Services.AddRecommendationService();
+builder.Services.AddOpenAI();
 
 builder.Services.AddCors(options =>
 {

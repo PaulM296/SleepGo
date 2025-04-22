@@ -1,0 +1,76 @@
+name: SleepGo CI/CD (.NET Core + Angular)
+
+on:
+  push:
+    branches: ['*']
+    paths: 
+      - 'SleepGoBE/**'
+      - 'SleepGoFE/**'
+  pull_request:
+    branches: ['*']
+    paths:
+      - 'SleepGoBE/**'
+      - 'SleepGoFE/**'
+
+jobs:
+  build-backend:
+    name: Build & Test .NET Backend
+    runs-on: windows-latest
+    defaults:
+      run:
+        working-directory: SleepGoBE
+    
+    steps: 
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Restore dependencies
+        run: dotnet restore
+
+      - name: Build
+        run: dotnet build --no-restore --configuration Release
+
+      - name: Publish backend
+        run: dotnet publish -c Release -o "${{ env.DOTNET_ROOT }}/sleepgo-publish"
+
+      - name: Upload backend artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: sleepgo-backend
+          path: ${{ env.DOTNET_ROOT }}/sleepgo-publish
+
+  build-frontend:
+    name: Build & Test Angular Frontend
+    runs-on: windows-latest
+    defaults:
+      run:
+        working-directory: SleepGoFE/client
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with: 
+          node-version: '20'
+      
+      - name: Install dependencies
+        run: npm install
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Build Angular app
+        run: npm run build -- --configuration production
+
+      - name: Upload frontend artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: sleepgo-frontend
+          path: dist
