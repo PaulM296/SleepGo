@@ -56,4 +56,13 @@ export class ReviewService {
 
     return this.http.get<PaginationResponse<ResponseReviewModel>>(`${this.apiUrl}/user/${userId}/reviews`, { params });
    }
+
+   askQuestionAboutHotelReviews(hotelId: string, question: string): Observable<string> {
+    const headers = { 'Content-Type': 'application/json' };
+
+    return this.http.post<string>(
+      `${this.apiUrl}/hotel/${hotelId}/ask`,
+       JSON.stringify(question),
+       { headers, responseType: 'text' as 'json'});
+   }
 }

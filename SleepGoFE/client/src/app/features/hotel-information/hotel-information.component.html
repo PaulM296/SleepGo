@@ -130,3 +130,22 @@
     </div>
   </div>
 </div>
+
+<div class="ask-question-box" *ngIf="hotelId">
+  <h3>Ask our AI about this hotel's reviews</h3>
+
+  <textarea 
+    [(ngModel)]="question"
+    placeholder="Ask anything about this hotel's reviews"
+    rows="4">
+  </textarea>
+  
+  <button mat-raised-button color="primary" (click)="askQuestion()">
+    Ask AI
+  </button>
+
+  <div *ngIf="answer" class="gpt-answer">
+    <h4>Answer:</h4>
+    <p>{{ answer }}</p>
+  </div>
+</div>

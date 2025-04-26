@@ -22,6 +22,7 @@ import { RoomType } from '../../shared/models/roomModels/roomType';
 import { animation } from '@angular/animations';
 import { GoogleMap, MapMarker } from '@angular/google-maps';
 import { environment } from '../../../environments/environment';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-hotel-information',
@@ -33,7 +34,8 @@ import { environment } from '../../../environments/environment';
     MatButtonModule,
     CommonModule,
     GoogleMap,
-    MapMarker
+    MapMarker,
+    FormsModule
   ],
   templateUrl: './hotel-information.component.html',
   styleUrl: './hotel-information.component.scss'
@@ -62,6 +64,8 @@ export class HotelInformationComponent implements OnInit {
   zoom = 13;
   markerPosition!: google.maps.LatLngLiteral;
   isGoogleMapsLoaded = false;
+  question: string = '';
+  answer: string = '';
 
   ngOnInit(): void {
     this.loadGoogleMaps();
@@ -304,5 +308,20 @@ export class HotelInformationComponent implements OnInit {
       this.isGoogleMapsLoaded = true;
       this.setMapLocation();
     }
+  }
+
+  askQuestion(): void {
+    if(!this.question.trim()) {
+      return;
+    }
+
+    this.reviewService.askQuestionAboutHotelReviews(this.hotelId, this.question).subscribe({
+      next: (response) => {
+        this.answer = response;
+      },
+      error: (error) => {
+        console.error("Failed to fetch answer:", error);
+      }
+    });
   }
 }
