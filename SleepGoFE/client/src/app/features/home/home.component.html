@@ -1,4 +1,27 @@
 <div class="background">
-<app-header></app-header>
-<app-footer></app-footer>
+    <app-header></app-header>
+    
+    <div class="home-content">
+        <div class="welcome-section">
+        <h1>Find your perfect stay 🏨</h1>
+        <p>Discover hotels in over 10,000 cities worldwide!</p>
+        <button mat-raised-button color="primary">Start Exploring</button>
+        </div>
+    
+        <div class="recommendation-sidebar" *ngIf="recommendations.length > 0">
+        <h3>Recommended for you</h3>
+        <mat-card>
+            <h4>{{ currentRecommendation.hotelName }}</h4>
+            <p>{{ currentRecommendation.city }}, {{ currentRecommendation.country }}</p>
+            <p>Rating: {{ currentRecommendation.rating }}/10</p>
+    
+            <div class="recommendation-buttons">
+            <button mat-button (click)="previousRecommendation()">Previous</button>
+            <button mat-button (click)="nextRecommendation()">Next</button>
+            </div>
+        </mat-card>
+        </div>
+    </div>
+    
+    <app-footer></app-footer>
 </div>
