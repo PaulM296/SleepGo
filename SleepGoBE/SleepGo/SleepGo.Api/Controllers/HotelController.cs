@@ -58,5 +58,13 @@ namespace SleepGo.Api.Controllers
 
             return Ok(hotels);
         }
+
+        [HttpPost("hotel-recommendations/ask")]
+        public async Task<IActionResult> AskQuestionsAboutHotel([FromBody] string question)
+        {
+            var result = await _mediator.Send(new AskQuestionsAboutHotelQuery(question));
+
+            return Ok(result);
+        }
     }
 }

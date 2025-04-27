@@ -62,5 +62,15 @@ namespace SleepGo.Api.Controllers
 
             return Ok(response);
         }
+
+        [HttpPost("hotel-recommendations/from-past-reservations")]
+        public async Task<IActionResult> AskRecommendationsBasedOnPastReservations()
+        {
+            var userId = HttpContext.GetUserIdClaimValue();
+
+            var result = await _mediator.Send(new AskRecommendationsBasedOnReservationsQuery(userId));
+
+            return Ok(result);
+        }
     }
 }

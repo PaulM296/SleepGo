@@ -11,5 +11,6 @@ namespace SleepGo.App.Interfaces
         Task<Hotel> GetAllHotelReviewsByHotelId(Guid hotelId);
         Task<Hotel> GetHotelProfileByUserId(Guid userId);
         Task UpdateHotelRatingAsync(Guid hotelId);
+        Task<ICollection<Hotel>> GetAllHotelWithRoomsAsync();
     }
 }

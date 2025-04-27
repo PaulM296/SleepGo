@@ -82,5 +82,12 @@ namespace SleepGo.Infrastructure.Repositories
             _context.Hotels.Update(hotel);
             await _context.SaveChangesAsync();
         }
+
+        public async Task<ICollection<Hotel>> GetAllHotelWithRoomsAsync()
+        {
+            return await _context.Hotels
+                .Include(h => h.Rooms)
+                .ToListAsync();
+        }
     }
 }
