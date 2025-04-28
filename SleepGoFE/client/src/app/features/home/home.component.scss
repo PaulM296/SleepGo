@@ -9,27 +9,62 @@
     padding: 40px;
   }
   
-  .welcome-section {
-    flex: 1;
+  .hotel-questions-card {
+    width: 350px;
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
     text-align: center;
-    margin-right: 50px;
-  
-    h1 {
-      font-size: 36px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-right: 20px; // add space if needed between the two cards
+    
+    h2 {
+      margin-top: 0;
       color: #AF7A38;
+      font-family: 'Roboto', sans-serif;
+      font-weight: bold;
+      font-size: 20px;
     }
   
-    p {
-      font-size: 18px;
-      color: #555;
-      margin-bottom: 20px;
+    textarea {
+      width: 100%;
+      resize: none;
+      padding: 10px;
+      margin: 10px 0;
+      font-size: 14px;
+      font-family: 'Roboto', sans-serif;
+      border-radius: 8px;
+      border: 1px solid #ccc;
     }
   
     button {
-      font-size: 18px;
-      padding: 10px 20px;
+      width: 100%;
+      background-color: #f9f9f9;
+      color: #1976d2;
+      font-weight: bold;
+      margin-top: 10px;
+    }
+  
+    .gpt-answer {
+      margin-top: 15px;
+      text-align: left;
+  
+      h4 {
+        margin-bottom: 5px;
+        color: #AF7A38;
+      }
+  
+      p {
+        font-size: 14px;
+        color: #555;
+        white-space: pre-line;
+      }
     }
   }
+  
   
   .recommendation-sidebar {
     width: 300px;

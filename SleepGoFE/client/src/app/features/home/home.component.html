@@ -1,27 +1,43 @@
 <div class="background">
     <app-header></app-header>
-    
+  
     <div class="home-content">
-        <div class="welcome-section">
-        <h1>Find your perfect stay 🏨</h1>
-        <p>Discover hotels in over 10,000 cities worldwide!</p>
-        <button mat-raised-button color="primary">Start Exploring</button>
+      <div class="hotel-questions-card">
+        <h2>Ask our AI for Hotel Recommendations</h2>
+
+        <textarea 
+            [(ngModel)]="hotelQuestion"
+            placeholder="Ask anything, like 'Find hotels in Paris under $100!'" 
+            rows="4"
+        >
+        </textarea>
+
+        <button mat-raised-button color="primary" (click)="askHotelRecommendation()">
+            Ask AI
+        </button>
+
+        <div *ngIf="hotelAnswer" class="gpt-answer">
+            <h4>Answer:</h4>
+            <p>{{ hotelAnswer }}</p>
         </div>
-    
-        <div class="recommendation-sidebar" *ngIf="recommendations.length > 0">
+      </div>
+  
+      <div class="recommendation-sidebar" *ngIf="recommendationsText && !isLoading">
         <h3>Recommended for you</h3>
         <mat-card>
-            <h4>{{ currentRecommendation.hotelName }}</h4>
-            <p>{{ currentRecommendation.city }}, {{ currentRecommendation.country }}</p>
-            <p>Rating: {{ currentRecommendation.rating }}/10</p>
-    
-            <div class="recommendation-buttons">
-            <button mat-button (click)="previousRecommendation()">Previous</button>
-            <button mat-button (click)="nextRecommendation()">Next</button>
-            </div>
+          <p>{{ recommendationsText }}</p>
         </mat-card>
-        </div>
+      </div>
+  
+      <div *ngIf="isLoading">
+        <p>Loading recommendations...</p>
+      </div>
+  
+      <div *ngIf="errorMessage">
+        <p>{{ errorMessage }}</p>
+      </div>
     </div>
-    
+  
     <app-footer></app-footer>
-</div>
+  </div>
+  

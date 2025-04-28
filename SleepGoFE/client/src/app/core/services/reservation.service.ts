@@ -14,9 +14,6 @@ export class ReservationService {
   private apiUrl = `${environment.apiUrl}reservations`;
   private http = inject(HttpClient);
 
-  // addReservation(createReservationModel: CreateReservationModel): Observable<ResponseReservationModel> {
-  //   return this.http.post<ResponseReservationModel>(`${this.apiUrl}`, createReservationModel);
-  // }
   addReservation(reservation: FormData): Observable<ResponseReservationModel> {
     return this.http.post<ResponseReservationModel>(`${this.apiUrl}`, reservation , {
       headers: {
@@ -51,4 +48,14 @@ export class ReservationService {
 
       return this.http.get<PaginationResponse<ResponseReservationModel>>(`${this.apiUrl}/user/${userId}`, { params });
     }
+
+  askRecommendationsBasedOnPastReservations(): Observable<string> {
+    const headers = { 'Content-Type': 'application/json' };
+
+    return this.http.post<string>(
+      `${this.apiUrl}/hotel-recommendations/from-past-reservations`,
+      null,
+      { headers, responseType: 'text' as 'json'}
+    );
+  }
 }
