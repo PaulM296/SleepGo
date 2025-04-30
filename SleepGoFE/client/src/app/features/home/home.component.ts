@@ -33,10 +33,13 @@ export class HomeComponent implements OnInit {
   isLoading = true;
   errorMessage = '';
   hotelQuestion: string = '';
-hotelAnswer: string = '';
+  hotelAnswer: string = '';
+  typedText = '';
+  fullText = 'Looking for a perfect getaway? Try asking our AI for personalized hotel suggestions based on your dream destination, budget, or room preferences!';
 
   ngOnInit() {
     this.fetchRecommendationsOnLogin();
+    this.simulateTyping();
   }
 
   fetchRecommendationsOnLogin() {
@@ -79,5 +82,21 @@ hotelAnswer: string = '';
         console.error("Failed to fetch hotel recommendation answer:", error);
       }
     });
+  }
+
+  simulateTyping(): void {
+    let index = 0;
+    const typingSpeed = 45;
+
+    const typeNext = () => {
+      if(index < this.fullText.length) {
+        this.typedText += this.fullText.charAt(index);
+        index++;
+        setTimeout(typeNext, typingSpeed);
+      }
+    };
+
+    this.typedText = '';
+    typeNext();
   }
 }

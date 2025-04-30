@@ -94,7 +94,7 @@ performSearch(query: string) {
     this.jwtService.clearToken();
     this.isLoggedIn = false;
     this.userImageUrl = null;
-    this.router.navigate(['']);
+    this.router.navigate(['/login']);
   }
 
   navigateToProfile() {
