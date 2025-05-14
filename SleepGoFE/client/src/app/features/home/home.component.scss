@@ -6,11 +6,12 @@
 .home-content {
   display: flex;
   justify-content: space-between;
+  align-items: flex-start; 
   padding: 40px;
 }
 
 .hotel-questions-card {
-  width: 350px;
+  width: 400px;
   background: white;
   padding: 20px;
   border-radius: 12px;
@@ -67,7 +68,7 @@
   
   
 .recommendation-sidebar {
-  width: 300px;
+  width: 400px;
   background: white;
   padding: 20px;
   border-radius: 12px;
@@ -95,15 +96,14 @@
   width: 300px;
   min-height: 100px;
   margin: 0 20px;
-  background: #ffffff;
+  background: #dcefeb;
   border-radius: 12px;
-  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
-  font-size: 16px;
-  color: #555;
+  font-size: 32px;
+  color: #AF7A38;
   font-family: 'Roboto', sans-serif;
   animation: fadeIn 0.5s ease-in-out;
 }
