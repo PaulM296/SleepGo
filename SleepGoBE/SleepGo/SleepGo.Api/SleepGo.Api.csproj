@@ -20,7 +20,6 @@
   <ItemGroup>
     <ProjectReference Include="..\SleepGo.App\SleepGo.App.csproj" />
     <ProjectReference Include="..\SleepGo.Infrastructure\SleepGo.Infrastructure.csproj" />
-    <ProjectReference Include="..\SleepGo.MLTrainer\SleepGo.MLTrainer.csproj" />
   </ItemGroup>
 
   <ItemGroup>

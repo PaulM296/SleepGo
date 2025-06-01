@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using SleepGo.Api.Interfaces;
-using SleepGo.Api.Services;
+//using SleepGo.Api.Interfaces;
+//using SleepGo.Api.Services;
 using SleepGo.App.Interfaces;
 using SleepGo.Infrastructure;
 using SleepGo.Infrastructure.Repositories;
@@ -34,7 +34,7 @@ namespace SleepGo.Api.Extensions
             services.AddMediatR(cfg =>
             {
                 cfg.RegisterServicesFromAssembly(typeof(IUserRepository).Assembly); // App
-                cfg.RegisterServicesFromAssembly(typeof(SleepGo.Api.Features.Queries.GetUserRecommendationsQueryHandler).Assembly); // Api
+                //cfg.RegisterServicesFromAssembly(typeof(SleepGo.Api.Features.Queries.GetUserRecommendationsQueryHandler).Assembly); // Api
             });
         }
 
@@ -50,7 +50,7 @@ namespace SleepGo.Api.Extensions
 
         public static void AddRecommendationService(this IServiceCollection services)
         {
-            services.AddSingleton<IRecommendationService, RecommendationService>();
+            //services.AddSingleton<IRecommendationService, RecommendationService>();
         }
 
         public static void AddOpenAI(this IServiceCollection services)
