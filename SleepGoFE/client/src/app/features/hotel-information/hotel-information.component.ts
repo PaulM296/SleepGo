@@ -23,6 +23,8 @@ import { animation } from '@angular/animations';
 import { GoogleMap, MapMarker } from '@angular/google-maps';
 import { environment } from '../../../environments/environment';
 import { FormsModule } from '@angular/forms';
+import { JwtService } from '../../core/services/jwt.service';
+import { MatMenuModule } from '@angular/material/menu';
 
 @Component({
   selector: 'app-hotel-information',
@@ -35,7 +37,8 @@ import { FormsModule } from '@angular/forms';
     CommonModule,
     GoogleMap,
     MapMarker,
-    FormsModule
+    FormsModule,
+    MatMenuModule
   ],
   templateUrl: './hotel-information.component.html',
   styleUrl: './hotel-information.component.scss'
@@ -49,6 +52,7 @@ export class HotelInformationComponent implements OnInit {
   private roomService = inject(RoomService);
   private reviewService = inject(ReviewService);
   private snackbarService = inject(SnackbarService);
+  private jwtService = inject(JwtService);
 
   hotel!: ResponseHotelModel;
   hotelId!: string;
@@ -66,8 +70,10 @@ export class HotelInformationComponent implements OnInit {
   isGoogleMapsLoaded = false;
   question: string = '';
   answer: string = '';
+  isAdmin = false;
 
   ngOnInit(): void {
+    this.isAdmin = this.jwtService.getUserRole() === 'Admin';
     this.loadGoogleMaps();
     this.route.params.subscribe(params => {
       this.userId = params['id'];
@@ -321,6 +327,32 @@ export class HotelInformationComponent implements OnInit {
       },
       error: (error) => {
         console.error("Failed to fetch answer:", error);
+      }
+    });
+  }
+
+  moderateReview(review: ResponseReviewModel): void {
+    this.reviewService.moderateReview(review.id).subscribe({
+      next: () => {
+        this.snackbarService.success("Review has been moderated.");
+        review.isModerated = true;
+      },
+      error: (err) => {
+        this.snackbarService.error("Failed to moderate review.");
+        console.error(err);
+      }
+    });
+  }
+
+  unmoderateReview(review: ResponseReviewModel): void {
+    this.reviewService.unmoderateReview(review.id).subscribe({
+      next: () => {
+        this.snackbarService.success("Review has been unmoderated.");
+        review.isModerated = false;
+      },
+      error: (err) => {
+        this.snackbarService.error("Failed to unmoderate review.");
+        console.error(err);
       }
     });
   }

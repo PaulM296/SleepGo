@@ -22,7 +22,11 @@
                             <mat-icon>delete</mat-icon> Delete
                         </button>
                     </mat-menu>
-                    <p class="review-text">{{ review.reviewText }}</p>
+                    <p class="review-text" *ngIf="!review.isModerated">{{ review.reviewText }}</p>
+                    <div class="moderation-banner" *ngIf="review.isModerated">
+                    <mat-icon>info</mat-icon>
+                    This review has been moderated by one of our administrators and is currently under review.
+                    </div>
                     <p class="review-meta">
                         <strong>Rating:</strong> {{ review.rating }} ⭐ | 
                         <strong>Date:</strong> {{ review.createdAt | date:'short' }}

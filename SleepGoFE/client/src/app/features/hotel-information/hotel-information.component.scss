@@ -121,6 +121,17 @@ mat-card-header {
   gap: 10px;
 }
 
+.review-controls {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+
+  button {
+    height: 36px;
+    width: 36px;
+  }
+}
+
 .review-avatar {
   width: 35px;
   height: 35px;
@@ -333,4 +344,17 @@ google-map {
       white-space: pre-line;
     }
   }
+}
+
+.moderation-banner {
+  background-color: #fff3cd;
+  border: 1px solid #ffeeba;
+  padding: 10px;
+  margin-top: 10px;
+  border-radius: 4px;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #856404;
 }

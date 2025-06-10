@@ -85,12 +85,33 @@
             </ng-template>
             <span class="review-author">{{ review.userName }}</span>
           </div>
-      
-          <span class="review-rating">
-            <mat-icon>star</mat-icon> {{ review.rating }}
-          </span>
+
+          <div class="review-controls">
+            <span class="review-rating">
+              <mat-icon>star</mat-icon> {{ review.rating }}
+            </span>
+            <ng-container *ngIf="isAdmin">
+              <button mat-icon-button [matMenuTriggerFor]="reviewMenu">
+                <mat-icon>more_vert</mat-icon>
+              </button>
+              <mat-menu #reviewMenu="matMenu">
+                <button mat-menu-item (click)="moderateReview(review)" *ngIf="!review.isModerated">
+                  <mat-icon>flag</mat-icon>
+                  <span>Moderate</span>
+                </button>
+                <button mat-menu-item (click)="unmoderateReview(review)" *ngIf="review.isModerated">
+                  <mat-icon>undo</mat-icon>
+                  <span>Unmoderate</span>
+                </button>
+              </mat-menu>
+            </ng-container>
+          </div>
         </div>
-        <p class="review-text">{{ review.reviewText }}</p>
+        <p class="review-text" *ngIf="!review.isModerated">{{ review.reviewText }}</p>
+        <div *ngIf="review.isModerated" class="moderation-banner">
+          <mat-icon>info</mat-icon>
+          This review has been moderated by one of our administrators and is currently under review.
+        </div>
       </mat-card>
 
       <button *ngIf="hasMoreReviews" mat-raised-button color="primary" (click)="fetchHotelReviews()">

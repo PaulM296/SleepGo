@@ -72,3 +72,16 @@ mat-icon {
 mat-icon:hover {
     color: #AF7A38;
 }
+
+.moderation-banner {
+  background-color: #fff3cd;
+  border: 1px solid #ffeeba;
+  padding: 10px;
+  margin-top: 10px;
+  border-radius: 4px;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #856404;
+}
