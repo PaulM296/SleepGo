@@ -43,7 +43,6 @@ export class HomeComponent implements OnInit {
   }
 
   fetchRecommendationsOnLogin() {
-    const userId = 'current-logged-user-id';
     this.reservationService.askRecommendationsBasedOnPastReservations().subscribe({
       next: (data: string) => {
         this.recommendationsText = data;
