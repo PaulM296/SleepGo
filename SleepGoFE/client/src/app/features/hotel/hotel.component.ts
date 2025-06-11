@@ -129,4 +129,12 @@ export class HotelComponent implements OnInit {
     this.router.navigate(['/hotels', id]);
   }
 
+  getTruncatedDescription(description: string): string {
+    if (description.length > 300) {
+      return description.substring(0, 300) + "...";
+    }
+
+    return description;
+  }
+
 }

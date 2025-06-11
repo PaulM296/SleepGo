@@ -10,7 +10,7 @@
       <div class="hotel-details">
         <h2 class="hotel-name">{{ hotel.hotelName }}</h2>
         <p class="hotel-location">{{ hotel.city }}, {{ hotel.country }}</p>
-        <p class="hotel-description">{{ hotel.hotelDescription }}</p>
+        <p class="hotel-description">{{ getTruncatedDescription(hotel.hotelDescription) }}</p>
       </div>
     </div>
 

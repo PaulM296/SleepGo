@@ -71,7 +71,7 @@ namespace SleepGo.Infrastructure.Repositories
         {
             var hotel = await _context.Hotels
                 .Include(h => h.Reviews)
-                .FirstOrDefaultAsync();
+                .FirstOrDefaultAsync(h => h.Id == hotelId);
 
             if (hotel == null) return;
 
