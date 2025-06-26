@@ -1,6 +1,15 @@
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
+.background {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.home-content {
+  flex: 1;
+}
 .mat-mdc-snack-bar-container.snack-error {
     --mdc-snackbar-container-color: red;
     --mat-snack-bar-button-color: #fff;

@@ -46,7 +46,9 @@ public class OpenAIService : IOpenAIService
 
         var requestBody = new
         {
-            model = "gpt-3.5-turbo",
+            //model = "gpt-3.5-turbo",
+            model = "gpt-4-turbo",
+            //model = "gpt-4.1-mini",
             messages = new[]
             {
                 new { role = "system", content = "You are a helpful assistant that summarizes customer reviews." },
@@ -101,7 +103,9 @@ public class OpenAIService : IOpenAIService
 
         var requestBody = new
         {
-            model = "gpt-3.5-turbo",
+            //model = "gpt-3.5-turbo",
+            model = "gpt-4-turbo",
+            //model = "gpt-4.1-mini",
             messages = new[]
             {
                 new { role = "system", content = "You are a helpful assistant that recommends hotels based on user preferences." },

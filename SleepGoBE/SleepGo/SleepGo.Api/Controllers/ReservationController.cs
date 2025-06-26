@@ -66,9 +66,22 @@ namespace SleepGo.Api.Controllers
         [HttpPost("hotel-recommendations/from-past-reservations")]
         public async Task<IActionResult> AskRecommendationsBasedOnPastReservations()
         {
+            //var userId = HttpContext.GetUserIdClaimValue();
+
+            //var result = await _mediator.Send(new AskRecommendationsBasedOnReservationsQuery(userId));
+
+            //return Ok(result);
             var userId = HttpContext.GetUserIdClaimValue();
 
+            var stopwatch = System.Diagnostics.Stopwatch.StartNew(); // Start stopwatch to track time
+
             var result = await _mediator.Send(new AskRecommendationsBasedOnReservationsQuery(userId));
+
+            stopwatch.Stop(); // Stop stopwatch when the request is completed
+            var responseTime = stopwatch.ElapsedMilliseconds;
+
+            // Log the response time to the .NET console
+            Console.WriteLine($"Request for recommendations based on past reservations completed in {responseTime} ms at {DateTime.UtcNow}");
 
             return Ok(result);
         }

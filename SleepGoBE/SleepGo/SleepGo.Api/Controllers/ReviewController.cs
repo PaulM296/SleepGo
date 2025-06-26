@@ -89,8 +89,21 @@ namespace SleepGo.Api.Controllers
         [HttpPost("hotel/{hotelId}/ask")]
         public async Task<IActionResult> AskQuestionAboutHotelReviews(Guid hotelId, [FromBody] string question)
         {
+            //var result = await _mediator.Send(new AskHotelReviewQuestionQuery(hotelId, question));
+            //return Ok(result);
+
+            var stopwatch = System.Diagnostics.Stopwatch.StartNew(); // Start stopwatch to track time
+
             var result = await _mediator.Send(new AskHotelReviewQuestionQuery(hotelId, question));
+
+            stopwatch.Stop(); // Stop stopwatch when the request is completed
+            var responseTime = stopwatch.ElapsedMilliseconds;
+
+            // Log the response time to the .NET console
+            Console.WriteLine($"Request for hotel {hotelId} completed in {responseTime} ms at {DateTime.UtcNow}");
+
             return Ok(result);
+
         }
     }
 }
